@@ -34,20 +34,22 @@ int main()
 	setlocale(LC_ALL, "RUS");
 	srand(time(0));
 
-	//Color** masPix = noise(16);
-	//masPix = bicubicinterpolation(masPix, 64);
+	/*Color** masPix = noise(16);
+	masPix = bicubicinterpolation(masPix, 64);
+	noise_to_img(masPix, "debug image.png");*/
 
-	////masPix = meganoise(10, true);				//Чтобы сгенерировать новый шум 
+
+	//masPix = meganoise(10, true);				//Чтобы сгенерировать новый шум 
 	//Color** masPix2 = /*mega*/noise(10/*, false*/);
 
 	Color** masPix = noise(4);
 
 
-	masPix = meganoise(10, true);				//Чтобы сгенерировать новый шум 
-	Color** masPix2 = meganoise(10, true);
+	masPix = meganoise(10, true);			//Чтобы сгенерировать новый шум 
+	/*Color** masPix2 = meganoise(10, true);*/
 	noise_to_img(masPix, "map2.png");
-	masPix = coloring(masPix, masPix2);		//нужно раскомментировать 
-	noise_to_img(masPix, "map.png");	//эти 5 строк
+	masPix = coloring(masPix/*, masPix2*/);		//нужно раскомментировать 
+	noise_to_img(masPix, "map.png");		//эти 5 строк
 
 	window.clear(Color(255, 255, 255));
 
@@ -409,7 +411,113 @@ bool dist1(int x1, int y1, int* f, int tyk, int r) {
 	return false;
 }
 
-Color** coloring(Color** masColor, Color** masColor2) {
+void addInClusters(Color** masColor2, int** clusters, int &n1, int i, int j) {
+	if (masColor2[i][j].r > 250) {
+		clusters[n1][0] = j;
+		clusters[n1][1] = i;
+		n1++;
+		masColor2[i][j] = Color(0, 0, 0);
+		for (int k = -1; k <= 2; k++)
+			for (int l = -1; l <= 2; l++)
+				if (i + k < height && j + l < width && i + k >= 0 && j + l >= 0) {
+					//cout << "hello";
+					addInClusters(masColor2, clusters, n1, i + k, j + l);
+				}
+	}
+
+}
+
+Color** rivers(Color** masColor) {
+	Color** masColor2 = new Color * [height];
+	for (int i = 0; i < height; i++) {
+		masColor2[i] = new Color[width];
+		for (int j = 0; j < width; j++)
+			masColor2[i][j] = Color(0, 0, 0);
+	}
+
+	for (int i = 0; i < height; i++)
+		for (int j = 0; j < width; j++) {
+			if (masColor[i][j].r >= 240 || masColor[i][j].r >= 215 && masColor[i][j].r <= 225)
+				masColor2[i][j] = Color(255, 255, 255);
+
+		}
+	int n = 0, n1 = 0;
+	int*** clusters = new int** [300];
+	int* n1_ = new int[100];
+		for (int i = 0; i < 300; i++) {
+		clusters[i] = new int* [1000000];
+		for (int j = 0; j < 1000000; j++) {
+			clusters[i][j] = new int[2];
+			for (int k = 0; k < 2; k++) {
+				clusters[i][j][k] = 0;
+				//cout << clusters[i][j][k] << " ";
+			}
+		}
+		//cout << endl;
+	}
+	for (int i = 0; i < height; i++)
+		for (int j = 0; j < width; j++) {
+			if (masColor2[i][j].r >= 240) {
+				n1 = 0;
+				//cout << "n = " << n << endl;
+				addInClusters(masColor2, clusters[n], n1, i, j);
+				/*for (int k = 0; k < n1; k++) {
+					cout << "(" << clusters[n][k][0] << ", " << clusters[n][k][1] << "), ";
+				}
+				cout << endl;*/
+				n1_[n] = n1;
+				n++;
+			}
+		}
+	int** midDots = new int* [n], * radii = new int[n];
+	for (int j = 0; j < n; j++) {
+		midDots[j] = new int[2];
+		radii[j] = 0;
+	}
+
+
+	for (int k = 0; k < n; k++){
+		int sumX = 0, sumY = 0;
+		for (int j = 0; j < n1_[k]; j++) {
+			sumX += clusters[k][j][0];
+			sumY += clusters[k][j][1];
+		}
+		midDots[k][0] = sumX / n1_[k];
+		midDots[k][1] = sumY / n1_[k];
+		for (int j = 0; j < n1_[k]; j++) {
+			if (sqrt(pow(midDots[k][0] - clusters[k][j][0], 2) + pow(midDots[k][1] - clusters[k][j][1], 2)) > radii[k])
+				radii[k] = sqrt(pow(midDots[k][0] - clusters[k][j][0], 2) + pow(midDots[k][1] - clusters[k][j][1], 2));
+		}
+		int zeroX = midDots[k][0] - radii[k] / 2 - 8, zeroY = midDots[k][1] - radii[k] / 2 - 8;
+		for (int i = 0; i < radii[k] + 16; i++)
+			for (int j = 0; j < radii[k] + 16; j++) {
+				if (i + zeroY >= 0 && j + zeroX >= 0 && i + zeroY < height && j + zeroX < width 
+					&& pow(i - radii[k] / 2 - 8, 2) + pow(j - radii[k] / 2 - 8, 2) > pow(radii[k] * 0.9f - 2, 2) 
+					&& pow(i - radii[k] / 2 - 8, 2) + pow(j - radii[k] / 2 - 8, 2) < pow(radii[k] * 0.9f + 2, 2))
+					masColor2[i + zeroY][j + zeroX] = Color(255, 255, 255);
+			}
+	}
+
+	int dotStartX = rand() % width, dotEndX = rand() % width, dotStartY = rand() % height, dotEndY = rand() % height,
+		** curve = new int* [height * width], * distantToCircles = new int [n], minDist = height * width;
+
+	for (int k = 0; k < n; k++)
+		for (int l = 0; l < n - k; l++) {
+			if (sqrt(pow(dotStartX - midDots[k][0], 2) + pow(dotStartY - midDots[k][1], 2)) < minDist) {
+				minDist = sqrt(pow(dotStartX - midDots[k][0], 2) + pow(dotStartY - midDots[k][1], 2));
+
+			}
+			if (sqrt(pow(dotStartX - dotEndX, 2) + pow(dotStartY - dotEndY, 2)) < minDist) {
+				minDist = sqrt(pow(dotStartX - dotEndX, 2) + pow(dotStartY - dotEndY, 2));
+
+			}
+		}
+	return masColor2;
+}
+
+Color** coloring(Color** masColor/*, Color** masColor2*/) {
+	Color** masColor2 = rivers(masColor);
+
 	float** shadow2 = new float* [height];
 	for (int i = 0; i < height; i++)
 		shadow2[i] = new float[width];
@@ -423,32 +531,31 @@ Color** coloring(Color** masColor, Color** masColor2) {
 			shadow2[i][j] = shadow1(masColor, i, j);
 		}
 
+	//int constt = 16, count = 10;
 
-	int constt = 16, count = 10;
+	//int x1, y1, x2, y2;//(x - x2) * (y2 - y1) / (x2 - x1) + y2;
 
-	int x1, y1, x2, y2;//(x - x2) * (y2 - y1) / (x2 - x1) + y2;
-
-	float* a = new float[10];
-	float* b = new float[10];
-	for (int k = 0; k < 10; k++) {
-		x1 = 0; y1 = rand() % width; x2 = height - 1; y2 = rand() % width;
-		if (x2 == x1)
-			x1++;
-		a[k] = float(y2 - y1) / (x2 - x1);
-		b[k] = y2 - x2 * (y2 - y1) / (x2 - x1);
-	}
-	int** x = new int* [count];
-	for (int i = 0; i < count; i++)
-		x[i] = new int[height];
-	for (int i = 0; i < count; i++) {
-		x[i][0] = b[i] - rand() % 60 + 30;
-		for (int j = 0; j < height; j++) {
-			if (j / constt * constt == j)
-				x[i][j / constt * constt + constt] = a[i] * j + b[i] - rand() % 60 + 30;
-			if (j / constt * constt != j)
-				x[i][j] = streight123(j, j / constt * constt, x[i][j / constt * constt], j / constt * constt + constt, x[i][j / constt * constt + constt]);
-		}
-	}
+	//float* a = new float[10];
+	//float* b = new float[10];
+	//for (int k = 0; k < 10; k++) {
+	//	x1 = 0; y1 = rand() % width; x2 = height - 1; y2 = rand() % width;
+	//	if (x2 == x1)
+	//		x1++;
+	//	a[k] = float(y2 - y1) / (x2 - x1);
+	//	b[k] = y2 - x2 * (y2 - y1) / (x2 - x1);
+	//}
+	//int** x = new int* [count];
+	//for (int i = 0; i < count; i++)
+	//	x[i] = new int[height];
+	//for (int i = 0; i < count; i++) {
+	//	x[i][0] = b[i] - rand() % 60 + 30;
+	//	for (int j = 0; j < height; j++) {
+	//		if (j / constt * constt == j)
+	//			x[i][j / constt * constt + constt] = a[i] * j + b[i] - rand() % 60 + 30;
+	//		if (j / constt * constt != j)
+	//			x[i][j] = streight123(j, j / constt * constt, x[i][j / constt * constt], j / constt * constt + constt, x[i][j / constt * constt + constt]);
+	//	}
+	//}
 
 	/*int** y = new int* [10 - count];
 	for (int i = 0; i < 10 - count; i++)
@@ -463,7 +570,7 @@ Color** coloring(Color** masColor, Color** masColor2) {
 		}
 	}*/
 
-	for (int i = 0; i < count; i++) {
+	/*for (int i = 0; i < count; i++) {
 		for (int j = 0; j < height; j++) {
 			int sum = 0, a = 5;
 			if (j < 5)
@@ -472,7 +579,7 @@ Color** coloring(Color** masColor, Color** masColor2) {
 				sum += x[i][j - k];
 			x[i][j] = sum / 5;
 		}
-	}
+	}*/
 
 	/*for (int i = 0; i < 10 - count; i++) {
 		for (int j = 0; j < width; j++) {
@@ -484,6 +591,7 @@ Color** coloring(Color** masColor, Color** masColor2) {
 			y[i][j] = sum / 5;
 		}
 	}*/
+
 
 	for (int i = 0; i < height; i++)
 		for (int j = 0; j < width; j++) {
@@ -499,10 +607,12 @@ Color** coloring(Color** masColor, Color** masColor2) {
 				masColor[i][j] = snow;
 			//masColor[i][j] = sand;
 
-			if ((int(masColor[i][j].r) == 255 || int(masColor[i][j].r) == 68) && int(masColor2[i][j].r) > 120 && int(masColor2[i][j].r) < 130 )
+			/*if ((int(masColor[i][j].r) == 255 || int(masColor[i][j].r) == 68) && int(masColor2[i][j].r) > 120 && int(masColor2[i][j].r) < 130 )
 				masColor[i][j] = sea;
 			if ((int(masColor[i][j].r) == 255 || int(masColor[i][j].r) == 68) && ((int(masColor2[i][j].r) < 120 && int(masColor2[i][j].r) > 110)|| (int(masColor2[i][j].r) < 140 && int(masColor2[i][j].r) > 130)))
-				masColor[i][j] = sand;
+				masColor[i][j] = sand;*/
+			if (masColor2[i][j].r > 254)
+				masColor[i][j] = Color(139, 0, 255);
 			/*for (int k = 0; k < count; k++) {
 				if (dist(i, j, x[k], 14, 2)) {
 					masColor[i][j] = sea;
