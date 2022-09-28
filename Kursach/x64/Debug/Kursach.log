@@ -1,31 +1,32 @@
 ﻿  Kursach.cpp
-C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(35,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(86,51): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+D:\курсач\Kursach\Kursach\Kursach.cpp(50,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+D:\курсач\Kursach\Kursach\Kursach.cpp(101,51): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
           with
           [
               T=float
           ]
-C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(86,44): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+D:\курсач\Kursach\Kursach\Kursach.cpp(101,44): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
           with
           [
               T=float
           ]
-C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(186,26): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(191,60): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(200,13): warning C4244: =: преобразование "int" в "float", возможна потеря данных
-C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(201,44): warning C4244: +=: преобразование "float" в "int", возможна потеря данных
-C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(202,44): warning C4244: +=: преобразование "float" в "int", возможна потеря данных
-C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(203,44): warning C4244: +=: преобразование "float" в "int", возможна потеря данных
-C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(289,59): warning C4244: return: преобразование "double" в "float", возможна потеря данных
-C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(342,15): warning C4244: =: преобразование "int" в "float", возможна потеря данных
-C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(344,86): warning C4244: =: преобразование "int" в "float", возможна потеря данных
-C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(346,88): warning C4244: =: преобразование "int" в "float", возможна потеря данных
-C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(348,212): warning C4244: =: преобразование "int" в "float", возможна потеря данных
-C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(349,78): warning C4244: =: преобразование "float" в "int", возможна потеря данных
-C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(368,47): warning C4244: return: преобразование "double" в "int", возможна потеря данных
-C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(388,12): warning C4244: return: преобразование "double" в "float", возможна потеря данных
-C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(489,20): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(507,19): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(511,19): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(527,10): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
-  Kursach.vcxproj -> C:\Users\sirpr\Documents\GitHub\map-generation\x64\Debug\Kursach.exe
+D:\курсач\Kursach\Kursach\Kursach.cpp(201,26): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+D:\курсач\Kursach\Kursach\Kursach.cpp(206,60): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+D:\курсач\Kursach\Kursach\Kursach.cpp(215,13): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+D:\курсач\Kursach\Kursach\Kursach.cpp(216,44): warning C4244: +=: преобразование "float" в "int", возможна потеря данных
+D:\курсач\Kursach\Kursach\Kursach.cpp(217,44): warning C4244: +=: преобразование "float" в "int", возможна потеря данных
+D:\курсач\Kursach\Kursach\Kursach.cpp(218,44): warning C4244: +=: преобразование "float" в "int", возможна потеря данных
+D:\курсач\Kursach\Kursach\Kursach.cpp(304,59): warning C4244: return: преобразование "double" в "float", возможна потеря данных
+D:\курсач\Kursach\Kursach\Kursach.cpp(357,15): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+D:\курсач\Kursach\Kursach\Kursach.cpp(359,86): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+D:\курсач\Kursach\Kursach\Kursach.cpp(361,88): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+D:\курсач\Kursach\Kursach\Kursach.cpp(363,212): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+D:\курсач\Kursach\Kursach\Kursach.cpp(364,78): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+D:\курсач\Kursach\Kursach\Kursach.cpp(383,47): warning C4244: return: преобразование "double" в "int", возможна потеря данных
+D:\курсач\Kursach\Kursach\Kursach.cpp(403,12): warning C4244: return: преобразование "double" в "float", возможна потеря данных
+D:\курсач\Kursach\Kursach\Kursach.cpp(520,20): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+D:\курсач\Kursach\Kursach\Kursach.cpp(540,19): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+D:\курсач\Kursach\Kursach\Kursach.cpp(559,23): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+D:\курсач\Kursach\Kursach\Kursach.cpp(560,23): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+D:\курсач\Kursach\Kursach\Kursach.cpp(594,10): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+  Kursach.vcxproj -> D:\курсач\Kursach\x64\Debug\Kursach.exe

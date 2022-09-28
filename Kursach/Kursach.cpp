@@ -15,10 +15,25 @@ Color** bilinearinterpol(Color** masColor, int tyk);
 Color** coloring(Color** masColor, Color** masColor2);
 Color** coloring(Color** masColor);
 void noise_to_img(Color** noise, string img);
+int** deleteEl(int** mas, int oldN, int elem);
 
 
 int main()
 {
+	int** mas = new int* [10];
+	for (int i = 0; i < 10; i++) {
+		mas[i] = new int[2];
+		mas[i][0] = i;
+		mas[i][1] = i - 1;
+	}
+
+	mas = deleteEl(mas, 10, 4);
+
+	for (int i = 0; i < 9; i++) {
+		cout << "(" << mas[i][0] << ", " << mas[i][1] << ") ";
+	}
+	cout << endl;
+
 	double zoom = 1.f;
 	Vector2f playercoord;
 	playercoord = Vector2f(1 / 2, 1 / 2);
@@ -427,6 +442,21 @@ void addInClusters(Color** masColor2, int** clusters, int &n1, int i, int j) {
 
 }
 
+int** deleteEl(int** mas, int oldN, int elem) {
+	int** temp = new int* [oldN - 1];
+	for (int i = 0; i < elem - 1; i++) {
+		temp[i] = new int[2];
+		temp[i][0] = mas[i][0];
+		temp[i][1] = mas[i][1];
+	}
+	for (int i = elem - 1; i < oldN-1; i++) {
+		temp[i] = new int[2];
+		temp[i][0] = mas[i + 1][0];
+		temp[i][1] = mas[i + 1][1];
+	}
+	return temp;
+}
+
 Color** rivers(Color** masColor) {
 	Color** masColor2 = new Color * [height];
 	for (int i = 0; i < height; i++) {
@@ -437,7 +467,7 @@ Color** rivers(Color** masColor) {
 
 	for (int i = 0; i < height; i++)
 		for (int j = 0; j < width; j++) {
-			if (masColor[i][j].r >= 240 || masColor[i][j].r >= 215 && masColor[i][j].r <= 225)
+			if (masColor[i][j].r >= 240)
 				masColor2[i][j] = Color(255, 255, 255);
 
 		}
@@ -445,8 +475,8 @@ Color** rivers(Color** masColor) {
 	int*** clusters = new int** [300];
 	int* n1_ = new int[100];
 		for (int i = 0; i < 300; i++) {
-		clusters[i] = new int* [1000000];
-		for (int j = 0; j < 1000000; j++) {
+		clusters[i] = new int* [10000];
+		for (int j = 0; j < 10000; j++) {
 			clusters[i][j] = new int[2];
 			for (int k = 0; k < 2; k++) {
 				clusters[i][j][k] = 0;
@@ -484,34 +514,71 @@ Color** rivers(Color** masColor) {
 		}
 		midDots[k][0] = sumX / n1_[k];
 		midDots[k][1] = sumY / n1_[k];
+		cout << "(" << midDots[k][0] << ", " << midDots[k][1] << ") ";
 		for (int j = 0; j < n1_[k]; j++) {
 			if (sqrt(pow(midDots[k][0] - clusters[k][j][0], 2) + pow(midDots[k][1] - clusters[k][j][1], 2)) > radii[k])
 				radii[k] = sqrt(pow(midDots[k][0] - clusters[k][j][0], 2) + pow(midDots[k][1] - clusters[k][j][1], 2));
 		}
-		int zeroX = midDots[k][0] - radii[k] / 2 - 8, zeroY = midDots[k][1] - radii[k] / 2 - 8;
+		/*int zeroX = midDots[k][0] - radii[k] / 2 - 8, zeroY = midDots[k][1] - radii[k] / 2 - 8;
 		for (int i = 0; i < radii[k] + 16; i++)
 			for (int j = 0; j < radii[k] + 16; j++) {
 				if (i + zeroY >= 0 && j + zeroX >= 0 && i + zeroY < height && j + zeroX < width 
 					&& pow(i - radii[k] / 2 - 8, 2) + pow(j - radii[k] / 2 - 8, 2) > pow(radii[k] * 0.9f - 2, 2) 
 					&& pow(i - radii[k] / 2 - 8, 2) + pow(j - radii[k] / 2 - 8, 2) < pow(radii[k] * 0.9f + 2, 2))
 					masColor2[i + zeroY][j + zeroX] = Color(255, 255, 255);
-			}
+			}*/
 	}
+	cout << endl;
+	int dotStartX = midDots[0][0], dotEndX = midDots[n - 1][0], dotStartY = midDots[0][1], dotEndY = midDots[n - 1][1],
+		minDist = height * width, currentDotX = 0, currentDotY = 0, oldN = n, delEl = -1;
 
-	int dotStartX = rand() % width, dotEndX = rand() % width, dotStartY = rand() % height, dotEndY = rand() % height,
-		** curve = new int* [height * width], * distantToCircles = new int [n], minDist = height * width;
-
-	for (int k = 0; k < n; k++)
+	for (int k = 0; k < n; k++) {
+		minDist = height * width;
 		for (int l = 0; l < n - k; l++) {
-			if (sqrt(pow(dotStartX - midDots[k][0], 2) + pow(dotStartY - midDots[k][1], 2)) < minDist) {
-				minDist = sqrt(pow(dotStartX - midDots[k][0], 2) + pow(dotStartY - midDots[k][1], 2));
-
-			}
-			if (sqrt(pow(dotStartX - dotEndX, 2) + pow(dotStartY - dotEndY, 2)) < minDist) {
-				minDist = sqrt(pow(dotStartX - dotEndX, 2) + pow(dotStartY - dotEndY, 2));
-
+			cout << "(" << midDots[l][0] << ", " << midDots[l][1] << ") ";
+			if (sqrt(pow(dotStartX - midDots[l][0], 2) + pow(dotStartY - midDots[l][1], 2)) < minDist) {
+				minDist = sqrt(pow(dotStartX - midDots[l][0], 2) + pow(dotStartY - midDots[l][1], 2));
+				currentDotX = midDots[l][0];
+				currentDotY = midDots[l][1];
+				delEl = l;
 			}
 		}
+		cout << endl;
+		/*if (sqrt(pow(dotStartX - dotEndX, 2) + pow(dotStartY - dotEndY, 2)) < minDist) {
+			minDist = sqrt(pow(dotStartX - dotEndX, 2) + pow(dotStartY - dotEndY, 2));
+			currentDotX = dotEndX;
+			currentDotY = dotEndY;
+		}*/
+		midDots = deleteEl(midDots, oldN, delEl); oldN--;
+
+		int m = currentDotX - dotStartX, p = currentDotY - dotStartY, x = 0, y = 0;
+		
+		cout << "(" << dotStartX << ", " << dotStartY << "), (" << currentDotX << ", " << currentDotY << ") " << endl;
+
+		for (int t = 0; t < 1000; t++) {
+			x = t / 1000.f * m + dotStartX;
+			y = t / 1000.f * p + dotStartY;
+			masColor2[y][x] = Color(255, 255, 255);
+
+			for (int p = -1; p < 2; p++) {
+				for (int q = -1; q < 2; q++) {
+					if (y + p >= 0 && y + p < height && x + q >= 0 && x + q < width)
+						masColor2[y + p][x + q] = Color(255, 255, 255);
+					else if (y + p < 0 && y + p >= height) {
+						if (x + q >= 0 && x + q < width)
+							masColor2[y][x + q] = Color(255, 255, 255);
+						else if (x + q < 0 && x + q >= width)
+							masColor2[y][x] = Color(255, 255, 255);
+					} 
+					else
+						masColor2[y + p][x] = Color(255, 255, 255);
+				}
+			}
+		}
+
+		dotStartX = currentDotX;
+		dotStartY = currentDotY;
+	}
 	return masColor2;
 }
 
