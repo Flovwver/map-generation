@@ -20,19 +20,6 @@ int** deleteEl(int** mas, int oldN, int elem);
 
 int main()
 {
-	int** mas = new int* [10];
-	for (int i = 0; i < 10; i++) {
-		mas[i] = new int[2];
-		mas[i][0] = i;
-		mas[i][1] = i - 1;
-	}
-
-	mas = deleteEl(mas, 10, 4);
-
-	for (int i = 0; i < 9; i++) {
-		cout << "(" << mas[i][0] << ", " << mas[i][1] << ") ";
-	}
-	cout << endl;
 
 	double zoom = 1.f;
 	Vector2f playercoord;
@@ -55,14 +42,30 @@ int main()
 
 
 	//masPix = meganoise(10, true);				//Чтобы сгенерировать новый шум 
-	//Color** masPix2 = /*mega*/noise(10/*, false*/);
+	//Color** masPix2 = /*mega*/noise(10/*, false*/);   //mapfortests.png
+
+	Image mapForTest;
+	if (!mapForTest.loadFromFile("mapfortests.png"))
+		exit(93089706);
+	//mapForTest.setPixel(256, 256, Color(152, rand() % 256, rand() % 256));
 
 	Color** masPix = noise(4);
 
-
-	masPix = meganoise(10, true);			//Чтобы сгенерировать новый шум 
-	/*Color** masPix2 = meganoise(10, true);*/
+	for (int i = 0; i < height; i++)
+		for (int j = 0; j < width; j++) {
+			masPix[i][j] = mapForTest.getPixel(i, j);
+		}
+	cout << int(masPix[256][256].r) << endl;
+	//masPix = meganoise(10, true);			//Чтобы сгенерировать новый шум 
+	//Color** masPix2 = meganoise(10, true);
 	noise_to_img(masPix, "map2.png");
+	
+	for (int i = 0; i < 35; i++) {
+		for (int j = 0; j < 35; j++) {
+			cout << int(masPix[i + 254][j + 254].r) << "\t";
+		}
+		cout << endl;
+	}
 	masPix = coloring(masPix/*, masPix2*/);		//нужно раскомментировать 
 	noise_to_img(masPix, "map.png");		//эти 5 строк
 
@@ -153,7 +156,7 @@ void noise_to_img(Color** noise, string img) {
 	image.create(width, height, Color::Black);
 	for (int i = 0; i < height; i++)
 		for (int j = 0; j < width; j++)
-			image.setPixel(j, i, noise[i][j]);
+			image.setPixel(i, j, noise[i][j]);
 	image.saveToFile(img);
 }
 
@@ -426,14 +429,40 @@ bool dist1(int x1, int y1, int* f, int tyk, int r) {
 	return false;
 }
 
+void searchLocMins(Color** masColor, /*int***/Color** locMins, int& n1) {
+	for (int i = 0; i < height; i++) {
+		for (int j = 0; j < width; j++) {
+			int countOfNumbersBigger = 0;
+			for (int X = 0; X < 3; X++)
+				for (int Y = 0; Y < 3; Y++) {
+					if (X != 1 || Y != 1) {
+						int* xy = ikjl2(i, Y - 1, j, X - 1, 1);
+						int xxx = xy[0], yyy = xy[1];
+						if (int(masColor[i][j].r) >= int(masColor[xy[1]][xy[0]].r)) {
+							countOfNumbersBigger++;
+							if (i >= 255 && j >= 255) {
+								int flower = 0;
+							}
+						}
+					}
+				}
+			if (countOfNumbersBigger >= 8 && n1 < 10000) {
+				/*locMins[n1][0] = i; locMins[n1][1] = j;
+				n1++;*/
+				locMins[i][j] = Color(255, 255, 255);
+			}
+		}
+	}
+}
+
 void addInClusters(Color** masColor2, int** clusters, int &n1, int i, int j) {
 	if (masColor2[i][j].r > 250) {
 		clusters[n1][0] = j;
 		clusters[n1][1] = i;
 		n1++;
 		masColor2[i][j] = Color(0, 0, 0);
-		for (int k = -1; k <= 2; k++)
-			for (int l = -1; l <= 2; l++)
+		for (int k = -1; k < 2; k++)
+			for (int l = -1; l < 2; l++)
 				if (i + k < height && j + l < width && i + k >= 0 && j + l >= 0) {
 					//cout << "hello";
 					addInClusters(masColor2, clusters, n1, i + k, j + l);
@@ -444,12 +473,12 @@ void addInClusters(Color** masColor2, int** clusters, int &n1, int i, int j) {
 
 int** deleteEl(int** mas, int oldN, int elem) {
 	int** temp = new int* [oldN - 1];
-	for (int i = 0; i < elem - 1; i++) {
+	for (int i = 0; i < elem; i++) {
 		temp[i] = new int[2];
 		temp[i][0] = mas[i][0];
 		temp[i][1] = mas[i][1];
 	}
-	for (int i = elem - 1; i < oldN-1; i++) {
+	for (int i = elem; i < oldN-1; i++) {
 		temp[i] = new int[2];
 		temp[i][0] = mas[i + 1][0];
 		temp[i][1] = mas[i + 1][1];
@@ -465,16 +494,17 @@ Color** rivers(Color** masColor) {
 			masColor2[i][j] = Color(0, 0, 0);
 	}
 
-	for (int i = 0; i < height; i++)
+	/*for (int i = 0; i < height; i++)
 		for (int j = 0; j < width; j++) {
-			if (masColor[i][j].r >= 240)
+			if (int(masColor[i][j].r) >= 240)
 				masColor2[i][j] = Color(255, 255, 255);
 
-		}
-	int n = 0, n1 = 0;
-	int*** clusters = new int** [300];
-	int* n1_ = new int[100];
-		for (int i = 0; i < 300; i++) {
+		}*/
+	int n = 0, n1 = 0, oldN = 0;
+	searchLocMins(masColor, /*midDots*/masColor2, oldN);
+	int*** clusters = new int** [60000];
+	int* n1_ = new int[60000];
+	for (int i = 0; i < 60000; i++) {
 		clusters[i] = new int* [10000];
 		for (int j = 0; j < 10000; j++) {
 			clusters[i][j] = new int[2];
@@ -483,11 +513,15 @@ Color** rivers(Color** masColor) {
 				//cout << clusters[i][j][k] << " ";
 			}
 		}
-		//cout << endl;
+		/*cout << endl;*/
 	}
 	for (int i = 0; i < height; i++)
 		for (int j = 0; j < width; j++) {
 			if (masColor2[i][j].r >= 240) {
+				if (n >= 60000) {
+					cout << "pzdc" << endl;
+					break;
+				}
 				n1 = 0;
 				//cout << "n = " << n << endl;
 				addInClusters(masColor2, clusters[n], n1, i, j);
@@ -499,12 +533,15 @@ Color** rivers(Color** masColor) {
 				n++;
 			}
 		}
-	int** midDots = new int* [n], * radii = new int[n];
-	for (int j = 0; j < n; j++) {
+	int** midDots = new int* [height * width / 9 + 1], * radii = new int[height * width / 9 + 1]; oldN = 0;
+	for (int j = 0; j < height * width / 9 + 1; j++) {
 		midDots[j] = new int[2];
+		midDots[j][0] = -1; midDots[j][1] = -1;
 		radii[j] = 0;
 	}
 
+	
+	//n = oldN;
 
 	for (int k = 0; k < n; k++){
 		int sumX = 0, sumY = 0;
@@ -519,23 +556,60 @@ Color** rivers(Color** masColor) {
 			if (sqrt(pow(midDots[k][0] - clusters[k][j][0], 2) + pow(midDots[k][1] - clusters[k][j][1], 2)) > radii[k])
 				radii[k] = sqrt(pow(midDots[k][0] - clusters[k][j][0], 2) + pow(midDots[k][1] - clusters[k][j][1], 2));
 		}
-		/*int zeroX = midDots[k][0] - radii[k] / 2 - 8, zeroY = midDots[k][1] - radii[k] / 2 - 8;
-		for (int i = 0; i < radii[k] + 16; i++)
-			for (int j = 0; j < radii[k] + 16; j++) {
+		masColor2[midDots[k][0]][midDots[k][1]] = Color(255, 255, 255);
+		int zeroX = midDots[k][0] - /*radii[k]*/2 / 2 - 8, zeroY = midDots[k][1] - /*radii[k]*/2 / 2 - 8;
+		for (int i = 0; i < /*radii[k]*/2 + 16; i++)
+			for (int j = 0; j < /*radii[k]*/2 + 16; j++) {
 				if (i + zeroY >= 0 && j + zeroX >= 0 && i + zeroY < height && j + zeroX < width 
-					&& pow(i - radii[k] / 2 - 8, 2) + pow(j - radii[k] / 2 - 8, 2) > pow(radii[k] * 0.9f - 2, 2) 
-					&& pow(i - radii[k] / 2 - 8, 2) + pow(j - radii[k] / 2 - 8, 2) < pow(radii[k] * 0.9f + 2, 2))
+					&& pow(i - /*radii[k]*/2 / 2 - 8, 2) + pow(j - /*radii[k]*/2 / 2 - 8, 2) > pow(/*radii[k]*/2 * 0.9f - 1, 2) 
+					&& pow(i - /*radii[k]*/2 / 2 - 8, 2) + pow(j - /*radii[k]*/2 / 2 - 8, 2) < pow(/*radii[k]*/2 * 0.9f + 1, 2))
 					masColor2[i + zeroY][j + zeroX] = Color(255, 255, 255);
-			}*/
+			}
 	}
-	cout << endl;
+	//cout << endl;
+
 	int dotStartX = midDots[0][0], dotEndX = midDots[n - 1][0], dotStartY = midDots[0][1], dotEndY = midDots[n - 1][1],
-		minDist = height * width, currentDotX = 0, currentDotY = 0, oldN = n, delEl = -1;
+		minDist = height * width, currentDotX = 0, currentDotY = 0, newN = n, delEl = -1, breadthRiv = 3;
+	bool exitBool = false;
+	for (int i = 0; i < height / 2; i++) {
+		for (int j = 0; j < i + 1; j++) {
+			if (dotStartY + j > 0 && dotStartY + j < height && dotStartX + j > 0 && dotStartX + j < width)
+				if (int(masColor[dotStartY + j][dotStartX + j].r) < 170) {
+					dotEndX = dotStartX + j;
+					dotEndY = dotStartY + j;
+					exitBool = true;
+					break;
+				}
+			if (dotStartY - j > 0 && dotStartY - j < height && dotStartX - j > 0 && dotStartX - j < width)
+				if (int(masColor[dotStartY - j][dotStartX - j].r) < 170) {
+					dotEndX = dotStartX - j;
+					dotEndY = dotStartY - j;
+					exitBool = true;
+					break;
+				}
+			if (dotStartY - j > 0 && dotStartY - j < height && dotStartX + j > 0 && dotStartX + j < width)
+				if (int(masColor[dotStartY - j][dotStartX + j].r) < 170) {
+					dotEndX = dotStartX + j;
+					dotEndY = dotStartY - j;
+					exitBool = true;
+					break;
+				}
+			if (dotStartY + j > 0 && dotStartY + j < height && dotStartX - j > 0 && dotStartX - j < width)
+				if (int(masColor[dotStartY + j][dotStartX - j].r) < 170) {
+					dotEndX = dotStartX - j;
+					dotEndY = dotStartY + j;
+					exitBool = true;
+					break;
+				}
+		}
+		if (exitBool)
+			break;
+	}
 
 	for (int k = 0; k < n; k++) {
 		minDist = height * width;
 		for (int l = 0; l < n - k; l++) {
-			cout << "(" << midDots[l][0] << ", " << midDots[l][1] << ") ";
+			//cout << "(" << midDots[l][0] << ", " << midDots[l][1] << ") ";
 			if (sqrt(pow(dotStartX - midDots[l][0], 2) + pow(dotStartY - midDots[l][1], 2)) < minDist) {
 				minDist = sqrt(pow(dotStartX - midDots[l][0], 2) + pow(dotStartY - midDots[l][1], 2));
 				currentDotX = midDots[l][0];
@@ -543,35 +617,39 @@ Color** rivers(Color** masColor) {
 				delEl = l;
 			}
 		}
-		cout << endl;
-		/*if (sqrt(pow(dotStartX - dotEndX, 2) + pow(dotStartY - dotEndY, 2)) < minDist) {
+		//cout << endl;
+		if (sqrt(pow(dotStartX - dotEndX, 2) + pow(dotStartY - dotEndY, 2)) < minDist) {
 			minDist = sqrt(pow(dotStartX - dotEndX, 2) + pow(dotStartY - dotEndY, 2));
 			currentDotX = dotEndX;
 			currentDotY = dotEndY;
-		}*/
-		midDots = deleteEl(midDots, oldN, delEl); oldN--;
+			delEl = -1;
+		}
+		if (delEl >= 0)
+			midDots = deleteEl(midDots, newN, delEl); newN--;
 
 		int m = currentDotX - dotStartX, p = currentDotY - dotStartY, x = 0, y = 0;
 		
-		cout << "(" << dotStartX << ", " << dotStartY << "), (" << currentDotX << ", " << currentDotY << ") " << endl;
+		//cout << "(" << dotStartX << ", " << dotStartY << "), (" << currentDotX << ", " << currentDotY << ") " << endl;
 
 		for (int t = 0; t < 1000; t++) {
 			x = t / 1000.f * m + dotStartX;
 			y = t / 1000.f * p + dotStartY;
 			masColor2[y][x] = Color(255, 255, 255);
-
-			for (int p = -1; p < 2; p++) {
-				for (int q = -1; q < 2; q++) {
-					if (y + p >= 0 && y + p < height && x + q >= 0 && x + q < width)
-						masColor2[y + p][x + q] = Color(255, 255, 255);
-					else if (y + p < 0 && y + p >= height) {
-						if (x + q >= 0 && x + q < width)
-							masColor2[y][x + q] = Color(255, 255, 255);
-						else if (x + q < 0 && x + q >= width)
+			breadthRiv += 0/*rand() % 3 - 1*/;
+			if (breadthRiv < 1) breadthRiv = 1;
+			if (breadthRiv > 3) breadthRiv = 3;
+			for (int p = 0; p < breadthRiv; p++) {
+				for (int q = 0; q < breadthRiv; q++) {
+					if (y + p - breadthRiv / 2 >= 0 && y + p - breadthRiv / 2 < height && x + q - breadthRiv / 2 >= 0 && x + q - breadthRiv / 2 < width)
+						masColor2[y + p - breadthRiv / 2][x + q - breadthRiv / 2] = Color(255, 255, 255);
+					else if (y + p - breadthRiv / 2 < 0 || y + p - breadthRiv / 2 >= height) {
+						if (x + q - breadthRiv / 2 >= 0 && x + q - breadthRiv / 2 < width)
+							masColor2[y][x + q - breadthRiv / 2] = Color(255, 255, 255);
+						else 
 							masColor2[y][x] = Color(255, 255, 255);
 					} 
 					else
-						masColor2[y + p][x] = Color(255, 255, 255);
+						masColor2[y + p - breadthRiv / 2][x] = Color(255, 255, 255);
 				}
 			}
 		}
@@ -664,21 +742,21 @@ Color** coloring(Color** masColor/*, Color** masColor2*/) {
 		for (int j = 0; j < width; j++) {
 			float shadow = shadow2[i][j];
 			Color grass, sea, sand, snow; snow = Color(230, 230, 255); grass = Color(68, 148, 74); sea = Color(66, 170, 255); sand = Color(255, 204, 51);
-			if (int(masColor[i][j].r) < 170) 
+			/*if (int(masColor[i][j].r) < 170) 
 				masColor[i][j] = sea;
 			else if (int(masColor[i][j].r) < 180)
 				masColor[i][j] = sand;
 			else if (int(masColor[i][j].r) < 240)
 				masColor[i][j] = grass;
 			else
-				masColor[i][j] = snow;
+				masColor[i][j] = snow;*/
 			//masColor[i][j] = sand;
 
 			/*if ((int(masColor[i][j].r) == 255 || int(masColor[i][j].r) == 68) && int(masColor2[i][j].r) > 120 && int(masColor2[i][j].r) < 130 )
 				masColor[i][j] = sea;
-			if ((int(masColor[i][j].r) == 255 || int(masColor[i][j].r) == 68) && ((int(masColor2[i][j].r) < 120 && int(masColor2[i][j].r) > 110)|| (int(masColor2[i][j].r) < 140 && int(masColor2[i][j].r) > 130)))
+			if ((int(masColor[i][j].r) == 255 || int(masColor[i][j].r) == 68) && ((int(masColor2[i][j].r) < 115 && int(masColor2[i][j].r) > 110)|| (int(masColor2[i][j].r) < 135 && int(masColor2[i][j].r) > 130)))
 				masColor[i][j] = sand;*/
-			if (masColor2[i][j].r > 254)
+			if (masColor2[i][j].r > 250)
 				masColor[i][j] = Color(139, 0, 255);
 			/*for (int k = 0; k < count; k++) {
 				if (dist(i, j, x[k], 14, 2)) {
