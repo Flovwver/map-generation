@@ -13,6 +13,8 @@ const int Height = 1024, Width = 1024;
 Color** Colorize(float* masColor);
 void NoiseToImage(Color** noise, string img);
 void NoiseFromFile(float* noise, string fileName);
+void OutputArray(float* arrayOfElements, int firsOtputElement, int lastOtputElement);
+void OutputArray(Color** arrayOfElements, int countOfOtputElements);
 
 
 int main()
@@ -20,7 +22,7 @@ int main()
 
 	double zoom = 1.f;
 	Vector2f playercoord;
-	playercoord = Vector2f(1 / 2, 1 / 2);
+	playercoord = Vector2f(1.f / 2.f, 1.f / 2.f);
 	RenderWindow window(VideoMode(Width, Height), "Random generation"); 
 	sf::Event win_event;
 
@@ -29,30 +31,24 @@ int main()
 	setlocale(LC_ALL, "RUS");
 	srand(time(0));
 
-	float* perlineNoise = new float [Height* Width];
+	float* perlineNoise = new float [Height * Width];
 
-	NoiseFromFile(perlineNoise, "perlineNoise.bin");
+	NoiseFromFile(perlineNoise, "perlineNoise.txt");
+
+	float sum = 0;
+	for (int i = 0; i < Height * Width; i++)
+		sum += perlineNoise[i];
+	cout << sum/(Height * Width) <<endl;
 
 	Color** map = Colorize(perlineNoise);
-	NoiseToImage(map, "map.png");		//эти 5 строк
+	NoiseToImage(map, "map.png");
 
 	window.clear(Color(255, 255, 255));
 
 	sf::Texture tex;
 	tex.create(Width, Height);
-	sf::Texture tex1;
-	tex1.create(Width, Height);
 	tex.loadFromFile("map.png");
-	sf::Sprite spr(tex1);
-	sf::Texture tex2;
-	tex2.create(Width, Height);
-	tex2.loadFromFile("map2.png");
-
-	Shader shader;
-	shader.loadFromFile("noise.frag", sf::Shader::Fragment);
-
-	shader.setUniform("colormap", tex);
-	shader.setUniform("colormap2", tex2);
+	sf::Sprite spr(tex);
 
 	Clock clk;
 	clk.restart(); // start the timer
@@ -67,8 +63,7 @@ int main()
 			if (event.type == Event::Closed)
 				window.close();
 		}
-		shader.setUniform("time", clk.getElapsedTime().asMilliseconds() / 1000.f);
-		shader.setUniform("resolution", Vector2f(Width, Height));
+
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 		{
 			window.close();
@@ -106,11 +101,8 @@ int main()
 					zoom /= 2.f;
 			}
 		}
-		shader.setUniform("zoom", float(zoom));
 
-		shader.setUniform("playercoord", playercoord);
-
-		window.draw(spr, &shader);
+		window.draw(spr);
 
 		window.display();
 	}
@@ -129,14 +121,35 @@ void NoiseToImage(Color** noise, string img) {
 
 void NoiseFromFile(float* noise, string fileName) {
 	if (noise == NULL) {
-		cout << "В функцию передан пустой указатель";
+		cout << "В функцию передан пустой указатель\n";
 		exit(-1);
-	}		
-	ifstream file(fileName, ios::binary);
-	vector<float> v(file.seekg(0, ios::end).tellg());
-	file.seekg(0, ios::beg);
-	file.read((char*)v.data(), v.size());
+	}
 
+	ifstream file(fileName);
+	if (!file)
+	{
+		std::cout << "Error, Couldn't find the file\n";
+		exit(-1);
+	}
+
+	for (int i = 0; i < Height*Width; i++) {
+		file >> noise[i];
+	}
+	
+}
+
+void OutputArray(float* arrayOfElements, int firsOtputElement, int lastOtputElement) {
+	for (int i = firsOtputElement; i <= lastOtputElement; i++) {
+		cout << arrayOfElements[i] << "\t";
+	}
+	cout << "\n";
+}
+
+void OutputArray(Color** arrayOfElements, int countOfOtputElements) {
+	for (int i = 0; i < countOfOtputElements; i++) {
+		cout << int(arrayOfElements[0][i].r) << "\t";
+	}
+	cout << "\n";
 }
 
 int ikjl(int i, int k, int tyk, int yx) {
@@ -191,7 +204,7 @@ int* ikjl2(int i, int k, int j, int l, int tyk) {
 	return xy;
 }
 
-Color** Colorize(float** heightsMap) {
+Color** Colorize(float* heightsMap) {
 	Color grass, sea, sand, snow;
 	snow = Color(230, 230, 255);
 	grass = Color(68, 148, 74);
@@ -202,23 +215,20 @@ Color** Colorize(float** heightsMap) {
 	for (int i = 0; i < Height; i++)
 		colorMap[i] = new Color[Width];
 
-	for (int i = 0; i < Height / 2; i++)
-		for (int j = 0; j < Width; j++) {
-			int t = heightsMap[i][j] * i / Height / 2.05;
-		}
+	
 
 	for (int i = 0; i < Height; i++)
 		for (int j = 0; j < Width; j++) {
-			/*if (heightsMap[i][j] < 0.5f) 
+			/*if (heightsMap[i * Width + j] < 0.5f)
 				colorMap[i][j] = sea;
-			else if (heightsMap[i][j] < 0.53f)
+			else if (heightsMap[i * Width + j] < 0.53f)
 				colorMap[i][j] = sand;
-			else if (heightsMap[i][j] < 0.97f)
+			else if (heightsMap[i * Width + j] < 0.97f)
 				colorMap[i][j] = grass;
 			else
 				colorMap[i][j] = snow;*/
-			int height = heightsMap[i][j] * 255;
-			colorMap[i][j] = Color(height, height, height);
+			int height = fabs(heightsMap[i * Width + j]) * 254;
+			colorMap[i][j] = Color(height, height, height, 255);
 		}
 	return colorMap;
 }
