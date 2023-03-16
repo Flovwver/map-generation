@@ -1,4 +1,1 @@
-﻿  Kursach.cpp
-C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(32,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(230,15): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-  Kursach.vcxproj -> C:\Users\sirpr\Documents\GitHub\map-generation\x64\Debug\Kursach.exe
+﻿  Kursach.vcxproj -> C:\Users\sirpr\Documents\GitHub\map-generation\x64\Debug\Kursach.exe
