@@ -4,6 +4,7 @@
 #include <cmath>
 #include <stdlib.h>
 #include <fstream>
+#include <list>
 
 using namespace std;
 using namespace sf;
@@ -15,6 +16,7 @@ void NoiseToImage(Color** noise, string img);
 void NoiseFromFile(float* noise, string fileName);
 void OutputArray(float* arrayOfElements, int firsOtputElement, int lastOtputElement);
 void OutputArray(Color** arrayOfElements, int countOfOtputElements);
+bool IsLocalMax(float* matrix, int x, int y);
 
 
 int main()
@@ -219,9 +221,9 @@ Color** Colorize(float* heightsMap) {
 
 	for (int i = 0; i < Height; i++)
 		for (int j = 0; j < Width; j++) {
-			/*if (heightsMap[i * Width + j] < 0.5f)
+			/*if (heightsMap[i * Width + j] < 0.66f)
 				colorMap[i][j] = sea;
-			else if (heightsMap[i * Width + j] < 0.53f)
+			else if (heightsMap[i * Width + j] < 0.69f)
 				colorMap[i][j] = sand;
 			else if (heightsMap[i * Width + j] < 0.97f)
 				colorMap[i][j] = grass;
@@ -229,6 +231,40 @@ Color** Colorize(float* heightsMap) {
 				colorMap[i][j] = snow;*/
 			int height = fabs(heightsMap[i * Width + j]) * 254;
 			colorMap[i][j] = Color(height, height, height, 255);
+			if (IsLocalMax(heightsMap, j, i))
+				colorMap[i][j] = Color(255, 0, 255, 255);
 		}
 	return colorMap;
+}
+
+bool IsLocalMax(float* matrix, int x, int y) {
+	if (x == 0 || x == Width - 1 || y == 0 || y == Height - 1)
+		return false;
+
+	for (int i = -1; i < 2; i++)
+		for (int j = -1; j < 2; j++) {
+			if (matrix[(y + i) * Width + (x + j)] > matrix[y * Width + x])
+				return false;
+		}
+	return true;
+}
+
+void DrawRivers(Color** colorMap, float* heights) {
+	list<int[2]> coordsLocalMaxima;
+	int coords[2] = {0, 0};
+	for (int i = 0; i < Height; i++)
+		for (int j = 0; j < Width; j++) {
+			if (IsLocalMax(heights, j, i)) {
+				coords[0] = i;
+				coords[1] = j;
+				coordsLocalMaxima.push_back(coords);
+			}
+		}
+	
+
+}
+
+int* SearchNearestCoordinate(list<int[2]> coordinates, list<int[2]>::const_iterator coordinateForClosest) {
+	for (int[2] coordinate : coordinates)
+		std::cout << n << "\t";
 }
