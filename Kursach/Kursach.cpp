@@ -11,22 +11,36 @@ using namespace sf;
 
 const int Height = 1024, Width = 1024;
 
+struct Coordinate
+{
+	int x;
+	int y;
+};
+struct Vectorfloat
+{
+	float x;
+	float y;
+};
+
 Color** Colorize(float* masColor);
 void NoiseToImage(Color** noise, string img);
 void NoiseFromFile(float* noise, string fileName);
 void OutputArray(float* arrayOfElements, int firsOtputElement, int lastOtputElement);
 void OutputArray(Color** arrayOfElements, int countOfOtputElements);
 bool IsLocalMax(float* matrix, int x, int y);
+void DrawRivers(Color** colorMap, float* heights);
+list <Coordinate>::iterator SearchNearestCoordinate(list<Coordinate> &coordinates, Coordinate currentCoordinate);
+void DrawLine(Color** colorMap, Coordinate firstDot, Coordinate secondDot, float* gradientOfThikness);
+void DrawDot(Color** colorMap, Coordinate dot, float brushSize);
+
 
 
 int main()
 {
 
 	double zoom = 1.f;
-	Vector2f playercoord;
-	playercoord = Vector2f(1.f / 2.f, 1.f / 2.f);
 	RenderWindow window(VideoMode(Width, Height), "Random generation"); 
-	sf::Event win_event;
+	Event win_event;
 
 	float speed = 0.4f;
 
@@ -37,12 +51,9 @@ int main()
 
 	NoiseFromFile(perlineNoise, "perlineNoise.txt");
 
-	float sum = 0;
-	for (int i = 0; i < Height * Width; i++)
-		sum += perlineNoise[i];
-	cout << sum/(Height * Width) <<endl;
-
 	Color** map = Colorize(perlineNoise);
+	
+	//DrawDot(map, { 250,500 }, 10);
 	NoiseToImage(map, "map.png");
 
 	window.clear(Color(255, 255, 255));
@@ -71,39 +82,6 @@ int main()
 			window.close();
 		}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-			playercoord.x += speed / Width;
-			if (playercoord.x > 2.f) {
-				playercoord.x = 0.f;
-			}
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-			playercoord.x -= speed / Width;
-			if (playercoord.x < 0.f) {
-				playercoord.x = 2.f;
-			}
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-			playercoord.y += speed / Width;
-			if (playercoord.y > 1.f)
-				playercoord.y = 0.f;
-
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-			playercoord.y -= speed / Width;
-			if (playercoord.y < 0.f)
-				playercoord.y = 1.f;
-		}
-		while (window.pollEvent(win_event)) {
-			if (win_event.type == sf::Event::KeyReleased) 
-			{
-				if (win_event.key.code == sf::Keyboard::Equal) 
-					zoom *= 2.f;
-				if (win_event.key.code == sf::Keyboard::Dash)
-					zoom /= 2.f;
-			}
-		}
-
 		window.draw(spr);
 
 		window.display();
@@ -130,7 +108,7 @@ void NoiseFromFile(float* noise, string fileName) {
 	ifstream file(fileName);
 	if (!file)
 	{
-		std::cout << "Error, Couldn't find the file\n";
+		cout << "Error, Couldn't find the file\n";
 		exit(-1);
 	}
 
@@ -217,24 +195,39 @@ Color** Colorize(float* heightsMap) {
 	for (int i = 0; i < Height; i++)
 		colorMap[i] = new Color[Width];
 
-	
-
 	for (int i = 0; i < Height; i++)
 		for (int j = 0; j < Width; j++) {
-			/*if (heightsMap[i * Width + j] < 0.66f)
+			if (heightsMap[i * Width + j] < 0.66f)
 				colorMap[i][j] = sea;
 			else if (heightsMap[i * Width + j] < 0.69f)
 				colorMap[i][j] = sand;
 			else if (heightsMap[i * Width + j] < 0.97f)
 				colorMap[i][j] = grass;
 			else
-				colorMap[i][j] = snow;*/
-			int height = fabs(heightsMap[i * Width + j]) * 254;
-			colorMap[i][j] = Color(height, height, height, 255);
-			if (IsLocalMax(heightsMap, j, i))
-				colorMap[i][j] = Color(255, 0, 255, 255);
+				colorMap[i][j] = snow;
+			/*int height = fabs(heightsMap[i * Width + j]) * 254;
+			colorMap[i][j] = Color(height, height, height, 255);*/
+			
 		}
+	DrawRivers(colorMap, heightsMap);
 	return colorMap;
+}
+
+
+float Distance(Coordinate dot1, Coordinate dot2) {
+	return pow(pow(dot1.x - dot2.x, 2) + pow(dot1.y - dot2.y, 2), 0.5f);
+}
+
+float Length(Vectorfloat vec) {
+	return pow(pow(vec.x, 2) + pow(vec.y, 2), 0.5f);
+}
+
+Vectorfloat Normalize(Vectorfloat vec) {
+	Vectorfloat vecF = vec;
+	float length = Length(vec);
+	vecF.x /= length;
+	vecF.y /= length;
+	return vecF;
 }
 
 bool IsLocalMax(float* matrix, int x, int y) {
@@ -249,22 +242,85 @@ bool IsLocalMax(float* matrix, int x, int y) {
 	return true;
 }
 
+Vectorfloat Direction(Coordinate firstDot, Coordinate secondDot) {
+	Vectorfloat direction = { secondDot.x - firstDot.x, secondDot.y - firstDot.y };
+	direction = Normalize(direction);
+	return direction;
+}
+
+float* GetGradientOfThickness(float* heights, Coordinate firstDot, Coordinate secondDot) {
+	Vectorfloat direction = Direction(firstDot, secondDot);
+	float* gradient = new float[int(Distance(firstDot, secondDot))];
+	Coordinate currentDot = { -1, -1 };
+	for (int i = 0; i < int(Distance(firstDot, secondDot)); i++) {
+		currentDot.x = firstDot.x + direction.x * i;
+		currentDot.y = firstDot.y + direction.y * i;
+		gradient[i] = (1 - heights[currentDot.y * Width + currentDot.x]) * 3 + 3;
+	}
+	return gradient;
+}
+
 void DrawRivers(Color** colorMap, float* heights) {
-	list<int[2]> coordsLocalMaxima;
-	int coords[2] = {0, 0};
+	list<Coordinate> coordsLocalMaxima;
+	Coordinate coords = {0, 0};
 	for (int i = 0; i < Height; i++)
 		for (int j = 0; j < Width; j++) {
 			if (IsLocalMax(heights, j, i)) {
-				coords[0] = i;
-				coords[1] = j;
+				coords.y = i;
+				coords.x = j;
 				coordsLocalMaxima.push_back(coords);
 			}
 		}
-	
+
+	/*for (Coordinate localMaximum : coordsLocalMaxima) {
+		DrawDot(colorMap, localMaximum, 10);
+	}*/
+
+	for (auto iter = coordsLocalMaxima.begin(); iter != coordsLocalMaxima.end(); iter++) {
+		if (coordsLocalMaxima.size() < 3)
+			break;
+		list <Coordinate>::iterator nearestDot = SearchNearestCoordinate(coordsLocalMaxima, *iter);
+		float* gradentOfThikness = GetGradientOfThickness(heights, *nearestDot, *iter);
+		DrawLine(colorMap, *nearestDot, *iter, gradentOfThikness);
+		if (iter != coordsLocalMaxima.begin()) coordsLocalMaxima.pop_front();
+	}
 
 }
 
-int* SearchNearestCoordinate(list<int[2]> coordinates, list<int[2]>::const_iterator coordinateForClosest) {
-	for (int[2] coordinate : coordinates)
-		std::cout << n << "\t";
+
+list <Coordinate>::iterator SearchNearestCoordinate(list<Coordinate> &coordinates, Coordinate currentCoordinate) {
+	float min = Height * Width;
+	list <Coordinate>::iterator nearestCoordinate;
+	for (list <Coordinate>::iterator iter = coordinates.begin(); iter != coordinates.end(); iter++) {
+		float distance = Distance(*iter, currentCoordinate);
+		if (distance < min && distance > 0.000001f) {
+			min = distance;
+			nearestCoordinate = iter;
+		}
+	}
+	return nearestCoordinate;
 }
+
+void DrawDot(Color** colorMap, Coordinate dot, float brushSize) {
+	Color sea = Color(66, 170, 255);
+	for (int i = -brushSize / 2; i <= brushSize / 2; i++)
+		for (int j = -brushSize / 2; j <= brushSize / 2; j++) 
+		if (dot.y + i >= 0 && dot.x + j >= 0 && dot.y + i < Height && dot.x + j < Width){
+			Coordinate dinamDot = { dot.x + j, dot.y + i };
+			float distance = Distance(dot, dinamDot);
+			if (distance < brushSize / 2)
+				colorMap[dot.y + i][dot.x + j] = sea;
+		}
+}
+
+void DrawLine(Color** colorMap, Coordinate firstDot, Coordinate secondDot, float* gradientOfThikness) {
+	Vectorfloat direction = Direction(firstDot, secondDot);
+	Coordinate currentDot = { 0, 0 };
+
+	for (int i = 0; i < Distance(firstDot, secondDot); i++) {
+		currentDot.x = firstDot.x + direction.x * i;
+		currentDot.y = firstDot.y + direction.y * i;
+		DrawDot(colorMap, currentDot, gradientOfThikness[i]);
+	}
+}
+

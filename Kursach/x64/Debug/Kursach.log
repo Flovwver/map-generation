@@ -1,4 +1,16 @@
 ﻿  Kursach.cpp
-C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(33,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(231,15): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(48,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(43,8): warning C4101: win_event: неиспользованная локальная переменная
+C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(218,12): warning C4244: return: преобразование "double" в "float", возможна потеря данных
+C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(222,12): warning C4244: return: преобразование "double" в "float", возможна потеря данных
+C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(246,40): warning C4838: Преобразование из "int" в "float" требует сужающего преобразования.
+C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(246,40): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(246,66): warning C4838: Преобразование из "int" в "float" требует сужающего преобразования.
+C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(246,66): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(256,29): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(257,29): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(306,13): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(307,14): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(321,29): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+C:\Users\sirpr\Documents\GitHub\map-generation\Kursach\Kursach.cpp(322,29): warning C4244: =: преобразование "float" в "int", возможна потеря данных
   Kursach.vcxproj -> C:\Users\sirpr\Documents\GitHub\map-generation\x64\Debug\Kursach.exe
