@@ -32,7 +32,7 @@ void DrawRivers(Color** colorMap, float* heights);
 list <Coordinate>::iterator SearchNearestCoordinate(list<Coordinate> &coordinates, Coordinate currentCoordinate);
 void DrawLine(Color** colorMap, Coordinate firstDot, Coordinate secondDot, float* gradientOfThikness);
 void DrawDot(Color** colorMap, Coordinate dot, float brushSize);
-
+void IncreaseContrast(float* perlineNoise);
 
 
 int main()
@@ -51,9 +51,10 @@ int main()
 
 	NoiseFromFile(perlineNoise, "perlineNoise.txt");
 
+	IncreaseContrast(perlineNoise);
+
 	Color** map = Colorize(perlineNoise);
 	
-	//DrawDot(map, { 250,500 }, 10);
 	NoiseToImage(map, "map.png");
 
 	window.clear(Color(255, 255, 255));
@@ -132,56 +133,35 @@ void OutputArray(Color** arrayOfElements, int countOfOtputElements) {
 	cout << "\n";
 }
 
-int ikjl(int i, int k, int tyk, int yx) {
-	int ik, jl;
-	if (i / tyk * tyk + k * tyk < 0)
-		ik = Height / tyk * tyk + i / tyk * tyk + k * tyk;
-	else if (i / tyk * tyk + k * tyk >= Height)
-		ik = (i / tyk * tyk + k * tyk) % Height;
-	else
-		ik = i / tyk * tyk + k * tyk;
-	if (i / tyk * tyk + k * tyk < 0)
-		jl = Width / tyk * tyk + i / tyk * tyk + k * tyk;
-	else if (i / tyk * tyk + k * tyk >= Width)
-		jl = (i / tyk * tyk + k * tyk) % Width;
-	else
-		jl = i / tyk * tyk + k * tyk;
-	if (!yx)
-		return ik;
-	else
-		return jl;
+void IncreaseContrast(float* perlineNoise) {
+	float max = 0.f, min = 1.f;
+	for (int i = 0; i < Height * Width; i++) {
+		if (perlineNoise[i] > max)
+			max = perlineNoise[i];
+		if (perlineNoise[i] < min)
+			min = perlineNoise[i];
+	}
+
+	for (int i = 0; i < Height * Width; i++) {
+		perlineNoise[i] = (perlineNoise[i] - min) / (max - min);
+	}
+
 }
 
-int* ikjl2(int i, int k, int j, int l, int tyk) {
-	int* xy = new int[2];
-
-	int ik, jl;
-	if (i / tyk * tyk + k * tyk < 0)
-		ik = Height / tyk * tyk + i / tyk * tyk + k * tyk;
-	else if (i / tyk * tyk + k * tyk >= Height)
-		ik = (i / tyk * tyk + k * tyk) % Height;
-	else
-		ik = i / tyk * tyk + k * tyk;
-
-	if (j / tyk * tyk + l * tyk < 0) {
-		ik = Height / tyk * tyk - ik - tyk;
-		jl = Width / tyk * tyk + j / tyk * tyk + l * tyk;
-	}
-	else if (j / tyk * tyk + l * tyk >= Width) {
-		if (tyk == 8 && i == 504 && j == 1) {
-			int flower = j / tyk * tyk + l * tyk;
-			flower = 0;
+float GetShadow(float* heightsMap, int x, int y) {
+	float shadow = 0;
+	int shadowLength = 8;
+	for (int i = 1; i <= shadowLength; i++) {
+		if (y - i >= 0 && x - i >= 0) {
+			if (heightsMap[(y - i) * Width + (x - i)] >= heightsMap[y * Width + x] && heightsMap[(y - i) * Width + (x - i)] >=0.6f)
+				shadow += heightsMap[(y - i) * Width + (x - i)] - heightsMap[y * Width + x];
 		}
-		ik = Height / tyk * tyk - ik - tyk;
-		ik = ikjl(ik, 1, tyk, 0);
-		jl = (j / tyk * tyk + l * tyk) % Width;
 	}
-	else
-		jl = j / tyk * tyk + l * tyk;
+	return pow(1.f - shadow, 2);
+}
 
-	xy[0] = jl;
-	xy[1] = ik;
-	return xy;
+Color makeDarker(Color color, float dark) {
+	return Color(color.r * dark, color.g * dark, color.b * dark);
 }
 
 Color** Colorize(float* heightsMap) {
@@ -197,19 +177,27 @@ Color** Colorize(float* heightsMap) {
 
 	for (int i = 0; i < Height; i++)
 		for (int j = 0; j < Width; j++) {
-			if (heightsMap[i * Width + j] < 0.66f)
+			if (heightsMap[i * Width + j] < 0.6f)
 				colorMap[i][j] = sea;
-			else if (heightsMap[i * Width + j] < 0.69f)
+			else if (heightsMap[i * Width + j] < 0.62f)
 				colorMap[i][j] = sand;
 			else if (heightsMap[i * Width + j] < 0.97f)
 				colorMap[i][j] = grass;
 			else
 				colorMap[i][j] = snow;
+
 			/*int height = fabs(heightsMap[i * Width + j]) * 254;
 			colorMap[i][j] = Color(height, height, height, 255);*/
 			
 		}
+
 	DrawRivers(colorMap, heightsMap);
+
+	for (int i = 0; i < Height; i++)
+		for (int j = 0; j < Width; j++) {
+			colorMap[i][j] = makeDarker(colorMap[i][j], GetShadow(heightsMap, j, i));
+		}
+
 	return colorMap;
 }
 
@@ -255,7 +243,7 @@ float* GetGradientOfThickness(float* heights, Coordinate firstDot, Coordinate se
 	for (int i = 0; i < int(Distance(firstDot, secondDot)); i++) {
 		currentDot.x = firstDot.x + direction.x * i;
 		currentDot.y = firstDot.y + direction.y * i;
-		gradient[i] = (1 - heights[currentDot.y * Width + currentDot.x]) * 3 + 3;
+		gradient[i] = (1.f - heights[currentDot.y * Width + currentDot.x]) * 9.f;
 	}
 	return gradient;
 }
@@ -272,17 +260,16 @@ void DrawRivers(Color** colorMap, float* heights) {
 			}
 		}
 
-	/*for (Coordinate localMaximum : coordsLocalMaxima) {
-		DrawDot(colorMap, localMaximum, 10);
-	}*/
-
 	for (auto iter = coordsLocalMaxima.begin(); iter != coordsLocalMaxima.end(); iter++) {
 		if (coordsLocalMaxima.size() < 3)
 			break;
+
 		list <Coordinate>::iterator nearestDot = SearchNearestCoordinate(coordsLocalMaxima, *iter);
-		float* gradentOfThikness = GetGradientOfThickness(heights, *nearestDot, *iter);
-		DrawLine(colorMap, *nearestDot, *iter, gradentOfThikness);
-		if (iter != coordsLocalMaxima.begin()) coordsLocalMaxima.pop_front();
+		float* gradientOfThikness = GetGradientOfThickness(heights, *nearestDot, *iter);
+		DrawLine(colorMap, *nearestDot, *iter, gradientOfThikness);
+
+		if (iter != coordsLocalMaxima.begin()) 
+			coordsLocalMaxima.pop_front();
 	}
 
 }
