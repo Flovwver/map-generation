@@ -1,4 +1,6 @@
-﻿#include <iostream>
+﻿#define _USE_MATH_DEFINES 
+
+#include <iostream>
 #include <SFML/Graphics.hpp>
 #include "ctime"
 #include <cmath>
@@ -236,6 +238,21 @@ Vectorfloat Direction(Coordinate firstDot, Coordinate secondDot) {
 	return direction;
 }
 
+float GetScalarProduct(Vectorfloat vec1, Vectorfloat vec2) {
+	return vec1.x * vec2.x + vec1.y * vec2.y;
+}
+
+Vectorfloat Rotate(Vectorfloat vec, float phi) {
+	float cs = cos(phi);
+	float sn = sin(phi);
+	float x = vec.x;
+	float y = vec.y;
+
+	vec.x = x * cs - y * sn;
+	vec.y = x * sn + y * cs;
+	return vec;
+}
+
 float* GetGradientOfThickness(float* heights, Coordinate firstDot, Coordinate secondDot) {
 	Vectorfloat direction = Direction(firstDot, secondDot);
 	float* gradient = new float[int(Distance(firstDot, secondDot))];
@@ -249,27 +266,60 @@ float* GetGradientOfThickness(float* heights, Coordinate firstDot, Coordinate se
 }
 
 void DrawRivers(Color** colorMap, float* heights) {
-	list<Coordinate> coordsLocalMaxima;
-	Coordinate coords = {0, 0};
+	list<Coordinate> dotsOfRiver;
+	Coordinate coord = {0, 0};
 	for (int i = 0; i < Height; i++)
 		for (int j = 0; j < Width; j++) {
-			if (IsLocalMax(heights, j, i)) {
-				coords.y = i;
-				coords.x = j;
-				coordsLocalMaxima.push_back(coords);
+			if (heights[i * Width + j] == 1.f) {
+				coord.y = i;
+				coord.x = j;
+				dotsOfRiver.push_back(coord);
+				DrawDot(colorMap, coord, 2.f);
+				cout << dotsOfRiver.size()<< endl;
 			}
 		}
 
-	for (auto iter = coordsLocalMaxima.begin(); iter != coordsLocalMaxima.end(); iter++) {
-		if (coordsLocalMaxima.size() < 3)
+	auto dot = dotsOfRiver.begin();
+	Coordinate dotOfFastestDescent = { -1, -1 };
+	Vectorfloat directionRiverFirst = { 0.f, 1.f }, directionRiverSecond = { 0.f, -1.f }, directionRiverSecondSaved = { 0.f, -1.f };
+	int countOfRiverTurns = 32;
+	for (int k = 0; k < 100; k++) {
+		float max = -1, 
+			phi;
+		for (int i = 0; i < countOfRiverTurns; i++) {
+			phi = 2 * M_PI / countOfRiverTurns * i;
+			directionRiverSecond = Rotate(directionRiverSecond, phi);
+			if (GetScalarProduct(directionRiverFirst, directionRiverSecond) > 0.5f)
+				continue;
+			int xShtrih = ((*dot).x + directionRiverSecond.x * 5),
+				yShtrih = ((*dot).y + directionRiverSecond.y * 5);
+
+			if (yShtrih < Height && xShtrih < Width && yShtrih >= 0 && xShtrih >= 0){
+				float maxsd = heights[(*dot).y * Width + (*dot).x] - heights[yShtrih * Width + xShtrih];
+				if (heights[(*dot).y * Width + (*dot).x] - heights[yShtrih * Width + xShtrih] > max) {
+					max = heights[(*dot).y * Width + (*dot).x] - heights[yShtrih * Width + xShtrih];
+					dotOfFastestDescent = { xShtrih, yShtrih };
+					directionRiverSecondSaved = directionRiverSecond;
+					cout << heights[(*dot).y * Width + (*dot).x] - heights[yShtrih * Width + xShtrih] << endl << GetScalarProduct(directionRiverFirst, directionRiverSecond) << endl << endl;
+				}
+			}
+		}
+		directionRiverFirst = directionRiverSecondSaved;
+		dotsOfRiver.push_back(dotOfFastestDescent);
+		++dot;
+		if (heights[dotOfFastestDescent.y * Width + dotOfFastestDescent.x] < 0.6f)
 			break;
+	}
 
-		list <Coordinate>::iterator nearestDot = SearchNearestCoordinate(coordsLocalMaxima, *iter);
-		float* gradientOfThikness = GetGradientOfThickness(heights, *nearestDot, *iter);
-		DrawLine(colorMap, *nearestDot, *iter, gradientOfThikness);
-
-		if (iter != coordsLocalMaxima.begin()) 
-			coordsLocalMaxima.pop_front();
+	int itr = 1;
+	for (auto currentDot = dotsOfRiver.begin(); currentDot != dotsOfRiver.end(); currentDot++) {
+		itr++;
+		list <Coordinate>::iterator nextDot = currentDot;
+		++nextDot;
+		float* gradientOfThikness = GetGradientOfThickness(heights, *nextDot, *currentDot);
+		DrawLine(colorMap, *nextDot, *currentDot, gradientOfThikness);
+		if (itr == dotsOfRiver.size())
+			break;
 	}
 
 }
@@ -290,6 +340,7 @@ list <Coordinate>::iterator SearchNearestCoordinate(list<Coordinate> &coordinate
 
 void DrawDot(Color** colorMap, Coordinate dot, float brushSize) {
 	Color sea = Color(66, 170, 255);
+	Color fiol = Color(255, 0, 255);
 	for (int i = -brushSize / 2; i <= brushSize / 2; i++)
 		for (int j = -brushSize / 2; j <= brushSize / 2; j++) 
 		if (dot.y + i >= 0 && dot.x + j >= 0 && dot.y + i < Height && dot.x + j < Width){
