@@ -12,6 +12,7 @@ using namespace std;
 using namespace sf;
 
 const int Height = 1024, Width = 1024;
+const float SEA_LEVEL = 0.6f, SAND_LEVEL = 0.62f, GRASS_LEVEL = 0.97f;
 
 struct Coordinate
 {
@@ -155,7 +156,7 @@ float GetShadow(float* heightsMap, int x, int y) {
 	int shadowLength = 8;
 	for (int i = 1; i <= shadowLength; i++) {
 		if (y - i >= 0 && x - i >= 0) {
-			if (heightsMap[(y - i) * Width + (x - i)] >= heightsMap[y * Width + x] && heightsMap[(y - i) * Width + (x - i)] >=0.6f)
+			if (heightsMap[(y - i) * Width + (x - i)] >= heightsMap[y * Width + x] && heightsMap[(y - i) * Width + (x - i)] >= SEA_LEVEL)
 				shadow += heightsMap[(y - i) * Width + (x - i)] - heightsMap[y * Width + x];
 		}
 	}
@@ -179,11 +180,11 @@ Color** Colorize(float* heightsMap) {
 
 	for (int i = 0; i < Height; i++)
 		for (int j = 0; j < Width; j++) {
-			if (heightsMap[i * Width + j] < 0.6f)
+			if (heightsMap[i * Width + j] < SEA_LEVEL)
 				colorMap[i][j] = sea;
-			else if (heightsMap[i * Width + j] < 0.62f)
+			else if (heightsMap[i * Width + j] < SAND_LEVEL)
 				colorMap[i][j] = sand;
-			else if (heightsMap[i * Width + j] < 0.97f)
+			else if (heightsMap[i * Width + j] < GRASS_LEVEL)
 				colorMap[i][j] = grass;
 			else
 				colorMap[i][j] = snow;
@@ -204,17 +205,17 @@ Color** Colorize(float* heightsMap) {
 }
 
 
-float Distance(Coordinate dot1, Coordinate dot2) {
+float GetDistance(Coordinate dot1, Coordinate dot2) {
 	return pow(pow(dot1.x - dot2.x, 2) + pow(dot1.y - dot2.y, 2), 0.5f);
 }
 
-float Length(Vectorfloat vec) {
+float GetLength(Vectorfloat vec) {
 	return pow(pow(vec.x, 2) + pow(vec.y, 2), 0.5f);
 }
 
 Vectorfloat Normalize(Vectorfloat vec) {
 	Vectorfloat vecF = vec;
-	float length = Length(vec);
+	float length = GetLength(vec);
 	vecF.x /= length;
 	vecF.y /= length;
 	return vecF;
@@ -232,7 +233,7 @@ bool IsLocalMax(float* matrix, int x, int y) {
 	return true;
 }
 
-Vectorfloat Direction(Coordinate firstDot, Coordinate secondDot) {
+Vectorfloat GetDirection(Coordinate firstDot, Coordinate secondDot) {
 	Vectorfloat direction = { secondDot.x - firstDot.x, secondDot.y - firstDot.y };
 	direction = Normalize(direction);
 	return direction;
@@ -240,6 +241,18 @@ Vectorfloat Direction(Coordinate firstDot, Coordinate secondDot) {
 
 float GetScalarProduct(Vectorfloat vec1, Vectorfloat vec2) {
 	return vec1.x * vec2.x + vec1.y * vec2.y;
+}
+
+Coordinate SearchHighestCoordinate(float* heights) {
+	Coordinate highestCoordinate = { 0, 0 };
+	for (int i = 0; i < Height; i++)
+		for (int j = 0; j < Width; j++) {
+			if (heights[i * Width + j] > heights[highestCoordinate.y * Width + highestCoordinate.x]) {
+				highestCoordinate.y = i;
+				highestCoordinate.x = j;
+			}
+		}
+	return highestCoordinate;
 }
 
 Vectorfloat Rotate(Vectorfloat vec, float phi) {
@@ -254,62 +267,67 @@ Vectorfloat Rotate(Vectorfloat vec, float phi) {
 }
 
 float* GetGradientOfThickness(float* heights, Coordinate firstDot, Coordinate secondDot) {
-	Vectorfloat direction = Direction(firstDot, secondDot);
-	float* gradient = new float[int(Distance(firstDot, secondDot))];
+	Vectorfloat direction = GetDirection(firstDot, secondDot);
+	float* gradient = new float[int(GetDistance(firstDot, secondDot))];
 	Coordinate currentDot = { -1, -1 };
-	for (int i = 0; i < int(Distance(firstDot, secondDot)); i++) {
+	for (int i = 0; i < int(GetDistance(firstDot, secondDot)); i++) {
 		currentDot.x = firstDot.x + direction.x * i;
 		currentDot.y = firstDot.y + direction.y * i;
-		gradient[i] = (1.f - heights[currentDot.y * Width + currentDot.x]) * 9.f;
+		gradient[i] = (1.f - heights[currentDot.y * Width + currentDot.x]) * 9.f  + 0.5f;
 	}
 	return gradient;
 }
 
-void DrawRivers(Color** colorMap, float* heights) {
+list<Coordinate> GetListOfRiversDots(Coordinate dotOfRiversStart, float* heights, float lengthOfRiversDetalization) {
 	list<Coordinate> dotsOfRiver;
-	Coordinate coord = {0, 0};
-	for (int i = 0; i < Height; i++)
-		for (int j = 0; j < Width; j++) {
-			if (heights[i * Width + j] == 1.f) {
-				coord.y = i;
-				coord.x = j;
-				dotsOfRiver.push_back(coord);
-				DrawDot(colorMap, coord, 2.f);
-				cout << dotsOfRiver.size()<< endl;
-			}
-		}
+	dotsOfRiver.push_back(dotOfRiversStart);
 
 	auto dot = dotsOfRiver.begin();
 	Coordinate dotOfFastestDescent = { -1, -1 };
 	Vectorfloat directionRiverFirst = { 0.f, 1.f }, directionRiverSecond = { 0.f, -1.f }, directionRiverSecondSaved = { 0.f, -1.f };
+
 	int countOfRiverTurns = 32;
+	float angleOfRiverTurn = 2 * M_PI / countOfRiverTurns;
+	float maximumCosineOfRiverTurn = 0.5f;
+
 	for (int k = 0; k < 100; k++) {
-		float max = -1, 
+		float max = -1,
 			phi;
 		for (int i = 0; i < countOfRiverTurns; i++) {
-			phi = 2 * M_PI / countOfRiverTurns * i;
+			phi = angleOfRiverTurn * i;
 			directionRiverSecond = Rotate(directionRiverSecond, phi);
-			if (GetScalarProduct(directionRiverFirst, directionRiverSecond) > 0.5f)
-				continue;
-			int xShtrih = ((*dot).x + directionRiverSecond.x * 5),
-				yShtrih = ((*dot).y + directionRiverSecond.y * 5);
 
-			if (yShtrih < Height && xShtrih < Width && yShtrih >= 0 && xShtrih >= 0){
-				float maxsd = heights[(*dot).y * Width + (*dot).x] - heights[yShtrih * Width + xShtrih];
-				if (heights[(*dot).y * Width + (*dot).x] - heights[yShtrih * Width + xShtrih] > max) {
+			if (GetScalarProduct(directionRiverFirst, directionRiverSecond) < maximumCosineOfRiverTurn)
+				continue;
+
+			int xShtrih = ((*dot).x + directionRiverSecond.x * lengthOfRiversDetalization),
+				yShtrih = ((*dot).y + directionRiverSecond.y * lengthOfRiversDetalization);
+
+			if (yShtrih < Height && xShtrih < Width && yShtrih >= 0 && xShtrih >= 0) {
+				float amountOfDescent = heights[(*dot).y * Width + (*dot).x] - heights[yShtrih * Width + xShtrih];
+				if (amountOfDescent > max) {
 					max = heights[(*dot).y * Width + (*dot).x] - heights[yShtrih * Width + xShtrih];
 					dotOfFastestDescent = { xShtrih, yShtrih };
 					directionRiverSecondSaved = directionRiverSecond;
-					cout << heights[(*dot).y * Width + (*dot).x] - heights[yShtrih * Width + xShtrih] << endl << GetScalarProduct(directionRiverFirst, directionRiverSecond) << endl << endl;
 				}
 			}
+
 		}
 		directionRiverFirst = directionRiverSecondSaved;
+
 		dotsOfRiver.push_back(dotOfFastestDescent);
 		++dot;
-		if (heights[dotOfFastestDescent.y * Width + dotOfFastestDescent.x] < 0.6f)
+
+		if (heights[dotOfFastestDescent.y * Width + dotOfFastestDescent.x] < SEA_LEVEL)
 			break;
 	}
+	return dotsOfRiver;
+}
+
+void DrawRivers(Color** colorMap, float* heights) {
+	list<Coordinate> dotsOfRiver;
+
+	dotsOfRiver = GetListOfRiversDots(SearchHighestCoordinate(heights), heights, 5.f);//{600,512}
 
 	int itr = 1;
 	for (auto currentDot = dotsOfRiver.begin(); currentDot != dotsOfRiver.end(); currentDot++) {
@@ -324,20 +342,6 @@ void DrawRivers(Color** colorMap, float* heights) {
 
 }
 
-
-list <Coordinate>::iterator SearchNearestCoordinate(list<Coordinate> &coordinates, Coordinate currentCoordinate) {
-	float min = Height * Width;
-	list <Coordinate>::iterator nearestCoordinate;
-	for (list <Coordinate>::iterator iter = coordinates.begin(); iter != coordinates.end(); iter++) {
-		float distance = Distance(*iter, currentCoordinate);
-		if (distance < min && distance > 0.000001f) {
-			min = distance;
-			nearestCoordinate = iter;
-		}
-	}
-	return nearestCoordinate;
-}
-
 void DrawDot(Color** colorMap, Coordinate dot, float brushSize) {
 	Color sea = Color(66, 170, 255);
 	Color fiol = Color(255, 0, 255);
@@ -345,17 +349,17 @@ void DrawDot(Color** colorMap, Coordinate dot, float brushSize) {
 		for (int j = -brushSize / 2; j <= brushSize / 2; j++) 
 		if (dot.y + i >= 0 && dot.x + j >= 0 && dot.y + i < Height && dot.x + j < Width){
 			Coordinate dinamDot = { dot.x + j, dot.y + i };
-			float distance = Distance(dot, dinamDot);
+			float distance = GetDistance(dot, dinamDot);
 			if (distance < brushSize / 2)
 				colorMap[dot.y + i][dot.x + j] = sea;
 		}
 }
 
 void DrawLine(Color** colorMap, Coordinate firstDot, Coordinate secondDot, float* gradientOfThikness) {
-	Vectorfloat direction = Direction(firstDot, secondDot);
+	Vectorfloat direction = GetDirection(firstDot, secondDot);
 	Coordinate currentDot = { 0, 0 };
 
-	for (int i = 0; i < Distance(firstDot, secondDot); i++) {
+	for (int i = 0; i < GetDistance(firstDot, secondDot); i++) {
 		currentDot.x = firstDot.x + direction.x * i;
 		currentDot.y = firstDot.y + direction.y * i;
 		DrawDot(colorMap, currentDot, gradientOfThikness[i]);
