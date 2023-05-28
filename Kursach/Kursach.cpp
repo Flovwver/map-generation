@@ -11,7 +11,8 @@
 using namespace std;
 using namespace sf;
 
-const int Height = 1024, Width = 1024;
+const int HEIGHT = 1024, WIDTH = 1024;
+const int HEIGHT_WINDOW = HEIGHT, WIDTH_WINDOW = WIDTH + 300;
 const float SEA_LEVEL = 0.6f, SAND_LEVEL = 0.62f, GRASS_LEVEL = 0.97f;
 
 struct Coordinate
@@ -25,6 +26,7 @@ struct Vectorfloat
 	float y;
 };
 
+void GenerateHeightsMap(float* perlineNoise, Color** map, Texture& tex, int seed);
 Color** Colorize(float* masColor);
 void NoiseToImage(Color** noise, string img);
 void NoiseFromFile(float* noise, string fileName);
@@ -37,12 +39,13 @@ void DrawLine(Color** colorMap, Coordinate firstDot, Coordinate secondDot, float
 void DrawDot(Color** colorMap, Coordinate dot, float brushSize);
 void IncreaseContrast(float* perlineNoise);
 
+extern int GenerateAndSavePerlineNoise(int height, int width, int seed);
 
 int main()
 {
 
 	double zoom = 1.f;
-	RenderWindow window(VideoMode(Width, Height), "Random generation"); 
+	RenderWindow window(VideoMode(WIDTH_WINDOW, HEIGHT_WINDOW), "Random generation");
 	Event win_event;
 
 	float speed = 0.4f;
@@ -50,35 +53,98 @@ int main()
 	setlocale(LC_ALL, "RUS");
 	srand(time(0));
 
-	float* perlineNoise = new float [Height * Width];
+	float* perlineNoise = new float [HEIGHT * WIDTH];
 
-	NoiseFromFile(perlineNoise, "perlineNoise.txt");
-
-	IncreaseContrast(perlineNoise);
-
-	Color** map = Colorize(perlineNoise);
-	
-	NoiseToImage(map, "map.png");
+	Color** map = new Color*[HEIGHT];
 
 	window.clear(Color(255, 255, 255));
 
-	sf::Texture tex;
-	tex.create(Width, Height);
-	tex.loadFromFile("map.png");
-	sf::Sprite spr(tex);
+	Texture tex;
+	tex.create(WIDTH, HEIGHT);
+	Sprite spr(tex);
 
-	Clock clk;
-	clk.restart(); // start the timer
+	GenerateHeightsMap(perlineNoise, map, tex, time(0) % 10000);
 
 	bool mapIsChange = false;
 
+	Font font;
+	if (!font.loadFromFile("arial.ttf"))
+		return EXIT_FAILURE;
+
+	Text newHeightsText;
+	newHeightsText.setFont(font);
+	newHeightsText.setStyle(Text::Bold);
+	newHeightsText.setString("Create new height's map with random seed");
+	newHeightsText.setFillColor(Color::Black);
+	newHeightsText.setCharacterSize(20);
+	newHeightsText.setPosition(WIDTH_WINDOW - 280, HEIGHT_WINDOW / 4);
+
+	RectangleShape rectangleNewHeights(Vector2f(250, 50));
+	rectangleNewHeights.setPosition(WIDTH_WINDOW - 280, HEIGHT_WINDOW / 4);
+	rectangleNewHeights.setFillColor(Color(100, 250, 50));
+
+	Text inputSeedText;
+	inputSeedText.setFont(font);
+	inputSeedText.setStyle(Text::Bold);
+	inputSeedText.setString("Create new height's map with input seed");
+	inputSeedText.setFillColor(Color::Black);
+	inputSeedText.setCharacterSize(20);
+	inputSeedText.setPosition(WIDTH_WINDOW - 280, 3 * HEIGHT_WINDOW / 4);
+
+	RectangleShape rectangleInputSeed(Vector2f(250, 50));
+	rectangleInputSeed.setPosition(WIDTH_WINDOW - 280, 3 * HEIGHT_WINDOW / 4);
+	rectangleInputSeed.setFillColor(Color(100, 250, 50));
+
 	while (window.isOpen())
 	{
-		Event event;
-		while (window.pollEvent(event))
+		Event Event;
+		while (window.pollEvent(Event))
 		{
-			if (event.type == Event::Closed)
+			switch (Event.type)
+			{
+			case sf::Event::Closed:
 				window.close();
+				break;
+			case sf::Event::MouseMoved:
+			{
+				sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+				sf::Vector2f mousePosF(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
+				if (rectangleNewHeights.getGlobalBounds().contains(mousePosF))
+				{
+					rectangleNewHeights.setFillColor(sf::Color(250, 20, 20));
+				}
+				else
+				{
+					rectangleNewHeights.setFillColor(sf::Color(100, 250, 50));
+				}
+				if (rectangleInputSeed.getGlobalBounds().contains(mousePosF))
+				{
+					rectangleInputSeed.setFillColor(sf::Color(250, 20, 20));
+				}
+				else
+				{
+					rectangleInputSeed.setFillColor(sf::Color(100, 250, 50));
+				}
+			}
+			break;
+			case sf::Event::MouseButtonPressed:
+			{
+				sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+				sf::Vector2f mousePosF(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
+				if (rectangleNewHeights.getGlobalBounds().contains(mousePosF))
+				{
+					GenerateHeightsMap(perlineNoise, map, tex, time(0) % 10000);
+				}
+				if (rectangleInputSeed.getGlobalBounds().contains(mousePosF))
+				{
+					cout << "Input seed: ";
+					int seed = 5;
+					cin >> seed;
+					GenerateHeightsMap(perlineNoise, map, tex, seed);
+				}
+			}
+			break;
+			}
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
@@ -86,6 +152,12 @@ int main()
 			window.close();
 		}
 
+		window.clear(Color(255, 255, 255));
+
+		window.draw(rectangleNewHeights);
+		window.draw(newHeightsText);
+		window.draw(rectangleInputSeed);
+		window.draw(inputSeedText);
 		window.draw(spr);
 
 		window.display();
@@ -94,11 +166,32 @@ int main()
 	return 0;
 }
 
+void GenerateHeightsMap(float* perlineNoise, Color** map , Texture& tex, int seed) {
+
+	cout << "Generating Height's Map on seed: " << seed << "..." << endl;
+	GenerateAndSavePerlineNoise(HEIGHT, WIDTH, seed);
+	perlineNoise = new float[HEIGHT * WIDTH];
+	cout << "load from file... " << endl;
+	NoiseFromFile(perlineNoise, "perlineNoise.txt");
+	cout << "successful" << endl;
+	cout << "Increasing contrast... " << endl;
+	IncreaseContrast(perlineNoise);
+	cout << "successful" << endl;
+	cout << "colorizing..." << endl;
+	map = Colorize(perlineNoise);
+	cout << "successful" << endl;
+
+	cout << "load to image..." << endl;
+	NoiseToImage(map, "map.png");
+	tex.loadFromFile("map.png");
+	cout << "successful" << endl;
+}
+
 void NoiseToImage(Color** noise, string img) {
 	Image image;
-	image.create(Width, Height, Color::Black);
-	for (int i = 0; i < Height; i++)
-		for (int j = 0; j < Width; j++)
+	image.create(WIDTH, HEIGHT, Color::Black);
+	for (int i = 0; i < HEIGHT; i++)
+		for (int j = 0; j < WIDTH; j++)
 			image.setPixel(i, j, noise[i][j]);
 	image.saveToFile(img);
 }
@@ -116,8 +209,11 @@ void NoiseFromFile(float* noise, string fileName) {
 		exit(-1);
 	}
 
-	for (int i = 0; i < Height*Width; i++) {
-		file >> noise[i];
+	for (int i = 0; i < HEIGHT*WIDTH; i++) {
+		string temp;
+		file >> temp;
+		
+		noise[i] = stod(temp);
 	}
 	
 }
@@ -138,14 +234,14 @@ void OutputArray(Color** arrayOfElements, int countOfOtputElements) {
 
 void IncreaseContrast(float* perlineNoise) {
 	float max = 0.f, min = 1.f;
-	for (int i = 0; i < Height * Width; i++) {
+	for (int i = 0; i < HEIGHT * WIDTH; i++) {
 		if (perlineNoise[i] > max)
 			max = perlineNoise[i];
 		if (perlineNoise[i] < min)
 			min = perlineNoise[i];
 	}
 
-	for (int i = 0; i < Height * Width; i++) {
+	for (int i = 0; i < HEIGHT * WIDTH; i++) {
 		perlineNoise[i] = (perlineNoise[i] - min) / (max - min);
 	}
 
@@ -156,8 +252,8 @@ float GetShadow(float* heightsMap, int x, int y) {
 	int shadowLength = 8;
 	for (int i = 1; i <= shadowLength; i++) {
 		if (y - i >= 0 && x - i >= 0) {
-			if (heightsMap[(y - i) * Width + (x - i)] >= heightsMap[y * Width + x] && heightsMap[(y - i) * Width + (x - i)] >= SEA_LEVEL)
-				shadow += heightsMap[(y - i) * Width + (x - i)] - heightsMap[y * Width + x];
+			if (heightsMap[(y - i) * WIDTH + (x - i)] >= heightsMap[y * WIDTH + x] && heightsMap[(y - i) * WIDTH + (x - i)] >= SEA_LEVEL)
+				shadow += heightsMap[(y - i) * WIDTH + (x - i)] - heightsMap[y * WIDTH + x];
 		}
 	}
 	return pow(1.f - shadow, 2);
@@ -168,36 +264,33 @@ Color makeDarker(Color color, float dark) {
 }
 
 Color** Colorize(float* heightsMap) {
+	const float SEA_LEVEL = 0.6f, SAND_LEVEL = 0.62f, GRASS_LEVEL = 0.97f;
 	Color grass, sea, sand, snow;
 	snow = Color(230, 230, 255);
 	grass = Color(68, 148, 74);
 	sea = Color(66, 170, 255);
 	sand = Color(255, 204, 51);
 
-	Color** colorMap = new Color* [Height];
-	for (int i = 0; i < Height; i++)
-		colorMap[i] = new Color[Width];
+	Color** colorMap = new Color* [HEIGHT];
+	for (int i = 0; i < HEIGHT; i++)
+		colorMap[i] = new Color[WIDTH];
 
-	for (int i = 0; i < Height; i++)
-		for (int j = 0; j < Width; j++) {
-			if (heightsMap[i * Width + j] < SEA_LEVEL)
+	for (int i = 0; i < HEIGHT; i++)
+		for (int j = 0; j < WIDTH; j++) {
+			if (heightsMap[i * WIDTH + j] < SEA_LEVEL)
 				colorMap[i][j] = sea;
-			else if (heightsMap[i * Width + j] < SAND_LEVEL)
+			else if (heightsMap[i * WIDTH + j] < SAND_LEVEL)
 				colorMap[i][j] = sand;
-			else if (heightsMap[i * Width + j] < GRASS_LEVEL)
+			else if (heightsMap[i * WIDTH + j] < GRASS_LEVEL)
 				colorMap[i][j] = grass;
 			else
 				colorMap[i][j] = snow;
-
-			/*int height = fabs(heightsMap[i * Width + j]) * 254;
-			colorMap[i][j] = Color(height, height, height, 255);*/
-			
 		}
 
 	DrawRivers(colorMap, heightsMap);
 
-	for (int i = 0; i < Height; i++)
-		for (int j = 0; j < Width; j++) {
+	for (int i = 0; i < HEIGHT; i++)
+		for (int j = 0; j < WIDTH; j++) {
 			colorMap[i][j] = makeDarker(colorMap[i][j], GetShadow(heightsMap, j, i));
 		}
 
@@ -222,12 +315,12 @@ Vectorfloat Normalize(Vectorfloat vec) {
 }
 
 bool IsLocalMax(float* matrix, int x, int y) {
-	if (x == 0 || x == Width - 1 || y == 0 || y == Height - 1)
+	if (x == 0 || x == WIDTH - 1 || y == 0 || y == HEIGHT - 1)
 		return false;
 
 	for (int i = -1; i < 2; i++)
 		for (int j = -1; j < 2; j++) {
-			if (matrix[(y + i) * Width + (x + j)] > matrix[y * Width + x])
+			if (matrix[(y + i) * WIDTH + (x + j)] > matrix[y * WIDTH + x])
 				return false;
 		}
 	return true;
@@ -245,9 +338,9 @@ float GetScalarProduct(Vectorfloat vec1, Vectorfloat vec2) {
 
 Coordinate SearchHighestCoordinate(float* heights) {
 	Coordinate highestCoordinate = { 0, 0 };
-	for (int i = 0; i < Height; i++)
-		for (int j = 0; j < Width; j++) {
-			if (heights[i * Width + j] > heights[highestCoordinate.y * Width + highestCoordinate.x]) {
+	for (int i = 0; i < HEIGHT; i++)
+		for (int j = 0; j < WIDTH; j++) {
+			if (heights[i * WIDTH + j] > heights[highestCoordinate.y * WIDTH + highestCoordinate.x]) {
 				highestCoordinate.y = i;
 				highestCoordinate.x = j;
 			}
@@ -273,7 +366,7 @@ float* GetGradientOfThickness(float* heights, Coordinate firstDot, Coordinate se
 	for (int i = 0; i < int(GetDistance(firstDot, secondDot)); i++) {
 		currentDot.x = firstDot.x + direction.x * i;
 		currentDot.y = firstDot.y + direction.y * i;
-		gradient[i] = (1.f - heights[currentDot.y * Width + currentDot.x]) * 9.f  + 0.5f;
+		gradient[i] = (1.f - heights[currentDot.y * WIDTH + currentDot.x]) * 9.f  + 0.5f;
 	}
 	return gradient;
 }
@@ -288,9 +381,9 @@ list<Coordinate> GetListOfRiversDots(Coordinate dotOfRiversStart, float* heights
 
 	int countOfRiverTurns = 32;
 	float angleOfRiverTurn = 2 * M_PI / countOfRiverTurns;
-	float maximumCosineOfRiverTurn = 0.5f;
+	float maximumCosineOfRiverTurn = 0.9f;
 
-	for (int k = 0; k < 100; k++) {
+	for (int k = 0; k < 10000; k++) {
 		float max = -1,
 			phi;
 		for (int i = 0; i < countOfRiverTurns; i++) {
@@ -303,10 +396,10 @@ list<Coordinate> GetListOfRiversDots(Coordinate dotOfRiversStart, float* heights
 			int xShtrih = ((*dot).x + directionRiverSecond.x * lengthOfRiversDetalization),
 				yShtrih = ((*dot).y + directionRiverSecond.y * lengthOfRiversDetalization);
 
-			if (yShtrih < Height && xShtrih < Width && yShtrih >= 0 && xShtrih >= 0) {
-				float amountOfDescent = heights[(*dot).y * Width + (*dot).x] - heights[yShtrih * Width + xShtrih];
+			if (yShtrih < HEIGHT && xShtrih < WIDTH && yShtrih >= 0 && xShtrih >= 0) {
+				float amountOfDescent = heights[(*dot).y * WIDTH + (*dot).x] - heights[yShtrih * WIDTH + xShtrih];
 				if (amountOfDescent > max) {
-					max = heights[(*dot).y * Width + (*dot).x] - heights[yShtrih * Width + xShtrih];
+					max = heights[(*dot).y * WIDTH + (*dot).x] - heights[yShtrih * WIDTH + xShtrih];
 					dotOfFastestDescent = { xShtrih, yShtrih };
 					directionRiverSecondSaved = directionRiverSecond;
 				}
@@ -318,7 +411,7 @@ list<Coordinate> GetListOfRiversDots(Coordinate dotOfRiversStart, float* heights
 		dotsOfRiver.push_back(dotOfFastestDescent);
 		++dot;
 
-		if (heights[dotOfFastestDescent.y * Width + dotOfFastestDescent.x] < SEA_LEVEL)
+		if (heights[dotOfFastestDescent.y * WIDTH + dotOfFastestDescent.x] < SEA_LEVEL)
 			break;
 	}
 	return dotsOfRiver;
@@ -327,7 +420,7 @@ list<Coordinate> GetListOfRiversDots(Coordinate dotOfRiversStart, float* heights
 void DrawRivers(Color** colorMap, float* heights) {
 	list<Coordinate> dotsOfRiver;
 
-	dotsOfRiver = GetListOfRiversDots(SearchHighestCoordinate(heights), heights, 5.f);//{600,512}
+	dotsOfRiver = GetListOfRiversDots(SearchHighestCoordinate(heights), heights, 5.f);
 
 	int itr = 1;
 	for (auto currentDot = dotsOfRiver.begin(); currentDot != dotsOfRiver.end(); currentDot++) {
@@ -347,7 +440,7 @@ void DrawDot(Color** colorMap, Coordinate dot, float brushSize) {
 	Color fiol = Color(255, 0, 255);
 	for (int i = -brushSize / 2; i <= brushSize / 2; i++)
 		for (int j = -brushSize / 2; j <= brushSize / 2; j++) 
-		if (dot.y + i >= 0 && dot.x + j >= 0 && dot.y + i < Height && dot.x + j < Width){
+		if (dot.y + i >= 0 && dot.x + j >= 0 && dot.y + i < HEIGHT && dot.x + j < WIDTH){
 			Coordinate dinamDot = { dot.x + j, dot.y + i };
 			float distance = GetDistance(dot, dinamDot);
 			if (distance < brushSize / 2)

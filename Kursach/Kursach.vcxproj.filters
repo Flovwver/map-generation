@@ -24,4 +24,7 @@
       <Filter>Исходные файлы</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="File.cu" />
+  </ItemGroup>
 </Project>
