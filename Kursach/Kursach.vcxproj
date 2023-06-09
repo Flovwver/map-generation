@@ -160,6 +160,13 @@
   <ItemGroup>
     <CudaCompile Include="File.cu" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Colorizing.h" />
+    <ClInclude Include="Constants.h" />
+    <ClInclude Include="Rivers.h" />
+    <ClInclude Include="Loading.h" />
+    <ClInclude Include="Vectors.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 12.1.targets" />
