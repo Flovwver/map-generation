@@ -119,11 +119,19 @@ __device__ float GeneratePerlinNoise(float2 uv, int seed)
     return color;
 }
 
+__device__ float Corrector(float2 uv)
+{
+    float corrector = 1.f - ((uv.x - 0.5f) * (uv.x - 0.5f) + (uv.y - 0.5f) * (uv.y - 0.5f));
+    if (corrector < 0) corrector = 0.f;
+    return corrector * corrector;
+}
+
 __global__ void addKernel(float* c, int* height, int* width, int* seed)
 {
     int i = threadIdx.x;
     int j = blockIdx.x;
-    c[i * width[0] + j] = GeneratePerlinNoise(make_float2((float)i / height[0], (float)j / width[0]), seed[0]);
+    float corrector = Corrector(make_float2((float)i / height[0], (float)j / width[0]));
+    c[i * width[0] + j] = corrector * GeneratePerlinNoise(make_float2((float)i / height[0], (float)j / width[0]), seed[0]);
 }
 
 int GenerateAndSavePerlineNoise(int height, int width, int seed)
