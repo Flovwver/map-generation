@@ -9,7 +9,7 @@ using namespace sf;
 
 int main()
 {
-	MapDisplayMode displayMode = Geographical;
+	MapDisplayMode displayMode = Topographic;
 	double zoom = 1.f;
 	RenderWindow window(VideoMode(WIDTH_WINDOW, HEIGHT_WINDOW), "Random generation");
 	Event win_event;

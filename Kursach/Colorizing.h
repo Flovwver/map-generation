@@ -11,7 +11,7 @@ using namespace sf;
 
 enum MapDisplayMode {
 	Topographic,
-	Geographical
+	Geographic
 };
 
 Color** Colorize(float* masColor, MapDisplayMode mode);
@@ -19,6 +19,9 @@ void DrawRivers(Color** colorMap, float* heights);
 void DrawLine(Color** colorMap, Coordinate firstDot, Coordinate secondDot, float* gradientOfThikness);
 void DrawDot(Color** colorMap, Coordinate dot, float brushSize);
 void IncreaseContrast(float* perlineNoise);
+void DrawRiver(Color** colorMap, float* heights, Coordinate StartDot);
+
+int RoundCooeficient = 50;
 
 Color operator*(Color color, float coeficient) {
 	int red, green, blue;
@@ -92,12 +95,18 @@ Color** Colorize(float* heightsMap, MapDisplayMode mode) {
 
 	for (int i = 0; i < HEIGHT; i++)
 		for (int j = 0; j < WIDTH; j++) {
-			if (mode == Geographical)
+			if (mode == Geographic)
 				colorMap[i][j] = (colorMap[i][j] * GetShadow(heightsMap, j, i));
 			else if (mode == Topographic)
 				if (heightsMap[i * WIDTH + j] > SEA_LEVEL)
-					if (Modu(heightsMap[i * WIDTH + j], 0.01) > 0.f && Modu(heightsMap[i * WIDTH + j], 0.01) < 0.001f)
-						colorMap[i][j] = Color::Black;
+					for (int k = -1; k < 2; k++)
+						for (int l = -1; l < 2; l++)
+							if (i+k>=0 && j+l>=0 && i+k<HEIGHT && j+l<WIDTH)
+								if (round(heightsMap[i * WIDTH + j] * RoundCooeficient) / RoundCooeficient <= heightsMap[i * WIDTH + j]
+									&& round(heightsMap[i * WIDTH + j] * RoundCooeficient) / RoundCooeficient >= heightsMap[(i+k) * WIDTH + j+l])
+									colorMap[i][j] = Color::Black;
+					
+						
 		}
 				
 	return colorMap;
@@ -116,9 +125,19 @@ float* GetGradientOfThickness(float* heights, Coordinate firstDot, Coordinate se
 }
 
 void DrawRivers(Color** colorMap, float* heights) {
+	for (int i = 0; i < 100; i++) {
+		int randomI = rand() % HEIGHT;
+		int randomJ = rand() % WIDTH;
+		if (heights[randomI * WIDTH + randomJ] > (SEA_LEVEL + 0.2f))
+			DrawRiver(colorMap, heights, { randomJ, randomI });
+	}
+	DrawRiver(colorMap, heights, SearchHighestCoordinate(heights));
+}
+
+void DrawRiver(Color** colorMap, float* heights, Coordinate StartDot) {
 	list<Coordinate> dotsOfRiver;
 
-	dotsOfRiver = GetListOfRiversDots(SearchHighestCoordinate(heights), heights, 5.f);
+	dotsOfRiver = GetListOfRiversDots(StartDot, heights, 5.f);
 
 	int itr = 1;
 	for (auto currentDot = dotsOfRiver.begin(); currentDot != dotsOfRiver.end(); currentDot++) {

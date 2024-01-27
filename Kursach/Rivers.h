@@ -39,7 +39,7 @@ list<Coordinate> GetListOfRiversDots(Coordinate dotOfRiversStart, float* heights
 
 	int countOfRiverTurns = 32;
 	float angleOfRiverTurn = 2 * M_PI / countOfRiverTurns;
-	float maximumCosineOfRiverTurn = 0.9f;
+	float maximumCosineOfRiverTurn = -0.9f;
 
 	for (int k = 0; k < 10000; k++) {
 		float max = -1, phi;
