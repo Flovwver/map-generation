@@ -1,67 +1,122 @@
-﻿  Kursach.cpp
-E:\github\map-generation\Kursach\Vectors.h(21,12): warning C4244: return: преобразование "double" в "float", возможна потеря данных
-  (компиляция исходного файла "Kursach.cpp")
+﻿  Compiling CUDA source file File.cu...
   
-E:\github\map-generation\Kursach\Vectors.h(25,12): warning C4244: return: преобразование "double" в "float", возможна потеря данных
-  (компиляция исходного файла "Kursach.cpp")
-  
-E:\github\map-generation\Kursach\Vectors.h(37,40): warning C4838: Преобразование из "int" в "float" требует сужающего преобразования.
-  (компиляция исходного файла "Kursach.cpp")
-  
-E:\github\map-generation\Kursach\Vectors.h(37,40): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
-  (компиляция исходного файла "Kursach.cpp")
-  
-E:\github\map-generation\Kursach\Vectors.h(37,66): warning C4838: Преобразование из "int" в "float" требует сужающего преобразования.
-  (компиляция исходного файла "Kursach.cpp")
-  
-E:\github\map-generation\Kursach\Vectors.h(37,66): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
-  (компиляция исходного файла "Kursach.cpp")
-  
-E:\github\map-generation\Kursach\Vectors.h(58,14): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-  (компиляция исходного файла "Kursach.cpp")
-  
+  E:\github\map-generation\Kursach>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.8\bin\nvcc.exe" -gencode=arch=compute_52,code=\"sm_52,compute_52\" --use-local-env -ccbin "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\bin\HostX64\x64" -x cu   -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.8\include" -I"C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.8\include"  -G   --keep-dir x64\Debug  -maxrregcount=0    --machine 64 --compile -cudart static  -g  -D_DEBUG -D_CONSOLE -D_UNICODE -DUNICODE -Xcompiler "/EHsc /W3 /nologo /Od /FS /Zi /RTC1 /MDd " -Xcompiler "/Fdx64\Debug\vc143.pdb" -o E:\github\map-generation\Kursach\x64\Debug\File.cu.obj "E:\github\map-generation\Kursach\File.cu" 
+CUDACOMPILE : nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+  File.cu
+  tmpxft_00005c28_00000000-7_File.cudafe1.cpp
+  Kursach.cpp
+E:\github\map-generation\Kursach\Vectors.h(36,12): warning C4244: return: преобразование "double" в "float", возможна потеря данных
+E:\github\map-generation\Kursach\Vectors.h(40,12): warning C4244: return: преобразование "double" в "float", возможна потеря данных
+E:\github\map-generation\Kursach\Vectors.h(52,40): warning C4838: Преобразование из "int" в "float" требует сужающего преобразования.
+E:\github\map-generation\Kursach\Vectors.h(52,40): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+E:\github\map-generation\Kursach\Vectors.h(52,66): warning C4838: Преобразование из "int" в "float" требует сужающего преобразования.
+E:\github\map-generation\Kursach\Vectors.h(52,66): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+E:\github\map-generation\Kursach\Vectors.h(73,14): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
 E:\github\map-generation\Kursach\Rivers.h(41,25): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
-  (компиляция исходного файла "Kursach.cpp")
-  
 E:\github\map-generation\Kursach\Rivers.h(54,16): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-  (компиляция исходного файла "Kursach.cpp")
-  
 E:\github\map-generation\Kursach\Rivers.h(55,13): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-  (компиляция исходного файла "Kursach.cpp")
-  
-E:\github\map-generation\Kursach\Colorizing.h(64,12): warning C4244: return: преобразование "double" в "float", возможна потеря данных
-  (компиляция исходного файла "Kursach.cpp")
-  
-E:\github\map-generation\Kursach\Colorizing.h(68,55): warning C4244: аргумент: преобразование "float" в "sf::Uint8", возможна потеря данных
-  (компиляция исходного файла "Kursach.cpp")
-  
-E:\github\map-generation\Kursach\Colorizing.h(68,39): warning C4244: аргумент: преобразование "float" в "sf::Uint8", возможна потеря данных
-  (компиляция исходного файла "Kursach.cpp")
-  
-E:\github\map-generation\Kursach\Colorizing.h(68,23): warning C4244: аргумент: преобразование "float" в "sf::Uint8", возможна потеря данных
-  (компиляция исходного файла "Kursach.cpp")
-  
-E:\github\map-generation\Kursach\Colorizing.h(120,29): warning C4244: =: преобразование "float" в "int", возможна потеря данных
-  (компиляция исходного файла "Kursach.cpp")
-  
-E:\github\map-generation\Kursach\Colorizing.h(121,29): warning C4244: =: преобразование "float" в "int", возможна потеря данных
-  (компиляция исходного файла "Kursach.cpp")
-  
-E:\github\map-generation\Kursach\Colorizing.h(158,13): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-  (компиляция исходного файла "Kursach.cpp")
-  
-E:\github\map-generation\Kursach\Colorizing.h(159,14): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-  (компиляция исходного файла "Kursach.cpp")
-  
-E:\github\map-generation\Kursach\Colorizing.h(173,29): warning C4244: =: преобразование "float" в "int", возможна потеря данных
-  (компиляция исходного файла "Kursach.cpp")
-  
-E:\github\map-generation\Kursach\Colorizing.h(174,29): warning C4244: =: преобразование "float" в "int", возможна потеря данных
-  (компиляция исходного файла "Kursach.cpp")
-  
-E:\github\map-generation\Kursach\Loading.h(68,18): warning C4244: =: преобразование "double" в "float", возможна потеря данных
-  (компиляция исходного файла "Kursach.cpp")
-  
-E:\github\map-generation\Kursach\Kursach.cpp(20,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-E:\github\map-generation\Kursach\Kursach.cpp(15,8): warning C4101: win_event: неиспользованная локальная переменная
-  Kursach.vcxproj -> E:\github\map-generation\x64\Debug\Kursach.exe
+E:\github\map-generation\Kursach\Rivers.h(94,25): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+E:\github\map-generation\Kursach\Rivers.h(107,16): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+E:\github\map-generation\Kursach\Rivers.h(108,13): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Color.inl(75,17): error C3615: Функция constexpr "sf::operator +" не может возвращать константное выражение в качестве результата
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Color.inl(91,17): error C3615: Функция constexpr "sf::operator -" не может возвращать константное выражение в качестве результата
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Color.inl(107,17): error C3615: Функция constexpr "sf::operator *" не может возвращать константное выражение в качестве результата
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Color.inl(146,31): error C7525: Встроенные (inline) переменные требуют как минимум "/std:c++17".
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Color.inl(147,31): error C7525: Встроенные (inline) переменные требуют как минимум "/std:c++17".
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Color.inl(148,31): error C7525: Встроенные (inline) переменные требуют как минимум "/std:c++17".
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Color.inl(149,31): error C7525: Встроенные (inline) переменные требуют как минимум "/std:c++17".
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Color.inl(150,31): error C7525: Встроенные (inline) переменные требуют как минимум "/std:c++17".
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Color.inl(151,31): error C7525: Встроенные (inline) переменные требуют как минимум "/std:c++17".
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Color.inl(152,31): error C7525: Встроенные (inline) переменные требуют как минимум "/std:c++17".
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Color.inl(153,31): error C7525: Встроенные (inline) переменные требуют как минимум "/std:c++17".
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Color.inl(154,31): error C7525: Встроенные (inline) переменные требуют как минимум "/std:c++17".
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\System\Angle.inl(272,31): error C7525: Встроенные (inline) переменные требуют как минимум "/std:c++17".
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.hpp(98,34): error C2039: "optional": не является членом "std".
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.hpp(98,42): error C2143: синтаксическая ошибка: отсутствие ";" перед "<"
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.hpp(98,34): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.hpp(98,34): error C2178: "sf::Rect<T>::optional" нельзя объявить с описателем "constexpr"
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.hpp(98,6): warning C4869: "nodiscard" можно применить только к классам, перечислениям и функциям.
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.hpp(98,100): error C2238: непредвиденные лексемы перед ";"
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.inl(71,16): error C2039: "optional": не является членом "std".
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.inl(71,24): error C2988: неопознанное объявление или определение шаблона
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.inl(71,24): error C2143: синтаксическая ошибка: отсутствие ";" перед "<"
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.inl(71,16): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.inl(71,24): error C2059: синтаксическая ошибка: <
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.inl(71,30): error C2065: T: необъявленный идентификатор
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.inl(71,25): error C2923: sf::Rect: "T" не является допустимым аргументом типа шаблон для параметра "T"
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.inl(71,39): error C2065: T: необъявленный идентификатор
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.inl(71,34): error C2923: sf::Rect: "T" не является допустимым аргументом типа шаблон для параметра "T"
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.inl(71,71): error C2065: T: необъявленный идентификатор
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.inl(71,66): error C2923: sf::Rect: "T" не является допустимым аргументом типа шаблон для параметра "T"
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.inl(72,1): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.inl(72,1): error C2447: {: отсутствует заголовок функции (возможно, используется формальный список старого типа)
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(52,35): error C3615: Функция constexpr "sf::Transform::getMatrix" не может возвращать константное выражение в качестве результата
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.hpp(98,34): error C2178: "sf::Rect<float>::optional" нельзя объявить с описателем "constexpr"
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(101,31): error C2514: "std::array": невозможно создать шаблон класса.
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(107,21): error C2678: бинарный "[": не найден оператор, принимающий левый операнд типа "const std::array" (или приемлемое преобразование отсутствует)
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(108,21): error C2678: бинарный "[": не найден оператор, принимающий левый операнд типа "const std::array" (или приемлемое преобразование отсутствует)
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(110,40): error C2662: std::array<_Ty,_Size>::size_type std::array<_Ty,_Size>::size(void) noexcept const: невозможно преобразовать указатель "this" из "const std::array" в "const std::array<_Ty,_Size> &"
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(113,18): error C2678: бинарный "[": не найден оператор, принимающий левый операнд типа "const std::array" (или приемлемое преобразование отсутствует)
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(113,49): error C2678: бинарный "[": не найден оператор, принимающий левый операнд типа "const std::array" (или приемлемое преобразование отсутствует)
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(114,18): error C2678: бинарный "[": не найден оператор, принимающий левый операнд типа "const std::array" (или приемлемое преобразование отсутствует)
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(114,49): error C2678: бинарный "[": не найден оператор, принимающий левый операнд типа "const std::array" (или приемлемое преобразование отсутствует)
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(116,18): error C2678: бинарный "[": не найден оператор, принимающий левый операнд типа "const std::array" (или приемлемое преобразование отсутствует)
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(116,49): error C2678: бинарный "[": не найден оператор, принимающий левый операнд типа "const std::array" (или приемлемое преобразование отсутствует)
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(117,18): error C2678: бинарный "[": не найден оператор, принимающий левый операнд типа "const std::array" (или приемлемое преобразование отсутствует)
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(117,49): error C2678: бинарный "[": не найден оператор, принимающий левый операнд типа "const std::array" (или приемлемое преобразование отсутствует)
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(98,32): error C3615: Функция constexpr "sf::Transform::transformRect" не может возвращать константное выражение в качестве результата
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(234,39): error C7525: Встроенные (inline) переменные требуют как минимум "/std:c++17".
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.hpp(98,34): error C2178: "sf::Rect<int>::optional" нельзя объявить с описателем "constexpr"
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\optional(11): warning STL4038: The contents of <optional> are available only with C++17 or later.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\filesystem(12): warning STL4038: The contents of <filesystem> are available only with C++17 or later.
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Texture.hpp(114,33): error C3083: filesystem: символ слева от "::" должен представлять тип
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Texture.hpp(114,45): error C2039: "path": не является членом "std".
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Texture.hpp(114,22): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Texture.hpp(114,49): error C2143: синтаксическая ошибка: отсутствие "," перед "&"
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Texture.hpp(137,24): error C3083: filesystem: символ слева от "::" должен представлять тип
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Texture.hpp(137,36): error C2039: "path": не является членом "std".
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Texture.hpp(137,13): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Texture.hpp(137,40): error C2143: синтаксическая ошибка: отсутствие "," перед "&"
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Texture.hpp(137,5): error C2535: sf::Texture::Texture(const int): функция-член уже определена или объявлена
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Texture.hpp(304,48): error C3083: filesystem: символ слева от "::" должен представлять тип
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Texture.hpp(304,60): error C2039: "path": не является членом "std".
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Texture.hpp(304,37): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Texture.hpp(304,64): error C2143: синтаксическая ошибка: отсутствие "," перед "&"
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Texture.hpp(304,117): error C2143: синтаксическая ошибка: отсутствие ")" перед "{"
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Texture.hpp(304,119): error C2059: синтаксическая ошибка: )
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Font.hpp(103,30): error C3083: filesystem: символ слева от "::" должен представлять тип
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Font.hpp(103,42): error C2039: "path": не является членом "std".
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Font.hpp(103,19): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Font.hpp(103,46): error C2143: синтаксическая ошибка: отсутствие "," перед "&"
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Font.hpp(168,48): error C3083: filesystem: символ слева от "::" должен представлять тип
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Font.hpp(168,60): error C2039: "path": не является членом "std".
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Font.hpp(168,37): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Font.hpp(168,64): error C2143: синтаксическая ошибка: отсутствие "," перед "&"
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\string_view(12): warning STL4038: The contents of <string_view> are available only with C++17 or later.
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(103,31): error C3083: filesystem: символ слева от "::" должен представлять тип
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(103,43): error C2039: "path": не является членом "std".
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(103,20): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(103,47): error C2143: синтаксическая ошибка: отсутствие "," перед "&"
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(175,48): error C3083: filesystem: символ слева от "::" должен представлять тип
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(175,60): error C2039: "path": не является членом "std".
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(175,37): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(175,64): error C2143: синтаксическая ошибка: отсутствие "," перед "&"
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(227,46): error C3083: filesystem: символ слева от "::" должен представлять тип
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(227,58): error C2039: "path": не является членом "std".
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(227,35): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(227,62): error C2143: синтаксическая ошибка: отсутствие "," перед "&"
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(245,24): error C2039: "optional": не является членом "std".
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(245,32): error C2143: синтаксическая ошибка: отсутствие ";" перед "<"
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(245,24): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(245,6): warning C4869: "nodiscard" можно применить только к классам, перечислениям и функциям.
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(245,78): error C2039: "string_view": не является членом "std".
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(245,103): error C2238: непредвиденные лексемы перед ";"
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\System\Time.inl(282,29): error C7525: Встроенные (inline) переменные требуют как минимум "/std:c++17".
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Window\WindowBase.hpp(226,24): error C2039: "optional": не является членом "std".
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Window\WindowBase.hpp(226,32): error C2143: синтаксическая ошибка: отсутствие ";" перед "<"
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Window\WindowBase.hpp(226,24): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Window\WindowBase.hpp(226,6): warning C4869: "nodiscard" можно применить только к классам, перечислениям и функциям.
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Window\WindowBase.hpp(226,51): error C2238: непредвиденные лексемы перед ";"
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Window\WindowBase.hpp(252,24): error C2039: "optional": не является членом "std".
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Window\WindowBase.hpp(252,32): error C2143: синтаксическая ошибка: отсутствие ";" перед "<"
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Window\WindowBase.hpp(252,32): error C1003: число ошибок превышает 100; остановка компиляции
