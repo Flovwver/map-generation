@@ -3,6 +3,7 @@
 #define _USE_MATH_DEFINES 
 
 #include <cmath>
+#include <unordered_set>
 
 using namespace std;
 
@@ -10,7 +11,21 @@ struct Coordinate
 {
 	int x;
 	int y;
+	bool operator==(const Coordinate& other) const {
+		return x == other.x && y == other.y;
+	}
+	Coordinate() = default;
 };
+
+namespace std {
+	template<>
+	struct hash<Coordinate> {
+		std::size_t operator()(const Coordinate& c) const {
+			return std::hash<int>()(c.x) ^ (std::hash<int>()(c.y) << 1);
+		}
+	};
+};
+
 struct Vectorfloat
 {
 	float x;

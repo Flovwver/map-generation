@@ -7,6 +7,7 @@
 #include <iostream>
 #include <fstream>
 #include <SFML/Graphics.hpp>
+#include <SFML/System/Vector2.hpp>
 
 using namespace std;
 using namespace sf;
@@ -15,10 +16,11 @@ void NoiseToImage(Color** noise, string img);
 void NoiseFromFile(float* noise, string fileName);
 void OutputArray(float* arrayOfElements, int firsOtputElement, int lastOtputElement);
 void OutputArray(Color** arrayOfElements, int countOfOtputElements);
+void NoiseToImage(float* noise, string img);
 
 extern int GenerateAndSavePerlineNoise(int height, int width, int seed);
 
-void GenerateHeightsMap(float* perlineNoise, Color** map, Texture& tex, int seed, MapDisplayMode mode) {
+void GenerateHeightsMap(float* perlineNoise, Color** map, Texture& texMap, Texture& texHeights, int seed, MapDisplayMode mode) {
 
 	cout << "Generating Height's Map on seed: " << seed << "..." << endl;
 	GenerateAndSavePerlineNoise(HEIGHT, WIDTH, seed);
@@ -29,22 +31,40 @@ void GenerateHeightsMap(float* perlineNoise, Color** map, Texture& tex, int seed
 	cout << "Increasing contrast... " << endl;
 	IncreaseContrast(perlineNoise);
 	cout << "successful" << endl;
+	cout << "Conning contrast... " << endl;
+	Cone(perlineNoise);
+	cout << "successful" << endl;
+	cout << "Increasing contrast... " << endl;
+	IncreaseContrast(perlineNoise);
+	cout << "successful" << endl;
 	cout << "colorizing..." << endl;
 	map = Colorize(perlineNoise, mode);
 	cout << "successful" << endl;
 
 	cout << "load to image..." << endl;
 	NoiseToImage(map, "map.png");
-	tex.loadFromFile("map.png");
+	texMap.loadFromFile("map.png");
+	cout << "successful" << endl;
+
+	cout << "load heights to image..." << endl;
+	NoiseToImage(perlineNoise, "perlineNoise.png");
+	texHeights.loadFromFile("perlineNoise.png");
 	cout << "successful" << endl;
 }
 
 void NoiseToImage(Color** noise, string img) {
-	Image image;
-	image.create(WIDTH, HEIGHT, Color::Black);
+	Image image({ WIDTH, HEIGHT }, Color::Black);
 	for (int i = 0; i < HEIGHT; i++)
 		for (int j = 0; j < WIDTH; j++)
-			image.setPixel(i, j, noise[i][j]);
+			image.setPixel(Vector2u(i, j), noise[i][j]);
+	image.saveToFile(img);
+}
+
+void NoiseToImage(float* noise, string img) {
+	Image image({ WIDTH, HEIGHT }, Color::Black);
+	for (int i = 0; i < HEIGHT; i++)
+		for (int j = 0; j < WIDTH; j++)
+			image.setPixel(Vector2u(i, j), Color(int(noise[i * WIDTH + j] * 255)));
 	image.saveToFile(img);
 }
 

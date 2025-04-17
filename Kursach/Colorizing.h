@@ -11,6 +11,7 @@ using namespace sf;
 
 enum MapDisplayMode {
 	Topographic,
+	TopographicContinent,
 	Geographic
 };
 
@@ -48,8 +49,24 @@ void IncreaseContrast(float* perlineNoise) {
 
 	for (int i = 0; i < HEIGHT * WIDTH; i++) {
 		perlineNoise[i] = (perlineNoise[i] - min) / (max - min);
+
 	}
 
+	for (int i = 0; i < HEIGHT; i++)
+		for (int j = 0; j < WIDTH; j++) {
+			float corrector = 1.f - (((float)j / WIDTH - 0.5f) * ((float)j / WIDTH - 0.5f) + ((float)i / HEIGHT - 0.5f) * ((float)i / HEIGHT - 0.5f));
+			if (corrector < 0) corrector = 0.f;
+			perlineNoise[i * WIDTH + j] = pow(corrector, 2) * perlineNoise[i * WIDTH + j];
+		}
+}
+
+void Cone(float* perlineNoise) {
+	for (int i = 0; i < HEIGHT; i++)
+		for (int j = 0; j < WIDTH; j++) {
+			float corrector = 1.f - (((float)j / WIDTH - 0.5f) * ((float)j / WIDTH - 0.5f) + ((float)i / HEIGHT - 0.5f) * ((float)i / HEIGHT - 0.5f));
+			if (corrector < 0) corrector = 0.f;
+			perlineNoise[i * WIDTH + j] = pow(corrector, 2) * perlineNoise[i * WIDTH + j];
+		}
 }
 
 float GetShadow(float* heightsMap, int x, int y) {
@@ -68,12 +85,20 @@ Color makeDarker(Color color, float dark) {
 	return Color(color.r * dark, color.g * dark, color.b * dark);
 }
 
+Color SeaColor(float height, Color sea) {
+	return sea * ((int(5 * height / (SEA_LEVEL)) / 5.f + 1.f) / 1.5f);
+}
+
 Color** Colorize(float* heightsMap, MapDisplayMode mode) {
-	Color grass, sea, sand, snow;
+	Color grass, sea, sand, snow, mountain, hill, elevation, plain;
 	snow = Color(230, 230, 255);
 	grass = Color(68, 148, 74);
 	sea = Color(66, 170, 255);
 	sand = Color(255, 204, 51);
+	mountain = Color(204, 121, 40);
+	hill = Color(255, 192, 1);
+	elevation = Color(223, 224, 0);
+	plain = Color(109, 174, 52);
 
 	Color** colorMap = new Color * [HEIGHT];
 	for (int i = 0; i < HEIGHT; i++)
@@ -81,8 +106,9 @@ Color** Colorize(float* heightsMap, MapDisplayMode mode) {
 
 	for (int i = 0; i < HEIGHT; i++)
 		for (int j = 0; j < WIDTH; j++) {
-			if (heightsMap[i * WIDTH + j] < SEA_LEVEL)
-				colorMap[i][j] = sea * (heightsMap[i * WIDTH + j] + (1.f - SEA_LEVEL));
+			if (heightsMap[i * WIDTH + j] < SEA_LEVEL) {
+				colorMap[i][j] = SeaColor(heightsMap[i * WIDTH + j], sea);
+			}
 			else if (heightsMap[i * WIDTH + j] < SAND_LEVEL)
 				colorMap[i][j] = sand;
 			else if (heightsMap[i * WIDTH + j] < GRASS_LEVEL)
@@ -91,24 +117,35 @@ Color** Colorize(float* heightsMap, MapDisplayMode mode) {
 				colorMap[i][j] = snow;
 		}
 
-	DrawRivers(colorMap, heightsMap);
-
 	for (int i = 0; i < HEIGHT; i++)
 		for (int j = 0; j < WIDTH; j++) {
 			if (mode == Geographic)
 				colorMap[i][j] = (colorMap[i][j] * GetShadow(heightsMap, j, i));
-			else if (mode == Topographic)
+			else if (mode == Topographic) {
 				if (heightsMap[i * WIDTH + j] > SEA_LEVEL)
 					for (int k = -1; k < 2; k++)
 						for (int l = -1; l < 2; l++)
-							if (i+k>=0 && j+l>=0 && i+k<HEIGHT && j+l<WIDTH)
+							if (i + k >= 0 && j + l >= 0 && i + k < HEIGHT && j + l < WIDTH)
 								if (round(heightsMap[i * WIDTH + j] * RoundCooeficient) / RoundCooeficient <= heightsMap[i * WIDTH + j]
-									&& round(heightsMap[i * WIDTH + j] * RoundCooeficient) / RoundCooeficient >= heightsMap[(i+k) * WIDTH + j+l])
+									&& round(heightsMap[i * WIDTH + j] * RoundCooeficient) / RoundCooeficient >= heightsMap[(i + k) * WIDTH + j + l])
 									colorMap[i][j] = Color::Black;
-					
-						
-		}
+			}
+			else if (mode == TopographicContinent)
+				if (heightsMap[i * WIDTH + j] < SEA_LEVEL) 
+					colorMap[i][j] = SeaColor(heightsMap[i * WIDTH + j], sea);
+				else if (heightsMap[i * WIDTH + j] < SEA_LEVEL + 0.15f)
+					colorMap[i][j] = plain;
+				else if (heightsMap[i * WIDTH + j] < SEA_LEVEL + 0.25f)
+					colorMap[i][j] = elevation;
+				else if (heightsMap[i * WIDTH + j] < SEA_LEVEL + 0.35f)
+					colorMap[i][j] = hill;
+				else
+					colorMap[i][j] = mountain;
 				
+		}
+
+	DrawRivers(colorMap, heightsMap);
+
 	return colorMap;
 }
 
@@ -116,7 +153,8 @@ float* GetGradientOfThickness(float* heights, Coordinate firstDot, Coordinate se
 	Vectorfloat direction = GetDirection(firstDot, secondDot);
 	float* gradient = new float[int(GetDistance(firstDot, secondDot))];
 	Coordinate currentDot = { -1, -1 };
-	for (int i = 0; i < int(GetDistance(firstDot, secondDot)); i++) {
+	float distance = GetDistance(firstDot, secondDot);
+	for (int i = 0; i < distance; i++) {
 		currentDot.x = firstDot.x + direction.x * i;
 		currentDot.y = firstDot.y + direction.y * i;
 		gradient[i] = (1.f - heights[currentDot.y * WIDTH + currentDot.x]) * 9.f + 0.5f;
@@ -161,17 +199,17 @@ void DrawDot(Color** colorMap, Coordinate dot, float brushSize) {
 				Coordinate dinamDot = { dot.x + j, dot.y + i };
 				float distance = GetDistance(dot, dinamDot);
 				if (distance < brushSize / 2)
-					colorMap[dot.y + i][dot.x + j] = sea;
+					colorMap[dot.y + i][dot.x + j] = SeaColor(SEA_LEVEL-0.01f, sea);
 			}
 }
 
 void DrawLine(Color** colorMap, Coordinate firstDot, Coordinate secondDot, float* gradientOfThikness) {
 	Vectorfloat direction = GetDirection(firstDot, secondDot);
 	Coordinate currentDot = { 0, 0 };
-
-	for (int i = 0; i < GetDistance(firstDot, secondDot); i++) {
+	float distance = GetDistance(firstDot, secondDot);
+	for (int i = 0; i < distance; i++) {
 		currentDot.x = firstDot.x + direction.x * i;
 		currentDot.y = firstDot.y + direction.y * i;
-		DrawDot(colorMap, currentDot, gradientOfThikness[i]);
+		DrawDot(colorMap, currentDot, fabs(gradientOfThikness[i]));
 	}
 }

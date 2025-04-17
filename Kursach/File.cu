@@ -106,7 +106,7 @@ __device__ float GenerateOctaveWithBilinear(float2 uv, int coeficient)
         uv.x * coeficient + 1, uv.y * coeficient, uv.y * coeficient + 1, make_float2(uv.x * coeficient, uv.y * coeficient));
 }
 
-__device__ float GeneratePerlinNoise(float2 uv, int seed)
+__device__ float PerlinNoise(float2 uv, int seed)
 {
     float color = 0.f;
     int numberOfCycles = 7;
@@ -131,7 +131,8 @@ __global__ void addKernel(float* c, int* height, int* width, int* seed)
     int i = threadIdx.x;
     int j = blockIdx.x;
     float corrector = Corrector(make_float2((float)i / height[0], (float)j / width[0]));
-    c[i * width[0] + j] = corrector * GeneratePerlinNoise(make_float2((float)i / height[0], (float)j / width[0]), seed[0]);
+    float perlinNoise = PerlinNoise(make_float2((float)i / height[0], (float)j / width[0]), seed[0]);
+    c[i * width[0] + j] = pow(perlinNoise, 2);
 }
 
 int GenerateAndSavePerlineNoise(int height, int width, int seed)
