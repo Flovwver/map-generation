@@ -1,41 +1,49 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "E:\\github\\map-generation\\",
+  "WorkspaceRootPath": "C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|E:\\github\\map-generation\\Kursach\\fragment_shader.glsl||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|solutionrelative:Kursach\\fragment_shader.glsl||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|E:\\github\\map-generation\\Kursach\\vertex_shader.glsl||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|solutionrelative:Kursach\\vertex_shader.glsl||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|E:\\github\\map-generation\\Kursach\\Kursach.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\Kursach.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|solutionrelative:Kursach\\Kursach.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|E:\\github\\map-generation\\Kursach\\File.cu||{8B382828-6202-11D1-8870-0000F87579D2}|",
-      "RelativeMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|solutionrelative:Kursach\\File.cu||{8B382828-6202-11D1-8870-0000F87579D2}|"
+      "AbsoluteMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\fragment_shader.frag||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|solutionrelative:Kursach\\fragment_shader.frag||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|E:\\github\\map-generation\\Kursach\\Loading.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\vertex_shader.vert||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|solutionrelative:Kursach\\vertex_shader.vert||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\vertex_shader1.vert||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|solutionrelative:Kursach\\vertex_shader1.vert||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\fragment_shader1.frag||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|solutionrelative:Kursach\\fragment_shader1.frag||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\Loading.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|solutionrelative:Kursach\\Loading.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|E:\\github\\map-generation\\Kursach\\Colorizing.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|solutionrelative:Kursach\\Colorizing.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|E:\\github\\map-generation\\Kursach\\Rivers.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|solutionrelative:Kursach\\Rivers.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|E:\\github\\map-generation\\Kursach\\Vectors.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\Vectors.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|solutionrelative:Kursach\\Vectors.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|E:\\github\\map-generation\\Kursach\\Constants.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\Rivers.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|solutionrelative:Kursach\\Rivers.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\Colorizing.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|solutionrelative:Kursach\\Colorizing.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\File.cu||{8B382828-6202-11D1-8870-0000F87579D2}|",
+      "RelativeMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|solutionrelative:Kursach\\File.cu||{8B382828-6202-11D1-8870-0000F87579D2}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\Constants.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{6EC71848-44B7-492B-BFB9-62B9D05F02A0}|Kursach\\Kursach.vcxproj|solutionrelative:Kursach\\Constants.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
@@ -46,34 +54,25 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "vertex_shader.glsl",
-              "DocumentMoniker": "E:\\github\\map-generation\\Kursach\\vertex_shader.glsl",
-              "RelativeDocumentMoniker": "Kursach\\vertex_shader.glsl",
-              "ToolTip": "E:\\github\\map-generation\\Kursach\\vertex_shader.glsl",
-              "RelativeToolTip": "Kursach\\vertex_shader.glsl",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-04-16T18:30:51.762Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "fragment_shader.glsl",
-              "DocumentMoniker": "E:\\github\\map-generation\\Kursach\\fragment_shader.glsl",
-              "RelativeDocumentMoniker": "Kursach\\fragment_shader.glsl",
-              "ToolTip": "E:\\github\\map-generation\\Kursach\\fragment_shader.glsl",
-              "RelativeToolTip": "Kursach\\fragment_shader.glsl",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
+              "DocumentIndex": 4,
+              "Title": "fragment_shader1.frag",
+              "DocumentMoniker": "C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\fragment_shader1.frag",
+              "RelativeDocumentMoniker": "Kursach\\fragment_shader1.frag",
+              "ToolTip": "C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\fragment_shader1.frag",
+              "RelativeToolTip": "Kursach\\fragment_shader1.frag",
+              "ViewState": "AgIAADkAAAAAAAAAAAAAAEIAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
               "WhenOpened": "2024-01-27T10:38:45.864Z",
               "EditorCaption": ""
@@ -81,25 +80,51 @@
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "File.cu",
-              "DocumentMoniker": "E:\\github\\map-generation\\Kursach\\File.cu",
-              "RelativeDocumentMoniker": "Kursach\\File.cu",
-              "ToolTip": "E:\\github\\map-generation\\Kursach\\File.cu",
-              "RelativeToolTip": "Kursach\\File.cu",
-              "ViewState": "AQIAAHYAAAAAAAAAAAAAAIYAAAAuAAAA",
+              "Title": "vertex_shader1.vert",
+              "DocumentMoniker": "C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\vertex_shader1.vert",
+              "RelativeDocumentMoniker": "Kursach\\vertex_shader1.vert",
+              "ToolTip": "C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\vertex_shader1.vert",
+              "RelativeToolTip": "Kursach\\vertex_shader1.vert",
+              "ViewState": "AgIAADwAAAAAAAAAAAAiwEcAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-04-07T16:21:33.974Z",
+              "WhenOpened": "2025-04-16T18:30:51.762Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "vertex_shader.vert",
+              "DocumentMoniker": "C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\vertex_shader.vert",
+              "RelativeDocumentMoniker": "Kursach\\vertex_shader.vert",
+              "ToolTip": "C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\vertex_shader.vert",
+              "RelativeToolTip": "Kursach\\vertex_shader.vert",
+              "ViewState": "AgIAABoAAAAAAAAAAAAiwEAAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-04-19T00:01:50.411Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "fragment_shader.frag",
+              "DocumentMoniker": "C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\fragment_shader.frag",
+              "RelativeDocumentMoniker": "Kursach\\fragment_shader.frag",
+              "ToolTip": "C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\fragment_shader.frag",
+              "RelativeToolTip": "Kursach\\fragment_shader.frag",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAAB8AAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-04-19T00:01:38.468Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "Kursach.cpp",
-              "DocumentMoniker": "E:\\github\\map-generation\\Kursach\\Kursach.cpp",
+              "DocumentMoniker": "C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\Kursach.cpp",
               "RelativeDocumentMoniker": "Kursach\\Kursach.cpp",
-              "ToolTip": "E:\\github\\map-generation\\Kursach\\Kursach.cpp",
+              "ToolTip": "C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\Kursach.cpp",
               "RelativeToolTip": "Kursach\\Kursach.cpp",
-              "ViewState": "AQIAAO8AAAAAAAAAAAAAAIoAAAAjAAAA",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAADMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-01-21T16:24:33.833Z",
               "EditorCaption": ""
@@ -107,67 +132,74 @@
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "Colorizing.h",
-              "DocumentMoniker": "E:\\github\\map-generation\\Kursach\\Colorizing.h",
-              "RelativeDocumentMoniker": "Kursach\\Colorizing.h",
-              "ToolTip": "E:\\github\\map-generation\\Kursach\\Colorizing.h",
-              "RelativeToolTip": "Kursach\\Colorizing.h",
-              "ViewState": "AQIAAEgAAAAAAAAAAAAAAFsAAAAMAAAA",
+              "Title": "Loading.h",
+              "DocumentMoniker": "C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\Loading.h",
+              "RelativeDocumentMoniker": "Kursach\\Loading.h",
+              "ToolTip": "C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\Loading.h",
+              "RelativeToolTip": "Kursach\\Loading.h",
+              "ViewState": "AgIAADIAAAAAAAAAAAAjwDwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-01-21T16:24:33.973Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-01-21T16:24:33.974Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "Rivers.h",
-              "DocumentMoniker": "E:\\github\\map-generation\\Kursach\\Rivers.h",
-              "RelativeDocumentMoniker": "Kursach\\Rivers.h",
-              "ToolTip": "E:\\github\\map-generation\\Kursach\\Rivers.h",
-              "RelativeToolTip": "Kursach\\Rivers.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAALAAAA",
+              "Title": "Vectors.h",
+              "DocumentMoniker": "C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\Vectors.h",
+              "RelativeDocumentMoniker": "Kursach\\Vectors.h",
+              "ToolTip": "C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\Vectors.h",
+              "RelativeToolTip": "Kursach\\Vectors.h",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-01-21T16:24:33.973Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-01-21T16:24:33.973Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "Vectors.h",
-              "DocumentMoniker": "E:\\github\\map-generation\\Kursach\\Vectors.h",
-              "RelativeDocumentMoniker": "Kursach\\Vectors.h",
-              "ToolTip": "E:\\github\\map-generation\\Kursach\\Vectors.h",
-              "RelativeToolTip": "Kursach\\Vectors.h",
-              "ViewState": "AQIAAB4AAAAAAAAAAAAAAAUAAAAAAAAA",
+              "Title": "Rivers.h",
+              "DocumentMoniker": "C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\Rivers.h",
+              "RelativeDocumentMoniker": "Kursach\\Rivers.h",
+              "ToolTip": "C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\Rivers.h",
+              "RelativeToolTip": "Kursach\\Rivers.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-01-21T16:24:33.973Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-01-21T16:24:33.973Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "Constants.h",
-              "DocumentMoniker": "E:\\github\\map-generation\\Kursach\\Constants.h",
-              "RelativeDocumentMoniker": "Kursach\\Constants.h",
-              "ToolTip": "E:\\github\\map-generation\\Kursach\\Constants.h",
-              "RelativeToolTip": "Kursach\\Constants.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAtAAAA",
+              "Title": "Colorizing.h",
+              "DocumentMoniker": "C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\Colorizing.h",
+              "RelativeDocumentMoniker": "Kursach\\Colorizing.h",
+              "ToolTip": "C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\Colorizing.h",
+              "RelativeToolTip": "Kursach\\Colorizing.h",
+              "ViewState": "AgIAAEgAAAAAAAAAAAAAAFsAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-01-21T16:24:33.974Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-01-21T16:24:33.973Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Loading.h",
-              "DocumentMoniker": "E:\\github\\map-generation\\Kursach\\Loading.h",
-              "RelativeDocumentMoniker": "Kursach\\Loading.h",
-              "ToolTip": "E:\\github\\map-generation\\Kursach\\Loading.h",
-              "RelativeToolTip": "Kursach\\Loading.h",
-              "ViewState": "AQIAABIAAAAAAAAAAAAAAC0AAAABAAAA",
+              "DocumentIndex": 9,
+              "Title": "File.cu",
+              "DocumentMoniker": "C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\File.cu",
+              "RelativeDocumentMoniker": "Kursach\\File.cu",
+              "ToolTip": "C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\File.cu",
+              "RelativeToolTip": "Kursach\\File.cu",
+              "ViewState": "AQIAAHYAAAAAAAAAAAAAAIYAAAAuAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-04-07T16:21:33.974Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Constants.h",
+              "DocumentMoniker": "C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\Constants.h",
+              "RelativeDocumentMoniker": "Kursach\\Constants.h",
+              "ToolTip": "C:\\Users\\sirpr\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\map-generation\\Kursach\\Constants.h",
+              "RelativeToolTip": "Kursach\\Constants.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAtAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-01-21T16:24:33.974Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-01-21T16:24:33.974Z"
             }
           ]
         }

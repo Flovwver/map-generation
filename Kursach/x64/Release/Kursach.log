@@ -1,39 +1,110 @@
 ﻿  Kursach.cpp
-E:\github\map-generation\Kursach\Vectors.h(36,12): warning C4244: return: преобразование "double" в "float", возможна потеря данных
-E:\github\map-generation\Kursach\Vectors.h(40,12): warning C4244: return: преобразование "double" в "float", возможна потеря данных
-E:\github\map-generation\Kursach\Vectors.h(52,40): warning C4838: Преобразование из "int" в "float" требует сужающего преобразования.
-E:\github\map-generation\Kursach\Vectors.h(52,40): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
-E:\github\map-generation\Kursach\Vectors.h(52,66): warning C4838: Преобразование из "int" в "float" требует сужающего преобразования.
-E:\github\map-generation\Kursach\Vectors.h(52,66): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
-E:\github\map-generation\Kursach\Vectors.h(73,14): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-E:\github\map-generation\Kursach\Rivers.h(41,25): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
-E:\github\map-generation\Kursach\Rivers.h(54,16): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-E:\github\map-generation\Kursach\Rivers.h(55,13): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-E:\github\map-generation\Kursach\Rivers.h(94,25): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
-E:\github\map-generation\Kursach\Rivers.h(107,16): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-E:\github\map-generation\Kursach\Rivers.h(108,13): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Vectors.h(36,12): warning C4244: return: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Vectors.h(40,12): warning C4244: return: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Vectors.h(52,40): warning C4838: Преобразование из "int" в "float" требует сужающего преобразования.
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Vectors.h(52,40): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Vectors.h(52,66): warning C4838: Преобразование из "int" в "float" требует сужающего преобразования.
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Vectors.h(52,66): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Vectors.h(73,14): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Rivers.h(41,25): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Rivers.h(54,16): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Rivers.h(55,13): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Rivers.h(94,25): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Rivers.h(107,16): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Rivers.h(108,13): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\System\Exception.hpp(41,47): warning C4275: class "std::runtime_error", не являющийся dll-интерфейсом, использован в качестве базового для dll-интерфейса class "sf::Exception"
-E:\github\map-generation\Kursach\Colorizing.h(59,52): warning C4244: =: преобразование "double" в "float", возможна потеря данных
-E:\github\map-generation\Kursach\Colorizing.h(68,52): warning C4244: =: преобразование "double" в "float", возможна потеря данных
-E:\github\map-generation\Kursach\Colorizing.h(81,12): warning C4244: return: преобразование "double" в "float", возможна потеря данных
-E:\github\map-generation\Kursach\Colorizing.h(85,55): warning C4244: аргумент: преобразование "float" в "uint8_t", возможна потеря данных
-E:\github\map-generation\Kursach\Colorizing.h(85,39): warning C4244: аргумент: преобразование "float" в "uint8_t", возможна потеря данных
-E:\github\map-generation\Kursach\Colorizing.h(85,23): warning C4244: аргумент: преобразование "float" в "uint8_t", возможна потеря данных
-E:\github\map-generation\Kursach\Colorizing.h(158,29): warning C4244: =: преобразование "float" в "int", возможна потеря данных
-E:\github\map-generation\Kursach\Colorizing.h(159,29): warning C4244: =: преобразование "float" в "int", возможна потеря данных
-E:\github\map-generation\Kursach\Colorizing.h(196,13): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-E:\github\map-generation\Kursach\Colorizing.h(197,14): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-E:\github\map-generation\Kursach\Colorizing.h(211,29): warning C4244: =: преобразование "float" в "int", возможна потеря данных
-E:\github\map-generation\Kursach\Colorizing.h(212,29): warning C4244: =: преобразование "float" в "int", возможна потеря данных
-E:\github\map-generation\Kursach\Loading.h(46,21): warning C4834: удаление возвращаемого значения функции с атрибутом [[nodiscard]]
-E:\github\map-generation\Kursach\Loading.h(51,25): warning C4834: удаление возвращаемого значения функции с атрибутом [[nodiscard]]
-E:\github\map-generation\Kursach\Loading.h(60,18): warning C4834: удаление возвращаемого значения функции с атрибутом [[nodiscard]]
-E:\github\map-generation\Kursach\Loading.h(68,18): warning C4834: удаление возвращаемого значения функции с атрибутом [[nodiscard]]
-E:\github\map-generation\Kursach\Loading.h(88,18): warning C4244: =: преобразование "double" в "float", возможна потеря данных
-E:\github\map-generation\Kursach\Kursach.cpp(73,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\stdexcept(100,19):
+       см. объявление "std::runtime_error"
+      C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\System\Exception.hpp(41,23):
+       см. объявление "sf::Exception"
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Colorizing.h(59,52): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Colorizing.h(68,52): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Colorizing.h(81,12): warning C4244: return: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Colorizing.h(85,55): warning C4244: аргумент: преобразование "float" в "uint8_t", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Colorizing.h(85,39): warning C4244: аргумент: преобразование "float" в "uint8_t", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Colorizing.h(85,23): warning C4244: аргумент: преобразование "float" в "uint8_t", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Colorizing.h(158,29): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Colorizing.h(159,29): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Colorizing.h(196,13): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Colorizing.h(197,14): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Colorizing.h(211,29): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Colorizing.h(212,29): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Loading.h(46,21): warning C4834: удаление возвращаемого значения функции с атрибутом [[nodiscard]]
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Loading.h(51,25): warning C4834: удаление возвращаемого значения функции с атрибутом [[nodiscard]]
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Loading.h(60,18): warning C4834: удаление возвращаемого значения функции с атрибутом [[nodiscard]]
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Loading.h(68,18): warning C4834: удаление возвращаемого значения функции с атрибутом [[nodiscard]]
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Loading.h(88,18): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Kursach.cpp(28,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Kursach.cpp(217,25): warning C4244: инициализация: преобразование "_Rep" в "float", возможна потеря данных
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Kursach.cpp(217,25): warning C4244:         with
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Kursach.cpp(217,25): warning C4244:         [
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Kursach.cpp(217,25): warning C4244:             _Rep=std::chrono::system_clock::rep
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Kursach.cpp(217,25): warning C4244:         ]
   Создание кода
-  1 of 559 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
+  5 of 567 functions ( 0.9%) were compiled, the rest were copied from previous compilation.
+    4 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   Создание кода завершено
-  Kursach.vcxproj -> E:\github\map-generation\x64\Release\Kursach.exe
+  Kursach.vcxproj -> C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\x64\Release\Kursach.exe

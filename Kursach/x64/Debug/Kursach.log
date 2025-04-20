@@ -1,122 +1,579 @@
-﻿  Compiling CUDA source file File.cu...
+﻿  Kursach.cpp
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Vectors.h(36,12): warning C4244: return: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
   
-  E:\github\map-generation\Kursach>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.8\bin\nvcc.exe" -gencode=arch=compute_52,code=\"sm_52,compute_52\" --use-local-env -ccbin "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\bin\HostX64\x64" -x cu   -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.8\include" -I"C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.8\include"  -G   --keep-dir x64\Debug  -maxrregcount=0    --machine 64 --compile -cudart static  -g  -D_DEBUG -D_CONSOLE -D_UNICODE -DUNICODE -Xcompiler "/EHsc /W3 /nologo /Od /FS /Zi /RTC1 /MDd " -Xcompiler "/Fdx64\Debug\vc143.pdb" -o E:\github\map-generation\Kursach\x64\Debug\File.cu.obj "E:\github\map-generation\Kursach\File.cu" 
-CUDACOMPILE : nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
-  File.cu
-  tmpxft_00005c28_00000000-7_File.cudafe1.cpp
-  Kursach.cpp
-E:\github\map-generation\Kursach\Vectors.h(36,12): warning C4244: return: преобразование "double" в "float", возможна потеря данных
-E:\github\map-generation\Kursach\Vectors.h(40,12): warning C4244: return: преобразование "double" в "float", возможна потеря данных
-E:\github\map-generation\Kursach\Vectors.h(52,40): warning C4838: Преобразование из "int" в "float" требует сужающего преобразования.
-E:\github\map-generation\Kursach\Vectors.h(52,40): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
-E:\github\map-generation\Kursach\Vectors.h(52,66): warning C4838: Преобразование из "int" в "float" требует сужающего преобразования.
-E:\github\map-generation\Kursach\Vectors.h(52,66): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
-E:\github\map-generation\Kursach\Vectors.h(73,14): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-E:\github\map-generation\Kursach\Rivers.h(41,25): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
-E:\github\map-generation\Kursach\Rivers.h(54,16): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-E:\github\map-generation\Kursach\Rivers.h(55,13): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-E:\github\map-generation\Kursach\Rivers.h(94,25): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
-E:\github\map-generation\Kursach\Rivers.h(107,16): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-E:\github\map-generation\Kursach\Rivers.h(108,13): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Vectors.h(40,12): warning C4244: return: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Vectors.h(52,40): warning C4838: Преобразование из "int" в "float" требует сужающего преобразования.
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Vectors.h(52,40): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Vectors.h(52,66): warning C4838: Преобразование из "int" в "float" требует сужающего преобразования.
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Vectors.h(52,66): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Vectors.h(73,14): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Rivers.h(41,25): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Rivers.h(54,16): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Rivers.h(55,13): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Rivers.h(94,25): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Rivers.h(107,16): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Rivers.h(108,13): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Color.inl(75,17): error C3615: Функция constexpr "sf::operator +" не может возвращать константное выражение в качестве результата
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Color.inl(77,16):
+      сбой, так как тип "const sf::+::<lambda_1>" не является типом литерала
+      C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Color.inl(81,5):
+      тип "sf::+::<lambda_1>" не является типом литерала, так как он не является агрегированным типом, типом замыкания или не имеет конструктора constexpr, который не являлся бы конструктором копирования или конструктором перемещения.
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Color.inl(91,17): error C3615: Функция constexpr "sf::operator -" не может возвращать константное выражение в качестве результата
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Color.inl(93,16):
+      сбой, так как тип "const sf::-::<lambda_1>" не является типом литерала
+      C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Color.inl(97,5):
+      тип "sf::-::<lambda_1>" не является типом литерала, так как он не является агрегированным типом, типом замыкания или не имеет конструктора constexpr, который не являлся бы конструктором копирования или конструктором перемещения.
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Color.inl(107,17): error C3615: Функция constexpr "sf::operator *" не может возвращать константное выражение в качестве результата
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Color.inl(109,16):
+      сбой, так как тип "const sf::*::<lambda_1>" не является типом литерала
+      C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Color.inl(113,5):
+      тип "sf::*::<lambda_1>" не является типом литерала, так как он не является агрегированным типом, типом замыкания или не имеет конструктора constexpr, который не являлся бы конструктором копирования или конструктором перемещения.
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Color.inl(146,31): error C7525: Встроенные (inline) переменные требуют как минимум "/std:c++17".
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Color.inl(147,31): error C7525: Встроенные (inline) переменные требуют как минимум "/std:c++17".
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Color.inl(148,31): error C7525: Встроенные (inline) переменные требуют как минимум "/std:c++17".
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Color.inl(149,31): error C7525: Встроенные (inline) переменные требуют как минимум "/std:c++17".
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Color.inl(150,31): error C7525: Встроенные (inline) переменные требуют как минимум "/std:c++17".
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Color.inl(151,31): error C7525: Встроенные (inline) переменные требуют как минимум "/std:c++17".
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Color.inl(152,31): error C7525: Встроенные (inline) переменные требуют как минимум "/std:c++17".
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Color.inl(153,31): error C7525: Встроенные (inline) переменные требуют как минимум "/std:c++17".
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Color.inl(154,31): error C7525: Встроенные (inline) переменные требуют как минимум "/std:c++17".
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\System\Angle.inl(272,31): error C7525: Встроенные (inline) переменные требуют как минимум "/std:c++17".
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.hpp(98,34): error C2039: "optional": не является членом "std".
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Vectors.h(20,11):
+       см. объявление "std"
+      C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.hpp(98,34):
+      контекст создания экземпляра шаблона (сначала самый старый)
+          C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.hpp(42,7):
+          при компиляции шаблона класса "sf::Rect"
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.hpp(98,42): error C2143: синтаксическая ошибка: отсутствие ";" перед "<"
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.hpp(98,34): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.hpp(98,34): error C2178: "sf::Rect<T>::optional" нельзя объявить с описателем "constexpr"
-C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.hpp(98,6): warning C4869: "nodiscard" можно применить только к классам, перечислениям и функциям.
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.hpp(98,5): warning C4869: "nodiscard" можно применить только к классам, перечислениям и функциям.
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.hpp(98,100): error C2238: непредвиденные лексемы перед ";"
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.inl(71,16): error C2039: "optional": не является членом "std".
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Users\sirpr\OneDrive\Документы\GitHub\map-generation\Kursach\Vectors.h(20,11):
+       см. объявление "std"
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.inl(71,24): error C2988: неопознанное объявление или определение шаблона
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.inl(71,24): error C2143: синтаксическая ошибка: отсутствие ";" перед "<"
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.inl(71,16): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.inl(71,24): error C2059: синтаксическая ошибка: <
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.inl(71,30): error C2065: T: необъявленный идентификатор
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.inl(71,25): error C2923: sf::Rect: "T" не является допустимым аргументом типа шаблон для параметра "T"
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.inl(71,30):
+       см. объявление "T"
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.inl(71,39): error C2065: T: необъявленный идентификатор
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.inl(71,34): error C2923: sf::Rect: "T" не является допустимым аргументом типа шаблон для параметра "T"
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.inl(71,39):
+       см. объявление "T"
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.inl(71,71): error C2065: T: необъявленный идентификатор
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.inl(71,66): error C2923: sf::Rect: "T" не является допустимым аргументом типа шаблон для параметра "T"
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.inl(71,71):
+       см. объявление "T"
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.inl(72,1): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.inl(72,1): error C2447: {: отсутствует заголовок функции (возможно, используется формальный список старого типа)
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(52,35): error C3615: Функция constexpr "sf::Transform::getMatrix" не может возвращать константное выражение в качестве результата
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(54,25):
+      сбой был вызван неопределенной функцией или функцией, не объявленной как "constexpr"
+      C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(54,25):
+      см. использование "std::array<float,16>::data"
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.hpp(98,34): error C2178: "sf::Rect<float>::optional" нельзя объявить с описателем "constexpr"
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(101,31): error C2514: "std::array": невозможно создать шаблон класса.
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\array(406,7):
+       см. объявление "std::array"
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(107,21): error C2678: бинарный "[": не найден оператор, принимающий левый операнд типа "const std::array" (или приемлемое преобразование отсутствует)
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\array(539,42):
+      может быть "const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const"
+          C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(107,21):
+          const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const: невозможно преобразовать указатель "this" из "const std::array" в "const std::array<_Ty,_Size> &"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(107,21):
+              Причина: невозможно преобразовать "const std::array" в "const std::array<_Ty,_Size>"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(107,21):
+              Для преобразования требуется второй оператор пользовательского преобразования или конструктор
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\array(531,39):
+      или       "_Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept"
+          C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(107,21):
+          _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept: невозможно преобразовать указатель "this" из "const std::array" в "std::array<_Ty,_Size> &"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(107,21):
+              Причина: невозможно преобразовать "const std::array" в "std::array<_Ty,_Size>"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(107,21):
+              Для преобразования требуется второй оператор пользовательского преобразования или конструктор
+      C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(107,21):
+      при попытке сопоставить список аргументов "(const std::array, int)"
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(108,21): error C2678: бинарный "[": не найден оператор, принимающий левый операнд типа "const std::array" (или приемлемое преобразование отсутствует)
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\array(539,42):
+      может быть "const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const"
+          C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(108,21):
+          const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const: невозможно преобразовать указатель "this" из "const std::array" в "const std::array<_Ty,_Size> &"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(108,21):
+              Причина: невозможно преобразовать "const std::array" в "const std::array<_Ty,_Size>"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(108,21):
+              Для преобразования требуется второй оператор пользовательского преобразования или конструктор
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\array(531,39):
+      или       "_Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept"
+          C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(108,21):
+          _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept: невозможно преобразовать указатель "this" из "const std::array" в "std::array<_Ty,_Size> &"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(108,21):
+              Причина: невозможно преобразовать "const std::array" в "std::array<_Ty,_Size>"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(108,21):
+              Для преобразования требуется второй оператор пользовательского преобразования или конструктор
+      C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(108,21):
+      при попытке сопоставить список аргументов "(const std::array, int)"
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(110,40): error C2662: std::array<_Ty,_Size>::size_type std::array<_Ty,_Size>::size(void) noexcept const: невозможно преобразовать указатель "this" из "const std::array" в "const std::array<_Ty,_Size> &"
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(110,33):
+      Причина: невозможно преобразовать "const std::array" в "const std::array<_Ty,_Size>"
+      C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(110,33):
+      Для преобразования требуется второй оператор пользовательского преобразования или конструктор
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\array(503,59):
+       см. объявление "std::array<_Ty,_Size>::size"
+      C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(110,40):
+      при попытке сопоставить список аргументов "()"
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(113,18): error C2678: бинарный "[": не найден оператор, принимающий левый операнд типа "const std::array" (или приемлемое преобразование отсутствует)
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\array(539,42):
+      может быть "const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const"
+          C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(113,18):
+          const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const: невозможно преобразовать указатель "this" из "const std::array" в "const std::array<_Ty,_Size> &"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(113,18):
+              Причина: невозможно преобразовать "const std::array" в "const std::array<_Ty,_Size>"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(113,18):
+              Для преобразования требуется второй оператор пользовательского преобразования или конструктор
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\array(531,39):
+      или       "_Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept"
+          C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(113,18):
+          _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept: невозможно преобразовать указатель "this" из "const std::array" в "std::array<_Ty,_Size> &"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(113,18):
+              Причина: невозможно преобразовать "const std::array" в "std::array<_Ty,_Size>"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(113,18):
+              Для преобразования требуется второй оператор пользовательского преобразования или конструктор
+      C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(113,18):
+      при попытке сопоставить список аргументов "(const std::array, size_t)"
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(113,49): error C2678: бинарный "[": не найден оператор, принимающий левый операнд типа "const std::array" (или приемлемое преобразование отсутствует)
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\array(539,42):
+      может быть "const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const"
+          C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(113,49):
+          const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const: невозможно преобразовать указатель "this" из "const std::array" в "const std::array<_Ty,_Size> &"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(113,49):
+              Причина: невозможно преобразовать "const std::array" в "const std::array<_Ty,_Size>"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(113,49):
+              Для преобразования требуется второй оператор пользовательского преобразования или конструктор
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\array(531,39):
+      или       "_Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept"
+          C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(113,49):
+          _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept: невозможно преобразовать указатель "this" из "const std::array" в "std::array<_Ty,_Size> &"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(113,49):
+              Причина: невозможно преобразовать "const std::array" в "std::array<_Ty,_Size>"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(113,49):
+              Для преобразования требуется второй оператор пользовательского преобразования или конструктор
+      C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(113,49):
+      при попытке сопоставить список аргументов "(const std::array, size_t)"
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(114,18): error C2678: бинарный "[": не найден оператор, принимающий левый операнд типа "const std::array" (или приемлемое преобразование отсутствует)
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\array(539,42):
+      может быть "const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const"
+          C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(114,18):
+          const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const: невозможно преобразовать указатель "this" из "const std::array" в "const std::array<_Ty,_Size> &"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(114,18):
+              Причина: невозможно преобразовать "const std::array" в "const std::array<_Ty,_Size>"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(114,18):
+              Для преобразования требуется второй оператор пользовательского преобразования или конструктор
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\array(531,39):
+      или       "_Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept"
+          C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(114,18):
+          _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept: невозможно преобразовать указатель "this" из "const std::array" в "std::array<_Ty,_Size> &"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(114,18):
+              Причина: невозможно преобразовать "const std::array" в "std::array<_Ty,_Size>"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(114,18):
+              Для преобразования требуется второй оператор пользовательского преобразования или конструктор
+      C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(114,18):
+      при попытке сопоставить список аргументов "(const std::array, size_t)"
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(114,49): error C2678: бинарный "[": не найден оператор, принимающий левый операнд типа "const std::array" (или приемлемое преобразование отсутствует)
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\array(539,42):
+      может быть "const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const"
+          C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(114,49):
+          const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const: невозможно преобразовать указатель "this" из "const std::array" в "const std::array<_Ty,_Size> &"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(114,49):
+              Причина: невозможно преобразовать "const std::array" в "const std::array<_Ty,_Size>"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(114,49):
+              Для преобразования требуется второй оператор пользовательского преобразования или конструктор
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\array(531,39):
+      или       "_Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept"
+          C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(114,49):
+          _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept: невозможно преобразовать указатель "this" из "const std::array" в "std::array<_Ty,_Size> &"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(114,49):
+              Причина: невозможно преобразовать "const std::array" в "std::array<_Ty,_Size>"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(114,49):
+              Для преобразования требуется второй оператор пользовательского преобразования или конструктор
+      C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(114,49):
+      при попытке сопоставить список аргументов "(const std::array, size_t)"
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(116,18): error C2678: бинарный "[": не найден оператор, принимающий левый операнд типа "const std::array" (или приемлемое преобразование отсутствует)
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\array(539,42):
+      может быть "const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const"
+          C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(116,18):
+          const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const: невозможно преобразовать указатель "this" из "const std::array" в "const std::array<_Ty,_Size> &"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(116,18):
+              Причина: невозможно преобразовать "const std::array" в "const std::array<_Ty,_Size>"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(116,18):
+              Для преобразования требуется второй оператор пользовательского преобразования или конструктор
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\array(531,39):
+      или       "_Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept"
+          C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(116,18):
+          _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept: невозможно преобразовать указатель "this" из "const std::array" в "std::array<_Ty,_Size> &"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(116,18):
+              Причина: невозможно преобразовать "const std::array" в "std::array<_Ty,_Size>"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(116,18):
+              Для преобразования требуется второй оператор пользовательского преобразования или конструктор
+      C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(116,18):
+      при попытке сопоставить список аргументов "(const std::array, size_t)"
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(116,49): error C2678: бинарный "[": не найден оператор, принимающий левый операнд типа "const std::array" (или приемлемое преобразование отсутствует)
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\array(539,42):
+      может быть "const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const"
+          C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(116,49):
+          const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const: невозможно преобразовать указатель "this" из "const std::array" в "const std::array<_Ty,_Size> &"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(116,49):
+              Причина: невозможно преобразовать "const std::array" в "const std::array<_Ty,_Size>"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(116,49):
+              Для преобразования требуется второй оператор пользовательского преобразования или конструктор
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\array(531,39):
+      или       "_Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept"
+          C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(116,49):
+          _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept: невозможно преобразовать указатель "this" из "const std::array" в "std::array<_Ty,_Size> &"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(116,49):
+              Причина: невозможно преобразовать "const std::array" в "std::array<_Ty,_Size>"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(116,49):
+              Для преобразования требуется второй оператор пользовательского преобразования или конструктор
+      C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(116,49):
+      при попытке сопоставить список аргументов "(const std::array, size_t)"
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(117,18): error C2678: бинарный "[": не найден оператор, принимающий левый операнд типа "const std::array" (или приемлемое преобразование отсутствует)
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\array(539,42):
+      может быть "const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const"
+          C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(117,18):
+          const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const: невозможно преобразовать указатель "this" из "const std::array" в "const std::array<_Ty,_Size> &"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(117,18):
+              Причина: невозможно преобразовать "const std::array" в "const std::array<_Ty,_Size>"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(117,18):
+              Для преобразования требуется второй оператор пользовательского преобразования или конструктор
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\array(531,39):
+      или       "_Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept"
+          C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(117,18):
+          _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept: невозможно преобразовать указатель "this" из "const std::array" в "std::array<_Ty,_Size> &"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(117,18):
+              Причина: невозможно преобразовать "const std::array" в "std::array<_Ty,_Size>"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(117,18):
+              Для преобразования требуется второй оператор пользовательского преобразования или конструктор
+      C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(117,18):
+      при попытке сопоставить список аргументов "(const std::array, size_t)"
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(117,49): error C2678: бинарный "[": не найден оператор, принимающий левый операнд типа "const std::array" (или приемлемое преобразование отсутствует)
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\array(539,42):
+      может быть "const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const"
+          C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(117,49):
+          const _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept const: невозможно преобразовать указатель "this" из "const std::array" в "const std::array<_Ty,_Size> &"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(117,49):
+              Причина: невозможно преобразовать "const std::array" в "const std::array<_Ty,_Size>"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(117,49):
+              Для преобразования требуется второй оператор пользовательского преобразования или конструктор
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\array(531,39):
+      или       "_Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept"
+          C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(117,49):
+          _Ty &std::array<_Ty,_Size>::operator [](std::array<_Ty,_Size>::size_type) noexcept: невозможно преобразовать указатель "this" из "const std::array" в "std::array<_Ty,_Size> &"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(117,49):
+              Причина: невозможно преобразовать "const std::array" в "std::array<_Ty,_Size>"
+              C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(117,49):
+              Для преобразования требуется второй оператор пользовательского преобразования или конструктор
+      C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(117,49):
+      при попытке сопоставить список аргументов "(const std::array, size_t)"
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(98,32): error C3615: Функция constexpr "sf::Transform::transformRect" не может возвращать константное выражение в качестве результата
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(101,22):
+      сбой, так как тип "const std::array" не является типом литерала
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\array(406,7):
+      тип "std::array" не является типом литерала, так как он не является агрегированным типом, типом замыкания или не имеет конструктора constexpr, который не являлся бы конструктором копирования или конструктором перемещения.
+      C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(110,39):
+      сбой был вызван неопределенной функцией или функцией, не объявленной как "constexpr"
+      C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(110,39):
+      см. использование "<declval>"
+      C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(98,32):
+      сбой был вызван достижением конца функции constexpr
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Transform.inl(234,39): error C7525: Встроенные (inline) переменные требуют как минимум "/std:c++17".
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Rect.hpp(98,34): error C2178: "sf::Rect<int>::optional" нельзя объявить с описателем "constexpr"
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\optional(11): warning STL4038: The contents of <optional> are available only with C++17 or later.
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\filesystem(12): warning STL4038: The contents of <filesystem> are available only with C++17 or later.
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\optional(11): warning STL4038: The contents of <optional> are available only with C++17 or later.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\filesystem(12): warning STL4038: The contents of <filesystem> are available only with C++17 or later.
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Texture.hpp(114,33): error C3083: filesystem: символ слева от "::" должен представлять тип
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Texture.hpp(114,45): error C2039: "path": не является членом "std".
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\memory(31,1):
+       см. объявление "std"
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Texture.hpp(114,22): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Texture.hpp(114,49): error C2143: синтаксическая ошибка: отсутствие "," перед "&"
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Texture.hpp(137,24): error C3083: filesystem: символ слева от "::" должен представлять тип
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Texture.hpp(137,36): error C2039: "path": не является членом "std".
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\memory(31,1):
+       см. объявление "std"
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Texture.hpp(137,13): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Texture.hpp(137,40): error C2143: синтаксическая ошибка: отсутствие "," перед "&"
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Texture.hpp(137,5): error C2535: sf::Texture::Texture(const int): функция-член уже определена или объявлена
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Texture.hpp(114,5):
+       см. объявление "sf::Texture::Texture"
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Texture.hpp(304,48): error C3083: filesystem: символ слева от "::" должен представлять тип
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Texture.hpp(304,60): error C2039: "path": не является членом "std".
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\memory(31,1):
+       см. объявление "std"
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Texture.hpp(304,37): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Texture.hpp(304,64): error C2143: синтаксическая ошибка: отсутствие "," перед "&"
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Texture.hpp(304,117): error C2143: синтаксическая ошибка: отсутствие ")" перед "{"
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Texture.hpp(304,119): error C2059: синтаксическая ошибка: )
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Font.hpp(103,30): error C3083: filesystem: символ слева от "::" должен представлять тип
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Font.hpp(103,42): error C2039: "path": не является членом "std".
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\unordered_map(23,1):
+       см. объявление "std"
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Font.hpp(103,19): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Font.hpp(103,46): error C2143: синтаксическая ошибка: отсутствие "," перед "&"
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Font.hpp(168,48): error C3083: filesystem: символ слева от "::" должен представлять тип
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Font.hpp(168,60): error C2039: "path": не является членом "std".
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\unordered_map(23,1):
+       см. объявление "std"
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Font.hpp(168,37): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Font.hpp(168,64): error C2143: синтаксическая ошибка: отсутствие "," перед "&"
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\string_view(12): warning STL4038: The contents of <string_view> are available only with C++17 or later.
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\string_view(12): warning STL4038: The contents of <string_view> are available only with C++17 or later.
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(103,31): error C3083: filesystem: символ слева от "::" должен представлять тип
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(103,43): error C2039: "path": не является членом "std".
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\unordered_map(23,1):
+       см. объявление "std"
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(103,20): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(103,47): error C2143: синтаксическая ошибка: отсутствие "," перед "&"
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(175,48): error C3083: filesystem: символ слева от "::" должен представлять тип
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(175,60): error C2039: "path": не является членом "std".
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\unordered_map(23,1):
+       см. объявление "std"
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(175,37): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(175,64): error C2143: синтаксическая ошибка: отсутствие "," перед "&"
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(227,46): error C3083: filesystem: символ слева от "::" должен представлять тип
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(227,58): error C2039: "path": не является членом "std".
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\unordered_map(23,1):
+       см. объявление "std"
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(227,35): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(227,62): error C2143: синтаксическая ошибка: отсутствие "," перед "&"
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(245,24): error C2039: "optional": не является членом "std".
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\unordered_map(23,1):
+       см. объявление "std"
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(245,32): error C2143: синтаксическая ошибка: отсутствие ";" перед "<"
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(245,24): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
-C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(245,6): warning C4869: "nodiscard" можно применить только к классам, перечислениям и функциям.
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(245,5): warning C4869: "nodiscard" можно применить только к классам, перечислениям и функциям.
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(245,78): error C2039: "string_view": не является членом "std".
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\unordered_map(23,1):
+       см. объявление "std"
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Graphics\Image.hpp(245,103): error C2238: непредвиденные лексемы перед ";"
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\System\Time.inl(282,29): error C7525: Встроенные (inline) переменные требуют как минимум "/std:c++17".
+  (компиляция исходного файла "Kursach.cpp")
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Window\WindowBase.hpp(226,24): error C2039: "optional": не является членом "std".
+  (компиляция исходного файла "Kursach.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\chrono(45,1):
+       см. объявление "std"
+  
 C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Window\WindowBase.hpp(226,32): error C2143: синтаксическая ошибка: отсутствие ";" перед "<"
-C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Window\WindowBase.hpp(226,24): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
-C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Window\WindowBase.hpp(226,6): warning C4869: "nodiscard" можно применить только к классам, перечислениям и функциям.
-C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Window\WindowBase.hpp(226,51): error C2238: непредвиденные лексемы перед ";"
-C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Window\WindowBase.hpp(252,24): error C2039: "optional": не является членом "std".
-C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Window\WindowBase.hpp(252,32): error C2143: синтаксическая ошибка: отсутствие ";" перед "<"
-C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Window\WindowBase.hpp(252,32): error C1003: число ошибок превышает 100; остановка компиляции
+  (компиляция исходного файла "Kursach.cpp")
+  
+C:\Users\sirpr\Downloads\SFML-3.0.0-windows-vc17-64-bit\SFML-3.0.0\include\SFML\Window\WindowBase.hpp(226,32): error C1003: число ошибок превышает 100; остановка компиляции
+  (компиляция исходного файла "Kursach.cpp")
+  

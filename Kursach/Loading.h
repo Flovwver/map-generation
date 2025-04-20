@@ -22,8 +22,8 @@ extern int GenerateAndSavePerlineNoise(int height, int width, int seed);
 
 void GenerateHeightsMap(float* perlineNoise, Color** map, Texture& texMap, Texture& texHeights, int seed, MapDisplayMode mode) {
 
-	cout << "Generating Height's Map on seed: " << seed << "..." << endl;
-	GenerateAndSavePerlineNoise(HEIGHT, WIDTH, seed);
+	//cout << "Generating Height's Map on seed: " << seed << "..." << endl;
+	//GenerateAndSavePerlineNoise(HEIGHT, WIDTH, seed);
 	perlineNoise = new float[HEIGHT * WIDTH];
 	cout << "load from file... " << endl;
 	NoiseFromFile(perlineNoise, "perlineNoise.txt");
@@ -64,7 +64,7 @@ void NoiseToImage(float* noise, string img) {
 	Image image({ WIDTH, HEIGHT }, Color::Black);
 	for (int i = 0; i < HEIGHT; i++)
 		for (int j = 0; j < WIDTH; j++)
-			image.setPixel(Vector2u(i, j), Color(int(noise[i * WIDTH + j] * 255)));
+			image.setPixel(Vector2u(i, j), Color(int(noise[i * WIDTH + j] * 255), int(noise[i * WIDTH + j] * 255), int(noise[i * WIDTH + j] * 255), 255));
 	image.saveToFile(img);
 }
 

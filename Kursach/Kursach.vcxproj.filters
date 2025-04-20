@@ -20,8 +20,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="noise.frag">
-      <Filter>Исходные файлы</Filter>
+    <None Include="fragment_shader1.frag" />
+    <None Include="vertex_shader1.vert" />
+    <None Include="fragment_shader.frag">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="vertex_shader.vert">
+      <Filter>Файлы ресурсов</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

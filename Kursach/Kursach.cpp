@@ -7,58 +7,13 @@
 #include <cmath>
 #include <algorithm>
 #include <iostream>
+#include <chrono>
 
 #define SCALE 100   // Масштаб изображения
 
-// Структура для хранения точки
-struct Point {
-    float x, y, z;
-};
 
 using namespace std;
 using namespace sf;
-
-// Функция для поворота точки вокруг осей X и Y
-Point rotatePoint(Point p, float angleX, float angleY) {
-    // Поворот вокруг оси X
-    float cosX = cos(angleX), sinX = sin(angleX);
-    float y1 = p.y * cosX - p.z * sinX;
-    float z1 = p.y * sinX + p.z * cosX;
-    // Поворот вокруг оси Y
-    float cosY = cos(angleY), sinY = sin(angleY);
-    float x1 = p.x * cosY + z1 * sinY;
-    float z2 = -p.x * sinY + z1 * cosY;
-    return { x1, y1, z2 };
-}
-
-// Функция для вычисления нормали к треугольнику
-Point calculateNormal(const Point& p1, const Point& p2, const Point& p3) {
-    Point u = { p2.x - p1.x, p2.y - p1.y, p2.z - p1.z };
-    Point v = { p3.x - p1.x, p3.y - p1.y, p3.z - p1.z };
-    Point normal = {
-        u.y * v.z - u.z * v.y,
-        u.z * v.x - u.x * v.z,
-        u.x * v.y - u.y * v.x
-    };
-    float len = std::sqrt(normal.x * normal.x + normal.y * normal.y + normal.z * normal.z);
-    if (len != 0.f) {
-        normal.x /= len;
-        normal.y /= len;
-        normal.z /= len;
-    }
-    return normal;
-}
-
-// Функция для применения освещения к базовому цвету по нормали и направлению света
-sf::Color applyLighting(const sf::Color& baseColor, const Point& normal, const Point& lightDir) {
-    float dot = normal.x * lightDir.x + normal.y * lightDir.y + normal.z * lightDir.z;
-    dot = std::max(0.f, dot);
-    return sf::Color(
-        static_cast<uint8_t>(baseColor.r * dot),
-        static_cast<uint8_t>(baseColor.g * dot),
-        static_cast<uint8_t>(baseColor.b * dot)
-    );
-}
 
 int main()
 {
@@ -85,10 +40,11 @@ int main()
     GenerateHeightsMap(perlineNoise, map, texMap, texHeights, 7/*rand() % 5000*/, displayMode);
 
     bool mapIsChange = false;
-
+    auto start = std::chrono::system_clock::now();
     // Загрузка шейдеров: теперь загружаем и вершинный, и фрагментный шейдеры
     Shader shader;
-    if (!shader.loadFromFile("vertex_shader.glsl", "fragment_shader.glsl"))
+    if (!shader.loadFromFile("vertex_shader.vert", "fragment_shader.frag"))
+    //if (!shader.loadFromFile("fragment_shader1.frag", sf::Shader::Type::Fragment))
     {
         cout << "Ошибка загрузки шейдеров" << endl;
         return -1;
@@ -123,11 +79,11 @@ int main()
     rectangleInputSeed.setFillColor(Color(100, 250, 50));
 
     // Изначальные углы поворота камеры (эти значения будут изменяться мышью)
-    float angleX = 0.4f;
-    float angleY = 0.3f;
+    float angleX = 0.0f;
+    float angleY = 0.0f;
 
     // Направление света (нормализованное)
-    Vector3f lightDir(0.5f, 1.0f, 1.0f);
+    Vector3f lightDir(0.5f, 1.0f, 0.0f);
     float len = sqrt(lightDir.x * lightDir.x + lightDir.y * lightDir.y + lightDir.z * lightDir.z);
     lightDir /= len;
 
@@ -136,19 +92,28 @@ int main()
     Vector2i lastMousePos = Mouse::getPosition(window);
     float sensitivity = 0.005f;  // Регулировка чувствительности поворота
 
+    RectangleShape MapPlace(Vector2f(WIDTH, HEIGHT));
+    MapPlace.setPosition(Vector2f(0, 0));
+    MapPlace.setFillColor(Color(255, 0, 255));
+
     // --- Изменение геометрии --- 
-    // Вместо вычисления множества треугольников на CPU создаем простую плоскость (quad).
     // Вершины задаются в нормальном диапазоне [0,1] (будут использоваться как UV)
     VertexArray terrain(sf::PrimitiveType::TriangleFan, 4);
     terrain[0].position = Vector2f(0.f, 0.f);  // левый верхний угол (UV = (0,0))
-    terrain[1].position = Vector2f(1.f, 0.f);  // правый верхний (UV = (1,0))
-    terrain[2].position = Vector2f(1.f, 1.f);  // правый нижний  (UV = (1,1))
-    terrain[3].position = Vector2f(0.f, 1.f);  // левый нижний   (UV = (0,1))
+    terrain[1].position = Vector2f(WIDTH, 0.f);  // правый верхний (UV = (1,0))
+    terrain[2].position = Vector2f(WIDTH, HEIGHT);  // правый нижний  (UV = (1,1))
+    terrain[3].position = Vector2f(0.f, HEIGHT);  // левый нижний   (UV = (0,1))
     // Необязательно: задаём texCoords так же, чтобы в шейдере использовать их как координаты.
     terrain[0].texCoords = Vector2f(0.f, 0.f);
     terrain[1].texCoords = Vector2f(1.f, 0.f);
     terrain[2].texCoords = Vector2f(1.f, 1.f);
     terrain[3].texCoords = Vector2f(0.f, 1.f);
+
+    terrain[0].color = sf::Color::Red;
+    terrain[1].color = sf::Color::Blue;
+    terrain[2].color = sf::Color::Green;
+    terrain[3].color = sf::Color::Green;
+
     // --- Конец изменений по геометрии ---
 
     while (window.isOpen())
@@ -247,6 +212,12 @@ int main()
             }
         }
 
+
+        auto current = std::chrono::system_clock::now();
+        float different = std::chrono::system_clock::duration(current - start).count();
+        
+        shader.setUniform("time", different);
+
         // Обновляем uniform-переменные шейдера
         shader.setUniform("resolution", Vector2f(WIDTH, HEIGHT));
         shader.setUniform("zoom", float(zoom));
@@ -258,10 +229,10 @@ int main()
         // Передаем текстуры в шейдер
         shader.setUniform("colormap", texMap);
         shader.setUniform("colormap2", texHeights);
-
         window.clear(Color::White);
         // Отрисовка пляски – теперь отрисовываем наш quad с шейдером, который «поднимает» поверхность через колоримэп2
         window.draw(terrain, &shader);
+        //window.draw(terrain);
 
         window.draw(rectangleNewHeights);
         window.draw(newHeightsText);
