@@ -43,8 +43,8 @@ int main()
     auto start = std::chrono::system_clock::now();
     // Загрузка шейдеров: теперь загружаем и вершинный, и фрагментный шейдеры
     Shader shader;
-    if (!shader.loadFromFile("vertex_shader.vert", "fragment_shader.frag"))
-    //if (!shader.loadFromFile("fragment_shader1.frag", sf::Shader::Type::Fragment))
+    //if (!shader.loadFromFile("vertex_shader.vert", "fragment_shader.frag"))
+    if (!shader.loadFromFile("fragment_shader.frag", sf::Shader::Type::Fragment))
     {
         cout << "Ошибка загрузки шейдеров" << endl;
         return -1;
@@ -83,7 +83,7 @@ int main()
     float angleY = 0.0f;
 
     // Направление света (нормализованное)
-    Vector3f lightDir(0.5f, 1.0f, 0.0f);
+    Vector3f lightDir(-0.5f, 0.5f, 0.0f);
     float len = sqrt(lightDir.x * lightDir.x + lightDir.y * lightDir.y + lightDir.z * lightDir.z);
     lightDir /= len;
 
@@ -98,7 +98,7 @@ int main()
 
     // --- Изменение геометрии --- 
     // Вершины задаются в нормальном диапазоне [0,1] (будут использоваться как UV)
-    VertexArray terrain(sf::PrimitiveType::TriangleFan, 4);
+    VertexArray terrain(sf::PrimitiveType::TriangleFan, HEIGHT * WIDTH);
     terrain[0].position = Vector2f(0.f, 0.f);  // левый верхний угол (UV = (0,0))
     terrain[1].position = Vector2f(WIDTH, 0.f);  // правый верхний (UV = (1,0))
     terrain[2].position = Vector2f(WIDTH, HEIGHT);  // правый нижний  (UV = (1,1))
@@ -111,10 +111,16 @@ int main()
 
     terrain[0].color = sf::Color::Red;
     terrain[1].color = sf::Color::Blue;
-    terrain[2].color = sf::Color::Green;
+    terrain[2].color = sf::Color::Red;
     terrain[3].color = sf::Color::Green;
 
     // --- Конец изменений по геометрии ---
+
+    sf::Vector3f rayOrigin(0.0f, 0.0f, 10.0f);
+    sf::Vector3f rayDirection = sf::Vector3f(0.5f, 0.5f, -1.0f);
+    rayDirection = rayDirection / std::sqrt(rayDirection.x * rayDirection.x +
+        rayDirection.y * rayDirection.y +
+        rayDirection.z * rayDirection.z); // Нормализация
 
     while (window.isOpen())
     {
@@ -179,26 +185,16 @@ int main()
                 if (keyPressed->scancode == sf::Keyboard::Scancode::Escape)
                     window.close();
                 if (keyPressed->scancode == sf::Keyboard::Scancode::Right) {
-                    playercoord.x += speed / WIDTH;
-                    if (playercoord.x > 2.f) {
-                        playercoord.x = 0.f;
-                    }
+                    angleX += speed / WIDTH;
                 }
                 if (keyPressed->scancode == sf::Keyboard::Scancode::Left) {
-                    playercoord.x -= speed / WIDTH;
-                    if (playercoord.x < 0.f) {
-                        playercoord.x = 2.f;
-                    }
+                    angleX -= speed / WIDTH;
                 }
                 if (keyPressed->scancode == sf::Keyboard::Scancode::Up) {
-                    playercoord.y += speed / WIDTH;
-                    if (playercoord.y > 1.f)
-                        playercoord.y = 0.f;
+                    angleY += speed / WIDTH;
                 }
                 if (keyPressed->scancode == sf::Keyboard::Scancode::Down) {
-                    playercoord.y -= speed / WIDTH;
-                    if (playercoord.y < 0.f)
-                        playercoord.y = 1.f;
+                    angleY -= speed / WIDTH;
                 }
             }
             else if (const auto* keyReleased = event->getIf<sf::Event::KeyReleased>())
@@ -219,18 +215,22 @@ int main()
         shader.setUniform("time", different);
 
         // Обновляем uniform-переменные шейдера
-        shader.setUniform("resolution", Vector2f(WIDTH, HEIGHT));
+        shader.setUniform("gridSize", Vector2f(WIDTH, HEIGHT));
         shader.setUniform("zoom", float(zoom));
         shader.setUniform("playercoord", playercoord);
         shader.setUniform("angleX", angleX);
         shader.setUniform("angleY", angleY);
-        shader.setUniform("lightDir", Glsl::Vec3(lightDir.x, lightDir.y, lightDir.z));
+        shader.setUniform("lightDirection", Glsl::Vec3(lightDir.x, lightDir.y, lightDir.z));
+
+        // Передача uniform-параметров в шейдер
+        shader.setUniform("rayOrigin", Glsl::Vec3(rayOrigin.x, rayOrigin.y, rayOrigin.z));
+        shader.setUniform("rayDirection", Glsl::Vec3(rayDirection.x, rayDirection.y, rayDirection.z));
 
         // Передаем текстуры в шейдер
-        shader.setUniform("colormap", texMap);
-        shader.setUniform("colormap2", texHeights);
+        shader.setUniform("colorMap", texMap);
+        shader.setUniform("heightMap", texHeights);
         window.clear(Color::White);
-        // Отрисовка пляски – теперь отрисовываем наш quad с шейдером, который «поднимает» поверхность через колоримэп2
+        
         window.draw(terrain, &shader);
         //window.draw(terrain);
 

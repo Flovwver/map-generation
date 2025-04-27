@@ -1,46 +1,250 @@
-#version 120
+ï»¿#version 330 core
 
-// --- Uniform-ïåðåìåííûå ---
-// Òåêñòóðà ñ âûñîòàìè: âûñîòà çàêîäèðîâàíà â êîìïîíåíòå R.
-uniform sampler2D colormap2;
+uniform sampler2D heightMap;    // Ð¢ÐµÐºÑÑ‚ÑƒÑ€Ð° Ð²Ñ‹ÑÐ¾Ñ‚ (TIN)
+uniform sampler2D colorMap;
+uniform vec2 gridSize;          // Ð Ð°Ð·Ð¼ÐµÑ€ ÑÐµÑ‚ÐºÐ¸ (Ð½Ð°Ð¿Ñ€Ð¸Ð¼ÐµÑ€, vec2(WIDTH, HEIGHT))
+uniform vec3 lightDirection;    // ÐÐ°Ð¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ ÑÐ²ÐµÑ‚Ð° (Ð½Ð¾Ñ€Ð¼Ð°Ð»Ð¸Ð·Ð¾Ð²Ð°Ð½Ð½Ñ‹Ð¹ Ð²ÐµÐºÑ‚Ð¾Ñ€)
+vec3 offset = vec3(0.f, 0.f, 0.f);
+vec3 center = vec3(gridSize.x / 2.f, gridSize.y / 2.f, 0.f);
+float angle = radians(60.0); // Ð£Ð³Ð¾Ð» Ð¿Ð¾Ð²Ð¾Ñ€Ð¾Ñ‚Ð°
+mat3 rotationMatrix_X = mat3(
+        1.0, 0.0, 0.0,
+        0.0, cos(angle), -sin(angle),
+        0.0, sin(angle), cos(angle)
+    );
+uniform float time;
+float fragTime = time / 30000000.f;
+mat3 rotationMatrix_Z = mat3(
+        cos(fragTime), -sin(fragTime), 0.0f,
+        sin(fragTime),  cos(fragTime), 0.0f,
+        0.0f,         0.0f,      1.0f
+    );
 
-// Êîýôôèöèåíò ìàñøòàáèðîâàíèÿ (çóì).
-uniform float zoom;
+out vec4 fragColor;
 
-// Óãëû ïîâîðîòà âîêðóã îñåé X è Y (ïåðåäàþòñÿ èç ïðèëîæåíèÿ).
-uniform float angleX;
-uniform float angleY;
+bool intersectTriangle(vec3 v0, vec3 v1, vec3 v2, vec3 ro, vec3 rd, out float t, out vec3 intersectionPoint) {
+    vec3 edge1 = v1 - v0;
+    vec3 edge2 = v2 - v0;
+    vec3 normal = cross(edge1, edge2);
 
-// Ðàçìåð îáëàñòè (èëè ýêðàíà), èñïîëüçóåòñÿ äëÿ ïðåîáðàçîâàíèÿ [0,1]>[0, resolution].
-uniform vec2 resolution;
+    float nDotD = dot(normal, rd);
+    if (abs(nDotD) < 1e-6) return false; // ÐŸÐ°Ñ€Ð°Ð»Ð»ÐµÐ»ÑŒÐ½Ñ‹Ð¹ Ð»ÑƒÑ‡
+
+    t = dot(normal, v0 - ro) / nDotD;
+    if (t < 0.0) return false; // ÐŸÐµÑ€ÐµÑÐµÑ‡ÐµÐ½Ð¸Ñ Ð½ÐµÑ‚
+
+    vec3 P = ro + t * rd;
+
+    // ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð²Ð½ÑƒÑ‚Ñ€Ð¸ Ñ‚Ñ€ÐµÑƒÐ³Ð¾Ð»ÑŒÐ½Ð¸ÐºÐ°
+    vec3 C;
+    vec3 edge;
+    vec3 vp;
+
+    edge = v1 - v0;
+    vp = P - v0;
+    C = cross(edge, vp);
+    if (dot(normal, C) < 0.0) return false;
+
+    edge = v2 - v1;
+    vp = P - v1;
+    C = cross(edge, vp);
+    if (dot(normal, C) < 0.0) return false;
+
+    edge = v0 - v2;
+    vp = P - v2;
+    C = cross(edge, vp);
+    if (dot(normal, C) < 0.0) return false;
+
+    intersectionPoint = P; // Ð¡Ð¾Ñ…Ñ€Ð°Ð½ÑÐµÐ¼ Ñ‚Ð¾Ñ‡ÐºÑƒ Ð¿ÐµÑ€ÐµÑÐµÑ‡ÐµÐ½Ð¸Ñ
+    return true;
+}
 
 
-// --- Ïåðåìåííûå, ïåðåäàâàåìûå âî ôðàãìåíòíûé øåéäåð ---
-varying vec2 vTexCoords;   // áóäåì ïåðåäàâàòü UV
-varying vec3 vNormal;      // âû÷èñëåííàÿ íîðìàëü äëÿ îñâåùåíèÿ
+vec3 calculateVertexNormal(ivec2 coords) {
+    // Ð˜Ð·Ð²Ð»ÐµÑ‡ÐµÐ½Ð¸Ðµ ÑÐ¾ÑÐµÐ´Ð½Ð¸Ñ… Ð²Ñ‹ÑÐ¾Ñ‚ Ð´Ð»Ñ Ñ€Ð°ÑÑ‡Ñ‘Ñ‚Ð° Ð³Ñ€Ð°Ð´Ð¸ÐµÐ½Ñ‚Ð¾Ð²
+    float hCenter = texelFetch(heightMap, coords, 0).r;
+    float hRight = texelFetch(heightMap, coords + ivec2(1, 0), 0).r;
+    float hUp = texelFetch(heightMap, coords + ivec2(0, 1), 0).r;
 
-// --- Uniform-ïåðåìåííûå ---
-// Òåêñòóðà áàçîâîãî öâåòà: ìîæåò èñïîëüçîâàòüñÿ äëÿ íàëîæåíèÿ öâåòîâîãî ñëîÿ.
-uniform sampler2D colormap;
+    // Ð’ÐµÐºÑ‚Ð¾Ñ€Ð½Ñ‹Ðµ Ð³Ñ€Ð°Ð´Ð¸ÐµÐ½Ñ‚Ñ‹
+    vec3 gradientRight = vec3(1.0, 0.0, hRight - hCenter);
+    vec3 gradientUp = vec3(0.0, 1.0, hUp - hCenter);
 
-// Íàïðàâëåíèå èñòî÷íèêà ñâåòà (äîëæíî áûòü íîðìàëèçîâàíî).
-uniform vec3 lightDir;
+    // ÐÐ¾Ñ€Ð¼Ð°Ð»ÑŒ Ñ‡ÐµÑ€ÐµÐ· Ð²ÐµÐºÑ‚Ð¾Ñ€Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð¸Ð·Ð²ÐµÐ´ÐµÐ½Ð¸Ðµ
+    vec3 normal = normalize(cross(gradientRight, gradientUp));
+    return normal;
+}
+
+vec3 getVertexFromHeightMap(ivec2 coords) {
+    // Ð˜Ð·Ð²Ð»ÐµÑ‡ÐµÐ½Ð¸Ðµ Ð²ÐµÑ€ÑˆÐ¸Ð½Ñ‹ Ð¸Ð· Ñ‚ÐµÐºÑÑ‚ÑƒÑ€Ñ‹ Ð²Ñ‹ÑÐ¾Ñ‚
+    float x = float(coords.x);
+    float y = float(coords.y);
+    float z = texelFetch(heightMap, coords, 0).r * gridSize.x * 0.1f; // Ð—Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ð²Ñ‹ÑÐ¾Ñ‚Ñ‹ (z-ÐºÐ¾Ð¾Ñ€Ð´Ð¸Ð½Ð°Ñ‚Ð°)
+    vec3 vertex = vec3(x, y, z);
+    return rotationMatrix_X * rotationMatrix_Z * (vertex - center) + offset + center;
+}
+
+// Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð´Ð»Ñ ÐºÑƒÐ±Ð¸Ñ‡ÐµÑÐºÐ¾Ð¹ Ð¸Ð½Ñ‚ÐµÑ€Ð¿Ð¾Ð»ÑÑ†Ð¸Ð¸ Ð¿Ð¾ Catmullâ€“Rom spline
+vec3 cubicInterpolate(vec3 p0, vec3 p1, vec3 p2, vec3 p3, float t) {
+    return 0.5 * (
+         2.0 * p1 +
+         (-p0 + p2) * t +
+         (2.0 * p0 - 5.0 * p1 + 4.0 * p2 - p3) * t * t +
+         (-p0 + 3.0 * p1 - 3.0 * p2 + p3) * t * t * t
+    );
+}
+
+// ÐŸÑ€Ð¾Ð¸Ð·Ð²Ð¾Ð´Ð½Ð°Ñ ÐºÑƒÐ±Ð¸Ñ‡ÐµÑÐºÐ¾Ð¹ Ð¸Ð½Ñ‚ÐµÑ€Ð¿Ð¾Ð»ÑÑ†Ð¸Ð¸ Ð¿Ð¾ Catmullâ€“Rom spline
+vec3 cubicDerivative(vec3 p0, vec3 p1, vec3 p2, vec3 p3, float t) {
+    return 0.5 * (
+         (-p0 + p2) +
+         2.0 * (2.0 * p0 - 5.0 * p1 + 4.0 * p2 - p3) * t +
+         3.0 * (-p0 + 3.0 * p1 - 3.0 * p2 + p3) * t * t
+    );
+}
+
+// Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð²Ñ‹Ñ‡Ð¸ÑÐ»ÐµÐ½Ð¸Ñ Ð½Ð¾Ñ€Ð¼Ð°Ð»Ð¸ Ð¼ÐµÑ‚Ð¾Ð´Ð¾Ð¼ Ð±Ð¸ÐºÑƒÐ±Ð¸Ñ‡ÐµÑÐºÐ¾Ð¹ Ð¸Ð½Ñ‚ÐµÑ€Ð¿Ð¾Ð»ÑÑ†Ð¸Ð¸.
+// u Ð¸ v â€“ Ñ„Ñ€Ð°ÐºÑ†Ð¸Ð¾Ð½Ð½Ñ‹Ðµ ÐºÐ¾Ð¾Ñ€Ð´Ð¸Ð½Ð°Ñ‚Ñ‹ Ð²Ð½ÑƒÑ‚Ñ€Ð¸ Ñ†ÐµÐ½Ñ‚Ñ€Ð°Ð»ÑŒÐ½Ð¾Ð¹ ÑÑ‡ÐµÐ¹ÐºÐ¸ [0, 1].
+// ÐŸÐµÑ€ÐµÐ´Ð°ÑŽÑ‚ÑÑ Ð²ÑÐµ 16 Ð²ÐµÑ€ÑˆÐ¸Ð½ 4x4-Ð¿ÑÑ‡Ð°.
+vec3 calculateBicubicNormal(
+    float u, float v,
+    vec3 v00, vec3 v01, vec3 v02, vec3 v03,
+    vec3 v10, vec3 v11, vec3 v12, vec3 v13,
+    vec3 v20, vec3 v21, vec3 v22, vec3 v23,
+    vec3 v30, vec3 v31, vec3 v32, vec3 v33
+) {
+    // Ð˜Ð½Ñ‚ÐµÑ€Ð¿Ð¾Ð»Ð¸Ñ€ÑƒÐµÐ¼ Ð¿Ð¾ x Ð´Ð»Ñ ÐºÐ°Ð¶Ð´Ð¾Ð³Ð¾ Ñ€ÑÐ´Ð° (Ð¿Ð¾Ð»Ð¾Ð¶ÐµÐ½Ð¸Ðµ Ð¸ Ð¿Ñ€Ð¾Ð¸Ð·Ð²Ð¾Ð´Ð½Ð°Ñ Ð¿Ð¾ x)
+    vec3 rowPos0 = cubicInterpolate(v00, v01, v02, v03, u);
+    vec3 rowPos1 = cubicInterpolate(v10, v11, v12, v13, u);
+    vec3 rowPos2 = cubicInterpolate(v20, v21, v22, v23, u);
+    vec3 rowPos3 = cubicInterpolate(v30, v31, v32, v33, u);
+    
+    vec3 rowDer0 = cubicDerivative(v00, v01, v02, v03, u);
+    vec3 rowDer1 = cubicDerivative(v10, v11, v12, v13, u);
+    vec3 rowDer2 = cubicDerivative(v20, v21, v22, v23, u);
+    vec3 rowDer3 = cubicDerivative(v30, v31, v32, v33, u);
+    
+    // Ð˜Ð½Ñ‚ÐµÑ€Ð¿Ð¾Ð»Ð¸Ñ€ÑƒÐµÐ¼ Ð¿Ð¾ y Ð´Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ñ‚Ð¾Ð³Ð¾Ð²Ð¾Ð¹ Ð¿Ð¾Ð·Ð¸Ñ†Ð¸Ð¸
+    vec3 pos = cubicInterpolate(rowPos0, rowPos1, rowPos2, rowPos3, v);
+    
+    // Ð’Ñ‹Ñ‡Ð¸ÑÐ»ÑÐµÐ¼ Ð¿Ñ€Ð¾Ð¸Ð·Ð²Ð¾Ð´Ð½ÑƒÑŽ Ð¿Ð¾ y Ð¸Ð· Ð¸Ð½Ñ‚ÐµÑ€Ð¿Ð¾Ð»Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð½Ñ‹Ñ… Ð¿Ð¾Ð·Ð¸Ñ†Ð¸Ð¹
+    vec3 dPos_dy = cubicDerivative(rowPos0, rowPos1, rowPos2, rowPos3, v);
+    
+    // Ð˜Ð½Ñ‚ÐµÑ€Ð¿Ð¾Ð»Ð¸Ñ€ÑƒÐµÐ¼ Ñ€Ð°Ð½ÐµÐµ Ð²Ñ‹Ñ‡Ð¸ÑÐ»ÐµÐ½Ð½Ñ‹Ðµ Ð¿Ñ€Ð¾Ð¸Ð·Ð²Ð¾Ð´Ð½Ñ‹Ðµ Ð¿Ð¾ x Ð²Ð´Ð¾Ð»ÑŒ y
+    vec3 dPos_dx = cubicInterpolate(rowDer0, rowDer1, rowDer2, rowDer3, v);
+    
+    // Ð’Ñ‹Ñ‡Ð¸ÑÐ»ÑÐµÐ¼ Ð½Ð¾Ñ€Ð¼Ð°Ð»ÑŒ ÐºÐ°Ðº Ð²ÐµÐºÑ‚Ð¾Ñ€Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð¸Ð·Ð²ÐµÐ´ÐµÐ½Ð¸Ðµ ÐºÐ°ÑÐ°Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ñ…
+    vec3 normal = normalize(cross(dPos_dx, dPos_dy));
+    return normal;
+}
+
+vec2 computeLocalCoords(vec3 globalPoint, vec3 v0, vec3 v1, vec3 v2, vec3 v3) {
+
+    // 1. Ð Ð°ÑÑ‡Ñ‘Ñ‚ Ð½Ð¾Ñ€Ð¼Ð°Ð»Ð¸ Ð¿Ð»Ð¾ÑÐºÐ¾ÑÑ‚Ð¸ Ñ‡ÐµÑ‚Ñ‹Ñ€Ñ‘Ñ…ÑƒÐ³Ð¾Ð»ÑŒÐ½Ð¸ÐºÐ°
+    vec3 edge1 = v1 - v0;
+    vec3 edge2 = v3 - v0;
+    vec3 normal = normalize(cross(edge1, edge2));
+
+    // 2. ÐŸÑ€Ð¾ÐµÐºÑ†Ð¸Ñ Ñ‚Ð¾Ñ‡ÐºÐ¸ Ð½Ð° Ð¿Ð»Ð¾ÑÐºÐ¾ÑÑ‚ÑŒ
+    float D = -dot(normal, v0);
+    float distance = dot(normal, globalPoint) + D;
+    vec3 projectedPoint = globalPoint - distance * normal;
+
+    // 3. Ð‘Ð¸Ð»Ð¸Ð½ÐµÐ¹Ð½Ð°Ñ Ð¸Ð½Ñ‚ÐµÑ€Ð¿Ð¾Ð»ÑÑ†Ð¸Ñ Ð´Ð»Ñ Ð»Ð¾ÐºÐ°Ð»ÑŒÐ½Ñ‹Ñ… ÐºÐ¾Ð¾Ñ€Ð´Ð¸Ð½Ð°Ñ‚ (u, v)
+    vec3 edgeU = v1 - v0; // ÐžÑÑŒ U
+    vec3 edgeV = v3 - v0; // ÐžÑÑŒ V
+    vec3 offset = projectedPoint - v0;
+
+    float u = dot(offset, edgeU) / dot(edgeU, edgeU); // ÐÐ¾Ñ€Ð¼Ð°Ð»Ð¸Ð·Ð°Ñ†Ð¸Ñ U
+    float v = dot(offset, edgeV) / dot(edgeV, edgeV); // ÐÐ¾Ñ€Ð¼Ð°Ð»Ð¸Ð·Ð°Ñ†Ð¸Ñ V
+
+    // Ð›Ð¾ÐºÐ°Ð»ÑŒÐ½Ñ‹Ðµ ÐºÐ¾Ð¾Ñ€Ð´Ð¸Ð½Ð°Ñ‚Ñ‹ (u, v)
+    return vec2(u, v);
+}
 
 
 void main() {
-    // Ñ÷èòûâàåì áàçîâûé öâåò èç òåêñòóðû colormap.
-    vec4 baseColor = texture2D(colormap, vTexCoords);
 
-    // Íîðìàëèçóåì íîðìàëü è íàïðàâëåíèå ñâåòà.
-    vec3 norm = normalize(vNormal);
-    vec3 light = normalize(lightDir);
+    vec3 rayOrigin = vec3(gl_FragCoord.xy, 500.0); // ÐÐ°Ñ‡Ð°Ð»Ð¾ Ð»ÑƒÑ‡Ð°
+    vec3 rayTarget = vec3(gl_FragCoord.xy, 0.0);   // Ð¦ÐµÐ»ÑŒ Ð»ÑƒÑ‡Ð° â€” Ð¿Ð»Ð¾ÑÐºÐ¾ÑÑ‚ÑŒ Ñ‚Ñ€ÐµÑƒÐ³Ð¾Ð»ÑŒÐ½Ð¸ÐºÐ°
+    vec3 rayDirection = normalize(rayTarget - rayOrigin); // ÐÐ¾Ñ€Ð¼Ð°Ð»Ð¸Ð·Ð¾Ð²Ð°Ð½Ð½Ñ‹Ð¹ Ð²ÐµÐºÑ‚Ð¾Ñ€ Ð½Ð°Ð¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ñ
+    int detalizationLevel = 8;
+    float closestT = 1e6;
+    bool hit = false;
+    vec3 hitNormal;
+    vec3 intersectionPoint;
+    vec2 intersectionPointLocal;
+    vec3 a11 = getVertexFromHeightMap(ivec2(0,                  0));
+    vec3 a12 = getVertexFromHeightMap(ivec2(0,                  int(gridSize.y)));
+    vec3 a21 = getVertexFromHeightMap(ivec2(int(gridSize.x),    0));
+    vec3 a22 = getVertexFromHeightMap(ivec2(int(gridSize.x),    int(gridSize.y)));
+    vec2 intersectionPointLocalAllQuad;
+    for (int y = 0; y < (int(gridSize.y) - detalizationLevel); y += detalizationLevel) {
+        for (int x = 0; x < (int(gridSize.x) - detalizationLevel); x += detalizationLevel) {
+            // ÐŸÐ¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ðµ ÐºÐ¾Ð¾Ñ€Ð´Ð¸Ð½Ð°Ñ‚ Ñ‚Ð¾Ñ‡ÐµÐº Ð´Ð»Ñ Ð´Ð²ÑƒÑ… Ñ‚Ñ€ÐµÑƒÐ³Ð¾Ð»ÑŒÐ½Ð¸ÐºÐ¾Ð² Ð² Ñ‚ÐµÐºÑƒÑ‰ÐµÐ¹ ÑÑ‡ÐµÐ¹ÐºÐµ
 
-    // Âû÷èñëÿåì äèôôóçíîå îñâåùåíèå ÷åðåç ñêàëÿðíîå ïðîèçâåäåíèå.
-    // Ôóíêöèÿ max ãàðàíòèðóåò, ÷òî çíà÷åíèå íå áóäåò îòðèöàòåëüíûì.
-    float diffuse = (dot(norm, light) + 1.f) / 2.f;
+            // Ð¡Ð¾Ð±Ð¸Ñ€Ð°ÐµÐ¼ 16 Ð²ÐµÑ€ÑˆÐ¸Ð½ 4Ã—4-Ð¿ÑÑ‡Ð° Ð²Ð¾ÐºÑ€ÑƒÐ³ Ñ‚ÐµÐºÑƒÑ‰ÐµÐ¹ ÑÑ‡ÐµÐ¹ÐºÐ¸
+            vec3 v00 = getVertexFromHeightMap(ivec2(x - detalizationLevel,        y - detalizationLevel));
+            vec3 v01 = getVertexFromHeightMap(ivec2(x,                            y - detalizationLevel));
+            vec3 v02 = getVertexFromHeightMap(ivec2(x + detalizationLevel,        y - detalizationLevel));
+            vec3 v03 = getVertexFromHeightMap(ivec2(x + 2 * detalizationLevel,    y - detalizationLevel));
 
-    // Èòîãîâûé öâåò ïîëó÷àåòñÿ ïóò¸ì óìíîæåíèÿ áàçîâîãî öâåòà íà êîýôôèöèåíò îñâåù¸ííîñòè.
-    vec3 finalColor = baseColor.rgb * diffuse;
+            vec3 v10 = getVertexFromHeightMap(ivec2(x - detalizationLevel,        y));
+            vec3 v11 = getVertexFromHeightMap(ivec2(x,                            y)); // Ð¦ÐµÐ½Ñ‚Ñ€Ð°Ð»ÑŒÐ½Ð°Ñ Ñ‚Ð¾Ñ‡ÐºÐ° (v0)
+            vec3 v12 = getVertexFromHeightMap(ivec2(x + detalizationLevel,        y)); // (v1)
+            vec3 v13 = getVertexFromHeightMap(ivec2(x + 2 * detalizationLevel,    y));
 
-    gl_FragColor = vec4(finalColor, 1.0);
+            vec3 v20 = getVertexFromHeightMap(ivec2(x - detalizationLevel,        y + detalizationLevel));
+            vec3 v21 = getVertexFromHeightMap(ivec2(x,                            y + detalizationLevel)); // (v2)
+            vec3 v22 = getVertexFromHeightMap(ivec2(x + detalizationLevel,        y + detalizationLevel)); // (v3)
+            vec3 v23 = getVertexFromHeightMap(ivec2(x + 2 * detalizationLevel,    y + detalizationLevel));
+
+            vec3 v30 = getVertexFromHeightMap(ivec2(x - detalizationLevel,        y + 2 * detalizationLevel));
+            vec3 v31 = getVertexFromHeightMap(ivec2(x,                            y + 2 * detalizationLevel));
+            vec3 v32 = getVertexFromHeightMap(ivec2(x + detalizationLevel,        y + 2 * detalizationLevel));
+            vec3 v33 = getVertexFromHeightMap(ivec2(x + 2 * detalizationLevel,    y + 2 * detalizationLevel));
+
+            float t;
+
+            // ÐŸÐµÑ€Ð²Ñ‹Ð¹ Ñ‚Ñ€ÐµÑƒÐ³Ð¾Ð»ÑŒÐ½Ð¸Ðº, ÑÐ¾Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²ÑƒÑŽÑ‰Ð¸Ð¹ Ð²ÐµÑ€ÑˆÐ¸Ð½Ð°Ð¼ (v11, v12, v21)
+            if (intersectTriangle(v11, v12, v21, rayOrigin, rayDirection, t, intersectionPoint)) {
+                if (t < closestT) {
+                    closestT = t;
+                    hit = true;
+                    intersectionPointLocal = computeLocalCoords(intersectionPoint, v11, v12, v22, v21);
+                    intersectionPointLocalAllQuad = computeLocalCoords(intersectionPoint, a11, a12, a22, a21);
+                    
+                    hitNormal = calculateBicubicNormal(intersectionPointLocal.x, intersectionPointLocal.y,
+                                                       v00, v01, v02, v03,
+                                                       v10, v11, v12, v13,
+                                                       v20, v21, v22, v23,
+                                                       v30, v31, v32, v33);
+                }
+            }
+
+            // Ð’Ñ‚Ð¾Ñ€Ð¾Ð¹ Ñ‚Ñ€ÐµÑƒÐ³Ð¾Ð»ÑŒÐ½Ð¸Ðº, ÑÐ¾Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²ÑƒÑŽÑ‰Ð¸Ð¹ Ð²ÐµÑ€ÑˆÐ¸Ð½Ð°Ð¼ (v12, v22, v21)
+            if (intersectTriangle(v12, v22, v21, rayOrigin, rayDirection, t, intersectionPoint)) {
+                if (t < closestT) {
+                    closestT = t;
+                    hit = true;
+                    intersectionPointLocal = computeLocalCoords(intersectionPoint, v11, v12, v22, v21);
+                    intersectionPointLocalAllQuad = computeLocalCoords(intersectionPoint, a11, a12, a22, a21);
+                    
+                    hitNormal = calculateBicubicNormal(intersectionPointLocal.x, intersectionPointLocal.y,
+                                                       v00, v01, v02, v03,
+                                                       v10, v11, v12, v13,
+                                                       v20, v21, v22, v23,
+                                                       v30, v31, v32, v33);
+                }
+            }
+        }
+    }
+
+    if (hit) {
+        float brightness = min(max(dot(hitNormal, normalize(lightDirection)), 0.0), 1.0);
+        vec4 baseColor = texture2D(colorMap, vec2(intersectionPointLocalAllQuad.y, intersectionPointLocalAllQuad.x));
+        fragColor = vec4(baseColor.rgb * brightness, 1.0); // * brightness
+    } else {
+        fragColor = vec4(0.0, 0.0, 0.0, 1.0); // ÐÐµÑ‚ Ð¿ÐµÑ€ÐµÑÐµÑ‡ÐµÐ½Ð¸Ñ â€” Ñ‡ÐµÑ€Ð½Ñ‹Ð¹ Ñ†Ð²ÐµÑ‚
+    }
 }

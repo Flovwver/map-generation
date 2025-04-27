@@ -11,7 +11,7 @@ uniform float zoom;
 uniform float angleX;
 uniform float angleY;
 
-// Размер области (или экрана), используется для преобразования [0,1]>[0, resolution].
+// Размер области (или экрана)
 uniform vec2 resolution;
 
 // --- Атрибуты вершины ---
@@ -25,24 +25,35 @@ attribute vec2 texCoords;
 varying vec2 vTexCoords;   // будем передавать UV
 varying vec3 vNormal;      // вычисленная нормаль для освещения
 
-// Функция, осуществляющая поворот точки в 3D вокруг осей X и Y.
-vec3 rotatePoint(vec3 pos, float ax, float ay) {
-    // Поворот вокруг оси X:
-    float cosX = cos(ax);
-    float sinX = sin(ax);
-    float y = pos.y * cosX - pos.z * sinX;
-    float z = pos.y * sinX + pos.z * cosX;
-    pos.y = y;
-    pos.z = z;
-    // Поворот вокруг оси Y:
-    float cosY = cos(ay);
-    float sinY = sin(ay);
-    float x = pos.x * cosY + pos.z * sinY;
-    z = -pos.x * sinY + pos.z * cosY;
-    pos.x = x;
-    pos.z = z;
-    return pos;
+vec4 rotate(vec4 vector, float ax, float ay) {
+    mat4 translation0505;
+    translation0505[0] = vec4(1.f, 0.f, 0.f, -0.5f);
+    translation0505[1] = vec4(0.f, 1.f, 0.f, -0.5f);
+    translation0505[2] = vec4(0.f, 0.f, 1.f, 0.f);
+    translation0505[3] = vec4(0.f, 0.f, 0.f, 1.f);
+
+    mat4 translation_0505;
+    translation_0505[0] = vec4(1.f, 0.f, 0.f, 0.5f);
+    translation_0505[1] = vec4(0.f, 1.f, 0.f, 0.5f);
+    translation_0505[2] = vec4(0.f, 0.f, 1.f, 0.f);
+    translation_0505[3] = vec4(0.f, 0.f, 0.f, 1.f);
+
+    mat4 translationx;
+    translationx[0] = vec4(1.f, 0.f,        0.f,        0.f);
+    translationx[1] = vec4(0.f, cos(ax),    -sin(ax),   0.f);
+    translationx[2] = vec4(0.f, sin(ax),    cos(ax),    0.f);
+    translationx[3] = vec4(0.f, 0.f,        0.f,        1.f);
+    
+    mat4 translationy;
+    translationy[0] = vec4(cos(ay), 0.f,    -sin(ay),   0.f);
+    translationy[1] = vec4(0.f,     1.f,    0.f,        0.f);
+    translationy[2] = vec4(sin(ay), 0.f,    cos(ay),    0.f);
+    translationy[3] = vec4(0.f,     0.f,    0.f,        1.f);
+
+    vec4 newVector = translation_0505 * translationy * translationx * translation0505 * vector;
+    return newVector;
 }
+
 
 // Функция вычисляет нормаль, используя центральные разности по текстурным координатам.
 // Здесь мы предполагаем, что разрешение текстуры (или области) совпадает с uniform `resolution`.
@@ -55,32 +66,26 @@ vec3 computeNormal(vec2 uv) {
     float hD = texture2D(colormap2, uv - vec2(0.0, offset)).r;
     float hU = texture2D(colormap2, uv + vec2(0.0, offset)).r;
     // Здесь вектор нормали образуется из разностей (hL - hR) и (hD - hU).
-    // Коэффициент по оси Z (здесь 2.0) можно корректировать для усиления/ослабления влияния высоты.
-    vec3 normal = vec3(hL - hR, hD - hU, 2.0);
+    vec3 normal = vec3(hL - hR, hD - hU, 0.01f);
     return normalize(normal);
 }
 
 void main() {
     // Передаём UV-координаты во фрагментный шейдер.
-    vTexCoords = texCoords;
-
-    // Считываем значение высоты из текстуры высот colormap2 по UV.
-    float height = texture2D(colormap2, texCoords).r;
-
-    // Формируем позицию вершины в мировых координатах.
-    // "position" в диапазоне [0,1] масштабируется в [0,resolution].
-    // Высота умножается на resolution.x (можно выбрать другой коэффициент для регулировки «подъёма»).
-    vec3 pos = gl_Vertex.xyz;
-    pos.z = height;
-    // Применяем поворот на основе uniform-значений.
-    pos = rotatePoint(pos, angleX, angleY);
-
-    // Применяем зум: масштабируем только горизонтальные компоненты.
-    pos.xy *= zoom;
+    gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;
 
     // Вычисляем нормаль методом конечных разностей по текстурным координатам.
     vNormal = computeNormal(texCoords);
 
-    // Финальное преобразование вершины: стандартная проекция с использованием встроенной матрицы.
-    gl_Position = gl_ModelViewProjectionMatrix * vec4(pos, 1.0);
+    // Нормализуем координаты вершины.
+    vec4 pos = gl_Vertex;
+
+    // Применяем поворот на основе uniform-значений.
+    pos = rotate(pos, angleX, angleY);
+
+    // Масштабируем координаты после вращения.
+    pos.xy *= zoom;
+
+    // Преобразуем в окончательное положение.
+    gl_Position = gl_ModelViewProjectionMatrix * pos;
 }

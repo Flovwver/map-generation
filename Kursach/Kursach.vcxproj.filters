@@ -28,6 +28,7 @@
     <None Include="vertex_shader.vert">
       <Filter>Файлы ресурсов</Filter>
     </None>
+    <None Include="fragment_shader2.frag" />
   </ItemGroup>
   <ItemGroup>
     <CudaCompile Include="File.cu" />

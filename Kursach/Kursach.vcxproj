@@ -158,6 +158,7 @@
   <ItemGroup>
     <None Include="fragment_shader1.frag" />
     <None Include="fragment_shader.frag" />
+    <None Include="fragment_shader2.frag" />
     <None Include="vertex_shader.vert" />
     <None Include="vertex_shader1.vert" />
   </ItemGroup>

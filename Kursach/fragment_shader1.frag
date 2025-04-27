@@ -23,10 +23,6 @@ uniform sampler2D colormap;
 // Направление источника света (должно быть нормализовано).
 uniform vec3 lightDir;
 
-// --- Переменные, полученные из вершинного шейдера ---
-//varying vec2 vTexCoords;   // UV-координаты для выборки базового цвета
-//varying vec3 vNormal;      // Нормаль, вычисленная в вершинном шейдере
-
 vec3 computeNormal(vec2 uv) {
     // Мелкий сдвиг для выборки соседних значений.
     float offset = 1.0 / resolution.x;
@@ -37,7 +33,7 @@ vec3 computeNormal(vec2 uv) {
     float hU = texture2D(colormap2, uv + vec2(0.0, offset)).r;
     // Здесь вектор нормали образуется из разностей (hL - hR) и (hD - hU).
     // Коэффициент по оси Z (здесь 2.0) можно корректировать для усиления/ослабления влияния высоты.
-    vec3 normal = vec3(hL - hR, hD - hU, 0.01f);//100.f);//
+    vec3 normal = vec3(hL - hR, hD - hU, 0.01f);
     return normalize(normal);
 }
 
@@ -51,8 +47,8 @@ vec2 rotate(vec2 point, float phi, vec2 center) {
 vec3 rotate(vec3 vector, float phi) {
     vec3 newVector;
     mat3 translation;
-    translation[0] = vec3(cos(phi),-sin(phi),0.f);
-    translation[1] = vec3(sin(phi),cos(phi),0.f);
+    translation[0] = vec3(cos(phi), -sin(phi), 0.f);
+    translation[1] = vec3(sin(phi), cos(phi), 0.f);
     translation[2] = vec3(0.f,0.f,1.f);
     newVector = vector * translation;
     return newVector;
